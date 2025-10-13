@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+        <div class="nav-bar">
+        <div class="items">
+            <a href="">Home</a>
+            <a href="">About Us</a>
+            <a href="">Contact Us</a>
+            <a href="">More Tools</a>
+            <a href="">Menu</a>
+        </div>
+    </div>
+        <H1>COMPRESS IMAGE TOOL</H1>
+    <div class="tool-nav">
+        <nav class="nav">
+            <a href="{% url 'takephoto' %}"><button>Black</button></a>
+            <a href="{% url 'compress' %}"><button>Compress</button></a>
+            <button>Crop</button>
+            
+            <a href="{% url 'resizing' %}"><button>Resize</button></a>
+            <a href="{% url 'rotatephoto' %}"><button>Rotate</button></a>
+
+        </nav>
+    </div>
+ <div class="main">
+    <form action="{% url 'compress' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <input id="input" type="file" name="compressimg">
+    <button>submit</button>
+    </form>
+</div>
+    <div class="ord">
+        {% if lelo %}
+        
+            <img src="{% static 'compress/'%}{{lelo}}" alt="">
+            <p><a href="{% static 'compress/'%}{{lelo}}" download>Click to download</a></p>
+        {% endif %}
+    </div>
+</body>
+</html>

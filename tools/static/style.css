@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+   background: #E0EAFC;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+    overflow: hidden;
+}
+
+
+
+.tool-nav {
+    width: 40%;
+    height: 50px;
+    left: 30%;
+    position: relative;
+    background-color: white;
+    display: flex;
+    box-sizing: border-box;
+    border-radius: 30px;
+    background-size: cover;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+.tool-nav a{
+    flex:1;
+}
+.tool-nav .nav {
+    align-content: center;
+    position: absolute;
+}
+
+.tool-nav .nav button:hover {
+    background-color: rgba(30, 4, 202, 0.673);
+    box-shadow: inset 5px 2px 10px rgb(50, 5, 214);
+    color: white;
+}
+
+.tool-nav .nav button {
+    position: relative;
+    padding: 5px 10px;
+    border: 1px solid white;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    border-radius: 5px;
+    color: rgb(7, 7, 7);
+    width: 80px;
+    border-radius: 30px;
+}
+
+
+.nav-bar {
+    width: 100%;
+    top: 0px;
+    height: 30px;
+    position: relative;
+    background-color: rgba(176, 171, 171, 0.236);
+}
+
+.nav-bar .items {
+    position: relative;
+    color: rgb(247, 243, 235);
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.nav-bar .items a {
+    text-decoration: none;
+    margin-top: 6.5px;
+    color: #ffffff;
+}
+
+.tool-nav .nav {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px;
+    align-items: center;
+}
+
+
+
+.ord {
+    width: 400px;
+    height: 430px;
+    position: absolute;
+    right: 100px;
+    border: 5px dotted beige;
+    border-radius: 20px;
+    background-color: rgba(196, 202, 208, 0.326);
+    box-shadow: rgb(107, 89, 89) 3px 3px 6px 0px inset, rgba(77, 64, 64, 0.276) -3px -3px 6px 1px inset;
+    margin-top: 40px;
+    z-index: 0;
+}
+
+.ord img {
+    width: 80%;
+    height: 80%;
+    position: relative;
+    padding: 40px;
+    z-index: 1;
+}
+
+.ord p a {
+    text-decoration: none;
+    top: 50px;
+    left: 150px;
+    width: 80px;
+    position: relative;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba(33, 4, 222, 0.673);
+    box-shadow: inset 5px 2px 10px rgb(20, 2, 86);
+    filter: opacity(2);
+    color: #eeeeee;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    border:  2px solid red;
+}
+
+.main button {
+    top: 450px;
+    left: 350px;
+    width: 100px;
+    font-size: larger;
+    margin: 20px;
+    position: fixed;
+    border: none;
+    padding:10px 15px;
+    border-radius: 20px;
+    background-color: rgba(34, 9, 92, 0.673);
+    box-shadow: inset 5px 2px 10px rgb(13, 4, 47);
+    filter: opacity(2);
+    color: #eeeeee;
+
+}
+
+
+#input {
+    position: absolute;
+    top: 160px;
+    left: 50px;
+
+}
+
+::file-selector-button {
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    border: none;
+    width: 100px;
+    height: 30px;
+    border-radius: 50px;
+    margin: 20px;
+}
+
+.main #range {
+    position: relative;
+    width: 200px;
+    top: 200px;
+    left: 30px;
+}
+.main .range{
+    position: relative;
+    left: 50px;
+    top: 120px;
+}
+
+.main form input {
+    color: rgb(8, 3, 108);
+}
+
+.main .span1 span {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    width: 200px;
+    top: 215px;
+    left: 30px;
+    color: rgb(62, 61, 60);
+}
+
+.main .span2 span {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    width: 190px;
+    top: 175px;
+    left: 30px;
+    color: rgb(55, 53, 51);
+    font-size: large;
+}
+
+h1{
+    color: rgb(186, 186, 186);
+    font-weight:bolder;
+    font-size: 4.5rem;
+    position: absolute;
+    top: 350px;
+    width: 100%;
+    left: 16%;
+    opacity: 0.6;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    line-height: 1.4px;
+    display: inline-block;
+  transform: scale(1, 1.5);
+}
+
+
+/* From Uiverse.io by Hashir-Ahmed123 */ 
+@keyframes drop {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(80px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.lava-lamp {
+  position: relative;
+  width: 50px;
+  height: 100px;
+  background: #000;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #e64980, #ff8787);
+  border-radius: 50%;
+  left: 15px;
+  animation: drop 5s ease-in-out infinite;
+}
+.bubble1 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #82c91e, #3bc9db);
+  border-radius: 50%;
+  left: 1px;
+  animation: drop 3s ease-in-out infinite;
+}
+.bubble2 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #7950f2, #f783ac);
+  border-radius: 50%;
+  left: 30px;
+  animation: drop 4s ease-in-out infinite;
+}
+.bubble3 {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #4481eb, #04befe);
+  border-radius: 50%;
+  left: 20px;
+  animation: drop 6s ease-in-out infinite;
+}

@@ -1,0 +1,1233 @@
+
+/* --- 0. Beginner-Friendly CSS --- */
+
+/* 0.1 GLOBAL STYLES (Applies to the whole page) */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f8f8;
+  /* Very light background */
+  color: #1f2937;
+  /* Dark text for readability */
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  position: relative;
+  /* Needed for absolute positioning of lava-lamp */
+}
+
+/* Center container for content (like max-width) */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  /* Center the container */
+  padding: 0 1rem;
+}
+
+/* Basic Typography */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* Simple Visuals */
+a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.rounded {
+  border-radius: 0.75rem;
+}
+
+/* Default rounded corners */
+.shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transition {
+  transition: all 0.3s ease;
+}
+
+/* Media Query for larger screens (Tablet/Desktop) */
+@media (min-width: 640px) {
+  h1 {
+    font-size: 4rem;
+  }
+
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* --- ABSTRACT BACKGROUND ANIMATION STYLES (LAVA LAMP) --- */
+@keyframes drop {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(600px);
+    /* Increased drop distance */
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.lava-lamp {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 1200px;
+  /* Increased height to cover more of the screen */
+  background: transparent;
+  overflow: hidden;
+  z-index: -2;
+  /* Ensures it is behind all content */
+}
+
+.bubble,
+.bubble1,
+.bubble2,
+.bubble3 {
+  position: absolute;
+  top: 0;
+  width: 90px;
+  /* Increased size */
+  height: 90px;
+  /* Increased size */
+  border-radius: 50%;
+  animation: drop 8s ease-in-out infinite;
+  opacity: 0.8;
+  /* Increased opacity for better visibility */
+}
+
+.bubble {
+  background: linear-gradient(to bottom, #e64980, #ff8787);
+  /* Pink/Red gradient */
+  left: 55%;
+  animation-duration: 8s;
+}
+
+.bubble1 {
+  background: linear-gradient(to bottom, #82c91e, #3bc9db);
+  /* Green/Teal gradient */
+  left: 15%;
+  animation-duration: 6s;
+}
+
+.bubble2 {
+  background: linear-gradient(to bottom, #7950f2, #f783ac);
+  /* Purple/Pink gradient */
+  left: 75%;
+  animation-duration: 10s;
+}
+
+.bubble3 {
+  background: linear-gradient(to bottom, #4481eb, #04befe);
+  /* Blue gradient */
+  left: 30%;
+  animation-duration: 8s;
+}
+
+/* --- FIRE LOGO STYLES --- */
+
+/* Keyframes */
+@keyframes scaleUpDown {
+
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+
+  50%,
+  90% {
+    transform: scaleY(1.1);
+  }
+
+  75% {
+    transform: scaleY(0.95);
+  }
+
+  80% {
+    transform: scaleX(0.95);
+  }
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: skewX(0) scale(1);
+  }
+
+  50% {
+    transform: skewX(5deg) scale(0.9);
+  }
+}
+
+@keyframes particleUp {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    top: -100%;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    background-color: #ef5a00;
+  }
+
+  50% {
+    background-color: #ff7800;
+  }
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #4f46e5;
+  /* Indigo color */
+}
+
+/* New wrapper for the large fire logo above the workbench */
+.tool-fire-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  /* Space between fire and H2 */
+}
+
+.fire {
+  /* This is the base style. We use a modifier class for the tool section fire */
+  background-color: transparent;
+  position: relative;
+}
+
+/* Scaling the fire logo to be prominent above the tools */
+.fire-large {
+  width: 120px;
+  /* Much larger */
+  height: 120px;
+  /* Much larger */
+  position: relative;
+  transform: none;
+  margin: 0;
+}
+
+.fire-center {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  animation: scaleUpDown 3s ease-out infinite both;
+}
+
+.fire-center .main-fire {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(farthest-corner at 10px 0, #d43300 0%, #ef5a00 95%);
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 0 40% 60% 40%;
+  filter: drop-shadow(0 0 5px #d43322);
+}
+
+.fire-center .particle-fire {
+  position: absolute;
+  top: 60%;
+  left: 45%;
+  width: 8px;
+  /* Scaled up particle */
+  height: 8px;
+  /* Scaled up particle */
+  background-color: #ef5a00;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 5px #d43322);
+  animation: particleUp 2s ease-out 0s infinite both;
+}
+
+.fire-right {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  animation: shake 2s ease-out 0s infinite both;
+}
+
+.fire-right .main-fire {
+  position: absolute;
+  top: 15%;
+  right: -25%;
+  width: 80%;
+  height: 80%;
+  background-color: #ef5a00;
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 0 40% 60% 40%;
+  filter: drop-shadow(0 0 5px #d43322);
+}
+
+.fire-right .particle-fire {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 12px;
+  /* Scaled up particle */
+  height: 12px;
+  /* Scaled up particle */
+  background-color: #ef5a00;
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 5px #d43322);
+  animation: particleUp 2s ease-out 0s infinite both;
+}
+
+.fire-left {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  animation: shake 3s ease-out 0s infinite both;
+}
+
+.fire-left .main-fire {
+  position: absolute;
+  top: 15%;
+  left: -20%;
+  width: 80%;
+  height: 80%;
+  background-color: #ef5a00;
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 0 40% 60% 40%;
+  filter: drop-shadow(0 0 5px #d43322);
+}
+
+.fire-left .particle-fire {
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 8px;
+  /* Scaled up particle */
+  height: 8px;
+  /* Scaled up particle */
+  background-color: #ef5a00;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 5px #d43322);
+  animation: particleUp 3s infinite ease-out 0s both;
+}
+
+.fire-bottom .main-fire {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  width: 75%;
+  height: 75%;
+  background-color: #ff7800;
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 0 40% 100% 40%;
+  filter: blur(5px);
+  animation: glow 2s ease-out 0s infinite both;
+}
+
+/* --- 1. NEW MENU STYLES (Replaces old header) --- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  /* NEW: Ensure header content is displayed properly */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.header-content {
+  /* Use flex to align logo, menu, and button */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  /* Inherit container width */
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+.menu {
+  padding: 0.5rem;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.075);
+}
+
+.link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 50px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transform-origin: center left;
+  transition: width 0.2s ease-in;
+  text-decoration: none;
+  color: inherit;
+}
+
+.link:before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  display: block;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in;
+  transform-origin: center right;
+  background-color: #eee;
+}
+
+.link:hover,
+.link:focus {
+  outline: 0;
+  width: 130px;
+}
+
+.link:hover:before,
+.link:focus:before,
+.link:hover .link-title,
+.link:focus .link-title {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.link-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  flex-shrink: 0;
+  left: 18px;
+  position: absolute;
+}
+
+.link-icon svg {
+  width: 28px;
+  height: 28px;
+  /* Ensure the SVG color matches the link color */
+  stroke: currentColor;
+}
+
+.link-title {
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in;
+  transform-origin: center right;
+  display: block;
+  text-align: center;
+  text-indent: 28px;
+  width: 100%;
+  opacity: 0;
+  /* Hidden by default */
+  white-space: nowrap;
+  font-weight: 600;
+  color: #4f46e5;
+  /* Set specific color for title */
+}
+
+.header-cta {
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  color: white;
+  background-color: #4f46e5;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.header-cta:hover {
+  background-color: #4338ca;
+}
+
+
+/* --- 2. HERO SECTION STYLES --- */
+.bg-hero-gradient {
+  background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #f472b6 100%);
+  color: white;
+  padding: 6rem 0 8rem 0;
+  margin-bottom: 5rem;
+  position: relative;
+  /* Ensures hero content is above background balls */
+  z-index: 1;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-content p {
+  opacity: 0.9;
+  margin-bottom: 2.5rem;
+  max-width: 48rem;
+  font-size: 1.25rem;
+}
+
+.hero-cta {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #4f46e5;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero-cta:hover {
+  background-color: #f3f4f6;
+}
+
+/* --- 3. TOOL PANEL STYLES (GLASS MORPHISM) --- */
+main {
+  z-index: 5;
+  /* FIX: Ensure all main content is above background elements */
+  position: relative;
+}
+
+.tool-section {
+  margin-bottom: 6rem;
+}
+
+/* Custom Glassmorphism Effect */
+.glass-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(31, 38, 135, 0.15);
+  padding: 2.5rem;
+  width: 90%;
+  max-width: 56rem;
+  margin: 0 auto;
+  border-radius: 1.5rem;
+  position: relative;
+  /* Ensures the glass container is above the bubbles */
+  z-index: 10;
+}
+
+/* Tool Navigation Menu */
+.tool-nav-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.tool-nav-btn {
+  padding: 0.5rem 1.25rem;
+  font-weight: 500;
+  color: #4b5563;
+  background-color: transparent;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  border-radius: 50px;
+  /* Full rounded pill shape */
+  transition: all 0.2s ease;
+}
+
+.tool-nav-btn:hover {
+  background-color: #e5e7eb;
+  border-color: #9ca3af;
+}
+
+.tool-nav-btn.active {
+  color: white;
+  background: linear-gradient(to right, #6d28d9, #a78bfa);
+  /* Active color */
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.4);
+}
+
+/* Upload Area */
+.tool-content-area {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.upload-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  background-color: white;
+}
+
+.upload-submit {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: white;
+  background-color: #10b981;
+  /* Green color */
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.upload-submit:hover {
+  background-color: #059669;
+}
+
+/* Result Area */
+.result-area {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #d1d5db;
+}
+
+.result-area img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 1rem auto;
+  border: 4px solid #f3f4f6;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.download-link {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  color: white;
+  background-color: #4f46e5;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+.download-link:hover {
+  background-color: #4338ca;
+}
+
+/* --- 4. FEATURE BLOCKS STYLES (ZIG-ZAG) --- */
+.feature-block-container {
+  padding: 5rem 0;
+  margin-bottom: 5rem;
+}
+
+/* New Styles for Color Picker Palette */
+.color-palette-wrapper {
+  margin: 0 auto 3rem auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* Full width container for centering */
+}
+
+.container-items {
+  display: flex;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  padding: 0 1rem;
+  gap: 1rem;
+}
+
+.item-color {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 40px;
+  border: none;
+  outline: none;
+  transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  cursor: pointer;
+  background-color: transparent;
+  /* Must be transparent to show ::after */
+}
+
+.item-color::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color);
+  border-radius: 6px;
+  transform: scale(1.2);
+  pointer-events: none;
+  transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  /* Center the pseudo-element since the button is only 32px wide */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.item-color::before {
+  position: absolute;
+  content: attr(aria-color);
+  left: 50%;
+  /* Center relative to the button */
+  bottom: 52px;
+  font-size: 8px;
+  line-height: 12px;
+  transform: translateX(-50%);
+  padding: 2px 0.25rem;
+  background-color: #ffffff;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  white-space: nowrap;
+  /* Prevent color code wrap */
+}
+
+.item-color:hover {
+  transform: scale(1.5);
+  z-index: 99999;
+}
+
+.item-color:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.item-color:active::after {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.item-color:focus::before {
+  content: "✅Copy";
+}
+
+/* Complex adjacent sibling selectors for 3D effect */
+.item-color:hover+* {
+  transform: scale(1.3);
+  z-index: 9999;
+}
+
+.item-color:hover+*+* {
+  transform: scale(1.15);
+  z-index: 999;
+}
+
+.item-color:has(+ *:hover) {
+  transform: scale(1.3);
+  z-index: 9999;
+}
+
+.item-color:has(+ * + *:hover) {
+  transform: scale(1.15);
+  z-index: 999;
+}
+
+.feature-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 5;
+  /* Ensures feature blocks are above the bubbles */
+}
+
+.feature-row:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.feature-content,
+.feature-image {
+  width: 100%;
+}
+
+.feature-content h3 {
+  color: #1f2937;
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.feature-content p {
+  color: #4b5563;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-image img {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border: 3px solid #f3f4f6;
+  width: 100%;
+  height: auto;
+}
+
+.feature-link {
+  color: #4f46e5;
+  font-weight: 600;
+  padding-top: 0.5rem;
+  display: inline-block;
+}
+
+.feature-link:hover {
+  color: #3730a3;
+}
+
+/* Responsive Zig-Zag Layout */
+@media (min-width: 768px) {
+  .feature-row {
+    flex-direction: row;
+    gap: 3rem;
+    padding: 3rem;
+  }
+
+  /* Zig-Zag pattern for even rows */
+  .feature-row:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .feature-content,
+  .feature-image {
+    width: 50%;
+  }
+
+  .feature-row .order-1 {
+    order: 1;
+  }
+
+  .feature-row .order-2 {
+    order: 2;
+  }
+}
+
+/* --- 5. FOOTER STYLES --- */
+footer {
+  background-color: #111827;
+  color: white;
+  padding: 4rem 0;
+  position: relative;
+  z-index: 5;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  border-bottom: 1px solid #374151;
+  padding-bottom: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-grid>div:first-child {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.footer-logo-text {
+  /* Separated class for just the text part of the logo */
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #a5b4fc;
+  margin-bottom: 1rem;
+}
+
+.footer-mission {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  max-width: 28rem;
+}
+
+.footer-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #e5e7eb;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.footer-links a {
+  color: #9ca3af;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.copyright {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+  padding-top: 1rem;
+}
+/* --- 6. RESPONSIVE ADJUSTMENTS --- */
+/* From Uiverse.io by Praashoo7 */ 
+.main_back {
+  position: absolute;
+  border-radius: 10px;
+  transform: rotate(90deg);
+  width: 11em;
+  height: 11em;
+  background: linear-gradient(270deg, #03a9f4, #cc39a4, #ffb5d2);
+  z-index: -2;
+  box-shadow: inset 0px 0px 180px 5px #ffffff;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  width: 14em;
+  align-items: center;
+  justify-content: center;
+  z-index: -1;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-top-left-radius: 10px;
+  background: lightgrey;
+  transition: 0.4s ease-in-out, 0.2s background-color ease-in-out,
+    0.2s background-image ease-in-out;
+  background: rgba(255, 255, 255, 0.596);
+  backdrop-filter: blur(5px);
+  border: 1px solid transparent;
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.card .instagram {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  fill: #cc39a4;
+}
+
+.card:nth-child(2) {
+  border-radius: 0px;
+}
+
+.card:nth-child(2) .twitter {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  fill: #03a9f4;
+}
+
+.card:nth-child(3) {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 0px;
+}
+
+.card:nth-child(3) .dribble {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  fill: #ffb5d2;
+}
+
+.card:nth-child(4) {
+  border-radius: 0px;
+}
+
+.card:nth-child(4) .codepen {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  fill: black;
+}
+
+.card:nth-child(5) {
+  border-radius: 0px;
+}
+
+.card:nth-child(5) .uiverse {
+  position: absolute;
+  margin-left: 0.2em;
+  margin-top: 0.2em;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}
+
+.card:nth-child(6) {
+  border-radius: 0px;
+}
+
+.card:nth-child(6) .discord {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  fill: #8c9eff;
+}
+
+.card:nth-child(7) {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 0px;
+}
+
+.card:nth-child(7) .github {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  fill: black;
+}
+
+.card:nth-child(8) {
+  border-radius: 0px;
+}
+
+.card:nth-child(8) .telegram {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  fill: #29b6f6;
+}
+
+.card:nth-child(9) {
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0px;
+}
+
+.card:nth-child(9) .reddit {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}
+
+.main:hover {
+  width: 14em;
+  cursor: pointer;
+}
+
+.main:hover .main_back {
+  opacity: 0;
+}
+
+.main:hover .card {
+  margin: 0.2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.main:hover .card:nth-child(5) {
+  border: transparent;
+}
+
+.main:hover .text {
+  opacity: 0;
+  z-index: -3;
+}
+
+.main:hover .instagram {
+  opacity: 1;
+}
+
+.main:hover .twitter {
+  opacity: 1;
+}
+
+.main:hover .dribble {
+  opacity: 1;
+}
+
+.main:hover .codepen {
+  opacity: 1;
+}
+
+.main:hover .uiverse {
+  opacity: 1;
+}
+
+.main:hover .discord {
+  opacity: 1;
+}
+
+.main:hover .github {
+  opacity: 1;
+}
+
+.main:hover .telegram {
+  opacity: 1;
+}
+
+.main:hover .reddit {
+  opacity: 1;
+}
+
+.card:nth-child(1):hover {
+  background-color: #cc39a4;
+}
+
+.card:nth-child(1):hover .instagram {
+  fill: white;
+}
+
+.card:nth-child(2):hover {
+  background-color: #03a9f4;
+}
+
+.card:nth-child(2):hover .twitter {
+  fill: white;
+}
+
+.card:nth-child(3):hover {
+  background-color: #ffb5d2;
+}
+
+.card:nth-child(3):hover .dribble {
+  fill: white;
+}
+
+.card:nth-child(4):hover {
+  background-color: #1e1f26;
+}
+
+.card:nth-child(4):hover .codepen {
+  fill: white;
+}
+
+.card:nth-child(5):hover {
+  animation: backgroundIMG 0.1s;
+  animation-fill-mode: forwards;
+}
+
+.card:nth-child(5):hover .uiverse #paint0_linear_501_142 stop {
+  stop-color: white;
+}
+
+.card:nth-child(5):hover .uiverse #paint1_linear_501_142 stop {
+  stop-color: white;
+}
+
+.card:nth-child(5):hover .uiverse #paint2_linear_501_142 stop {
+  stop-color: white;
+}
+
+@keyframes backgroundIMG {
+  100% {
+    background-image: linear-gradient(#bf66ff, #6248ff, #00ddeb);
+  }
+}
+
+.card:nth-child(6):hover {
+  background-color: #8c9eff;
+}
+
+.card:nth-child(6):hover .discord {
+  fill: white;
+}
+
+.card:nth-child(7):hover {
+  background-color: black;
+}
+
+.card:nth-child(7):hover .github {
+  fill: white;
+}
+
+.card:nth-child(8):hover {
+  background-color: #29b6f6;
+}
+
+.card:nth-child(8):hover .telegram > path:nth-of-type(1) {
+  fill: white;
+}
+
+.card:nth-child(8):hover .telegram > path:nth-of-type(2) {
+  fill: #29b6f6;
+}
+
+.card:nth-child(8):hover .telegram > path:nth-of-type(3) {
+  fill: #29b6f6;
+}
+
+.card:nth-child(9):hover {
+  background-color: rgb(255, 69, 0);
+}
+
+.card:nth-child(9) .reddit > g circle {
+  fill: rgb(255, 69, 0);
+}
+
+.card:nth-child(9) .reddit > g path {
+  fill: white;
+}
+
+.text {
+  position: absolute;
+  font-size: 0.7em;
+  transition: 0.4s ease-in-out;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 0.33em;
+  z-index: 3;
+}
