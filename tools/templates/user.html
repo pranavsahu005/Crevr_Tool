@@ -1,1866 +1,590 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Suite for Everyone - My Image Tools</title>
-    <!-- Removed Tailwind CSS script -->
-    <link rel="stylesheet" href="{% static 'user.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Suite for Everyone - My Image Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'user.css' %}">
 </head>
-<style>
-    .social-icons-container .main_back {
-      position: absolute;
-      border-radius: 10px;
-      transform: rotate(90deg);
-      width: 11em;
-      height: 11em;
-      background: linear-gradient(270deg, #03a9f4, #cc39a4, #ffb5d2);
-      z-index: -2;
-      box-shadow: inset 0px 0px 180px 5px #ffffff;
-    }
 
-    .social-icons-container .main {
-      display: flex;
-      flex-wrap: wrap;
-      width: 14em;
-      align-items: center;
-      justify-content: center;
-      z-index: -1;
-      margin: 2rem auto; /* Center the block */
-      position: relative; /* Needed for children positioning */
-    }
-
-    .social-icons-container .card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 60px;
-      height: 60px;
-      border-top-left-radius: 10px;
-      background: lightgrey;
-      transition: 0.4s ease-in-out, 0.2s background-color ease-in-out,
-        0.2s background-image ease-in-out;
-      background: rgba(255, 255, 255, 0.596);
-      backdrop-filter: blur(5px);
-      border: 1px solid transparent;
-      -webkit-backdrop-filter: blur(5px);
-    }
-
-    .social-icons-container .card .instagram {
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-      fill: #cc39a4;
-    }
-
-    .social-icons-container .card:nth-child(2) {
-      border-radius: 0px;
-    }
-
-    .social-icons-container .card:nth-child(2) .twitter {
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-      fill: #03a9f4;
-    }
-
-    .social-icons-container .card:nth-child(3) {
-      border-top-right-radius: 10px;
-      border-top-left-radius: 0px;
-    }
-
-    .social-icons-container .card:nth-child(3) .dribble {
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-      fill: #ffb5d2;
-    }
-
-    .social-icons-container .card:nth-child(4) {
-      border-radius: 0px;
-    }
-
-    .social-icons-container .card:nth-child(4) .codepen {
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-      fill: black;
-    }
-
-    .social-icons-container .card:nth-child(5) {
-      border-radius: 0px;
-    }
-
-    .social-icons-container .card:nth-child(5) .uiverse {
-      position: absolute;
-      margin-left: 0.2em;
-      margin-top: 0.2em;
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-    }
-
-    .social-icons-container .card:nth-child(6) {
-      border-radius: 0px;
-    }
-
-    .social-icons-container .card:nth-child(6) .discord {
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-      fill: #8c9eff;
-    }
-
-    .social-icons-container .card:nth-child(7) {
-      border-bottom-left-radius: 10px;
-      border-top-left-radius: 0px;
-    }
-
-    .social-icons-container .card:nth-child(7) .github {
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-      fill: black;
-    }
-
-    .social-icons-container .card:nth-child(8) {
-      border-radius: 0px;
-    }
-
-    .social-icons-container .card:nth-child(8) .telegram {
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-      fill: #29b6f6;
-    }
-
-    .social-icons-container .card:nth-child(9) {
-      border-bottom-right-radius: 10px;
-      border-top-left-radius: 0px;
-    }
-
-    .social-icons-container .card:nth-child(9) .reddit {
-      opacity: 0;
-      transition: 0.2s ease-in-out;
-    }
-
-    .social-icons-container .main:hover {
-      width: 14em;
-      cursor: pointer;
-    }
-
-    .social-icons-container .main:hover .main_back {
-      opacity: 0;
-    }
-
-    .social-icons-container .main:hover .card {
-      margin: 0.2em;
-      border-radius: 10px;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .social-icons-container .main:hover .card:nth-child(5) {
-      border: transparent;
-    }
-
-    .social-icons-container .main:hover .text {
-      opacity: 0;
-      z-index: -3;
-    }
-
-    .social-icons-container .main:hover .instagram {
-      opacity: 1;
-    }
-
-    .social-icons-container .main:hover .twitter {
-      opacity: 1;
-    }
-
-    .social-icons-container .main:hover .dribble {
-      opacity: 1;
-    }
-
-    .social-icons-container .main:hover .codepen {
-      opacity: 1;
-    }
-
-    .social-icons-container .main:hover .uiverse {
-      opacity: 1;
-    }
-
-    .social-icons-container .main:hover .discord {
-      opacity: 1;
-    }
-
-    .social-icons-container .main:hover .github {
-      opacity: 1;
-    }
-
-    .social-icons-container .main:hover .telegram {
-      opacity: 1;
-    }
-
-    .social-icons-container .main:hover .reddit {
-      opacity: 1;
-    }
-
-    .social-icons-container .card:nth-child(1):hover {
-      background-color: #cc39a4;
-    }
-
-    .social-icons-container .card:nth-child(1):hover .instagram {
-      fill: white;
-    }
-
-    .social-icons-container .card:nth-child(2):hover {
-      background-color: #03a9f4;
-    }
-
-    .social-icons-container .card:nth-child(2):hover .twitter {
-      fill: white;
-    }
-
-    .social-icons-container .card:nth-child(3):hover {
-      background-color: #ffb5d2;
-    }
-
-    .social-icons-container .card:nth-child(3):hover .dribble {
-      fill: white;
-    }
-
-    .social-icons-container .card:nth-child(4):hover {
-      background-color: #1e1f26;
-    }
-
-    .social-icons-container .card:nth-child(4):hover .codepen {
-      fill: white;
-    }
-
-    .social-icons-container .card:nth-child(5):hover {
-      animation: backgroundIMG 0.1s;
-      animation-fill-mode: forwards;
-    }
-
-    .social-icons-container .card:nth-child(5):hover .uiverse #paint0_linear_501_142 stop {
-      stop-color: white;
-    }
-
-    .social-icons-container .card:nth-child(5):hover .uiverse #paint1_linear_501_142 stop {
-      stop-color: white;
-    }
-
-    .social-icons-container .card:nth-child(5):hover .uiverse #paint2_linear_501_142 stop {
-      stop-color: white;
-    }
-
-    @keyframes backgroundIMG {
-      100% {
-        background-image: linear-gradient(#bf66ff, #6248ff, #00ddeb);
-      }
-    }
-
-    .social-icons-container .card:nth-child(6):hover {
-      background-color: #8c9eff;
-    }
-
-    .social-icons-container .card:nth-child(6):hover .discord {
-      fill: white;
-    }
-
-    .social-icons-container .card:nth-child(7):hover {
-      background-color: black;
-    }
-
-    .social-icons-container .card:nth-child(7):hover .github {
-      fill: white;
-    }
-
-    .social-icons-container .card:nth-child(8):hover {
-      background-color: #29b6f6;
-    }
-
-    .social-icons-container .card:nth-child(8):hover .telegram > path:nth-of-type(1) {
-      fill: white;
-    }
-
-    .social-icons-container .card:nth-child(8):hover .telegram > path:nth-of-type(2) {
-      fill: #29b6f6;
-    }
-
-    .social-icons-container .card:nth-child(8):hover .telegram > path:nth-of-type(3) {
-      fill: #29b6f6;
-    }
-
-    .social-icons-container .card:nth-child(9):hover {
-      background-color: rgb(255, 69, 0);
-    }
-
-    .social-icons-container .card:nth-child(9) .reddit > g circle {
-      fill: rgb(255, 69, 0);
-    }
-
-    .social-icons-container .card:nth-child(9) .reddit > g path {
-      fill: white;
-    }
-
-    .social-icons-container .text {
-      position: absolute;
-      font-size: 0.7em;
-      transition: 0.4s ease-in-out;
-      color: #9ca3af; /* Match footer text */
-      text-align: center;
-      font-weight: bold;
-      letter-spacing: 0.33em;
-      z-index: 3;
-    }
-</style>
 <body>
-    
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Suite for Everyone - My Image Tools</title>
-    <!-- Removed Tailwind CSS script -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-        /* --- 0. Beginner-Friendly CSS --- */
-        
-        /* 0.1 GLOBAL STYLES (Applies to the whole page) */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f8f8; /* Very light background */
-            color: #1f2937; /* Dark text for readability */
-            margin: 0;
-            padding: 0;
-            line-height: 1.5;
-            position: relative; /* Needed for absolute positioning of lava-lamp */
-        }
 
-        /* Center container for content (like max-width) */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto; /* Center the container */
-            padding: 0 1rem;
-        }
+  <!-- === ABSTRACT BACKGROUND: LAVA LAMP BALLS === -->
+  <div class="lava-lamp">
+    <div class="bubble"></div>
+    <div class="bubble1"></div>
+    <div class="bubble2"></div>
+    <div class="bubble3"></div>
+  </div>
 
-        /* Basic Typography */
-        h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; }
-        h2 { font-size: 2rem; font-weight: 800; margin-bottom: 3rem; text-align: center; }
-        h3 { font-size: 1.5rem; font-weight: 700; }
-        p { margin-bottom: 1rem; }
+  <!-- === 1. Simple Header - Now containing the new dynamic menu === -->
+  <header>
+    <div class="header-content">
+      <!-- Logo Text -->
+      <div class="logo">MyImageTools.</div>
 
-        /* Simple Visuals */
-        a { text-decoration: none; transition: color 0.3s ease; }
-        .rounded { border-radius: 0.75rem; } /* Default rounded corners */
-        .shadow { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
-        .transition { transition: all 0.3s ease; }
-
-        /* Media Query for larger screens (Tablet/Desktop) */
-        @media (min-width: 640px) {
-             h1 { font-size: 4rem; }
-             .container { padding: 0 2rem; }
-        }
-        
-        /* --- ABSTRACT BACKGROUND ANIMATION STYLES (LAVA LAMP) --- */
-        @keyframes drop {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(600px); /* Increased drop distance */
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .lava-lamp {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 1200px; /* Increased height to cover more of the screen */
-            background: transparent;
-            overflow: hidden;
-            z-index: -2; /* Ensures it is behind all content */
-        }
-
-        .bubble, .bubble1, .bubble2, .bubble3 {
-            position: absolute;
-            top: 0;
-            width: 90px; /* Increased size */
-            height: 90px; /* Increased size */
-            border-radius: 50%;
-            animation: drop 8s ease-in-out infinite;
-            opacity: 0.8; /* Increased opacity for better visibility */
-        }
-
-        .bubble {
-            background: linear-gradient(to bottom, #e64980, #ff8787); /* Pink/Red gradient */
-            left: 55%;
-            animation-duration: 8s;
-        }
-        .bubble1 {
-            background: linear-gradient(to bottom, #82c91e, #3bc9db); /* Green/Teal gradient */
-            left: 15%;
-            animation-duration: 6s;
-        }
-        .bubble2 {
-            background: linear-gradient(to bottom, #7950f2, #f783ac); /* Purple/Pink gradient */
-            left: 75%;
-            animation-duration: 10s;
-        }
-        .bubble3 {
-            background: linear-gradient(to bottom, #4481eb, #04befe); /* Blue gradient */
-            left: 30%;
-            animation-duration: 8s;
-        }
-
-        /* --- FIRE LOGO STYLES --- */
-        
-        /* Keyframes */
-        @keyframes scaleUpDown {
-            0%, 100% {
-                transform: scaleY(1) scaleX(1);
-            }
-            50%, 90% {
-                transform: scaleY(1.1);
-            }
-            75% {
-                transform: scaleY(0.95);
-            }
-            80% {
-                transform: scaleX(0.95);
-            }
-        }
-
-        @keyframes shake {
-            0%, 100% {
-                transform: skewX(0) scale(1);
-            }
-            50% {
-                transform: skewX(5deg) scale(0.9);
-            }
-        }
-
-        @keyframes particleUp {
-            0% {
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                top: -100%;
-                transform: scale(0.5);
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                background-color: #ef5a00;
-            }
-            50% {
-                background-color: #ff7800;
-            }
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #4f46e5; /* Indigo color */
-        }
-
-        /* New wrapper for the large fire logo above the workbench */
-        .tool-fire-logo-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1rem; /* Space between fire and H2 */
-        }
-        
-        .fire {
-            /* This is the base style. We use a modifier class for the tool section fire */
-            background-color: transparent;
-            position: relative;
-        }
-        
-        /* Scaling the fire logo to be prominent above the tools */
-        .fire-large {
-            width: 120px; /* Much larger */
-            height: 120px; /* Much larger */
-            position: relative;
-            transform: none; 
-            margin: 0;
-        }
-
-        .fire-center {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            animation: scaleUpDown 3s ease-out infinite both;
-        }
-
-        .fire-center .main-fire {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(farthest-corner at 10px 0, #d43300 0%, #ef5a00 95%);
-            transform: scaleX(0.8) rotate(45deg);
-            border-radius: 0 40% 60% 40%;
-            filter: drop-shadow(0 0 5px #d43322); 
-        }
-
-        .fire-center .particle-fire {
-            position: absolute;
-            top: 60%;
-            left: 45%;
-            width: 8px; /* Scaled up particle */
-            height: 8px; /* Scaled up particle */
-            background-color: #ef5a00;
-            border-radius: 50%;
-            filter: drop-shadow(0 0 5px #d43322); 
-            animation: particleUp 2s ease-out 0s infinite both;
-        }
-
-        .fire-right {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            animation: shake 2s ease-out 0s infinite both;
-        }
-
-        .fire-right .main-fire {
-            position: absolute;
-            top: 15%;
-            right: -25%;
-            width: 80%;
-            height: 80%;
-            background-color: #ef5a00;
-            transform: scaleX(0.8) rotate(45deg);
-            border-radius: 0 40% 60% 40%;
-            filter: drop-shadow(0 0 5px #d43322); 
-        }
-
-        .fire-right .particle-fire {
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            width: 12px; /* Scaled up particle */
-            height: 12px; /* Scaled up particle */
-            background-color: #ef5a00;
-            transform: scaleX(0.8) rotate(45deg);
-            border-radius: 50%;
-            filter: drop-shadow(0 0 5px #d43322); 
-            animation: particleUp 2s ease-out 0s infinite both;
-        }
-
-        .fire-left {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            animation: shake 3s ease-out 0s infinite both;
-        }
-
-        .fire-left .main-fire {
-            position: absolute;
-            top: 15%;
-            left: -20%;
-            width: 80%;
-            height: 80%;
-            background-color: #ef5a00;
-            transform: scaleX(0.8) rotate(45deg);
-            border-radius: 0 40% 60% 40%;
-            filter: drop-shadow(0 0 5px #d43322); 
-        }
-
-        .fire-left .particle-fire {
-            position: absolute;
-            top: 10%;
-            left: 20%;
-            width: 8px; /* Scaled up particle */
-            height: 8px; /* Scaled up particle */
-            background-color: #ef5a00;
-            border-radius: 50%;
-            filter: drop-shadow(0 0 5px #d43322); 
-            animation: particleUp 3s infinite ease-out 0s both;
-        }
-
-        .fire-bottom .main-fire {
-            position: absolute;
-            top: 30%;
-            left: 20%;
-            width: 75%;
-            height: 75%;
-            background-color: #ff7800;
-            transform: scaleX(0.8) rotate(45deg);
-            border-radius: 0 40% 100% 40%;
-            filter: blur(5px); 
-            animation: glow 2s ease-out 0s infinite both;
-        }
-
-        /* --- 1. NEW MENU STYLES (Replaces old header) --- */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-            /* NEW: Ensure header content is displayed properly */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0.5rem 0; 
-        }
-        .header-content {
-             /* Use flex to align logo, menu, and button */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1280px; /* Inherit container width */
-            padding: 0 1rem;
-            margin: 0 auto;
-        }
-
-        .menu {
-            padding: 0.5rem;
-            background-color: #fff;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.075);
-        }
-
-        .link {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 70px;
-            height: 50px;
-            border-radius: 8px;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            transform-origin: center left;
-            transition: width 0.2s ease-in;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .link:before {
-            position: absolute;
-            z-index: -1;
-            content: "";
-            display: block;
-            border-radius: 8px;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            transform: translateX(100%);
-            transition: transform 0.2s ease-in;
-            transform-origin: center right;
-            background-color: #eee;
-        }
-
-        .link:hover,
-        .link:focus {
-            outline: 0;
-            width: 130px;
-        }
-
-        .link:hover:before,
-        .link:focus:before,
-        .link:hover .link-title,
-        .link:focus .link-title {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .link-icon {
-            width: 28px;
-            height: 28px;
-            display: block;
-            flex-shrink: 0;
-            left: 18px;
-            position: absolute;
-        }
-        .link-icon svg {
-            width: 28px;
-            height: 28px;
-            /* Ensure the SVG color matches the link color */
-            stroke: currentColor; 
-        }
-
-        .link-title {
-            transform: translateX(100%);
-            transition: transform 0.2s ease-in;
-            transform-origin: center right;
-            display: block;
-            text-align: center;
-            text-indent: 28px;
-            width: 100%;
-            opacity: 0; /* Hidden by default */
-            white-space: nowrap; 
-            font-weight: 600;
-            color: #4f46e5; /* Set specific color for title */
-        }
-        
-        .header-cta {
-            padding: 0.5rem 1.25rem;
-            font-weight: 600;
-            color: white;
-            background-color: #4f46e5;
-            border: none;
-            cursor: pointer;
-            border-radius: 0.5rem;
-        }
-        .header-cta:hover {
-            background-color: #4338ca;
-        }
-
-
-        /* --- 2. HERO SECTION STYLES --- */
-        .bg-hero-gradient {
-            background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #f472b6 100%);
-            color: white;
-            padding: 6rem 0 8rem 0;
-            margin-bottom: 5rem;
-            position: relative; /* Ensures hero content is above background balls */
-            z-index: 1; 
-        }
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .hero-content p {
-            opacity: 0.9;
-            margin-bottom: 2.5rem;
-            max-width: 48rem;
-            font-size: 1.25rem;
-        }
-        .hero-cta {
-            padding: 1rem 2rem;
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: #4f46e5;
-            background-color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        .hero-cta:hover {
-            background-color: #f3f4f6;
-        }
-
-        /* --- 3. TOOL PANEL STYLES (GLASS MORPHISM) --- */
-        main {
-            z-index: 5; /* FIX: Ensure all main content is above background elements */
-            position: relative;
-        }
-        
-        .tool-section {
-            margin-bottom: 6rem;
-        }
-        
-        /* Custom Glassmorphism Effect */
-        .glass-container {
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 30px rgba(31, 38, 135, 0.15);
-            padding: 2.5rem;
-            width: 90%;
-            max-width: 56rem;
-            margin: 0 auto;
-            border-radius: 1.5rem;
-            position: relative; /* Ensures the glass container is above the bubbles */
-            z-index: 10;
-        }
-        
-        /* Tool Navigation Menu */
-        .tool-nav-menu {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-bottom: 2rem;
-        }
-        .tool-nav-btn {
-            padding: 0.5rem 1.25rem;
-            font-weight: 500;
-            color: #4b5563;
-            background-color: transparent;
-            border: 1px solid #d1d5db;
-            cursor: pointer;
-            border-radius: 50px; /* Full rounded pill shape */
-            transition: all 0.2s ease;
-        }
-        .tool-nav-btn:hover {
-            background-color: #e5e7eb;
-            border-color: #9ca3af;
-        }
-        .tool-nav-btn.active {
-            color: white;
-            background: linear-gradient(to right, #6d28d9, #a78bfa); /* Active color */
-            border: 1px solid transparent;
-            box-shadow: 0 2px 8px rgba(109, 40, 217, 0.4);
-        }
-
-        /* Upload Area */
-        .tool-content-area {
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-        .upload-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .upload-input {
-            width: 100%;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            cursor: pointer;
-            background-color: white;
-        }
-        .upload-submit {
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            color: white;
-            background-color: #10b981; /* Green color */
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 0.5rem;
-        }
-        .upload-submit:hover {
-            background-color: #059669;
-        }
-        
-        /* Result Area */
-        .result-area {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #d1d5db;
-        }
-        .result-area img {
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto 1rem auto;
-            border: 4px solid #f3f4f6;
-            border-radius: 0.5rem;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        }
-        .download-link {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            color: white;
-            background-color: #4f46e5;
-            border-radius: 50px;
-            font-weight: 500;
-        }
-        .download-link:hover {
-            background-color: #4338ca;
-        }
-
-        /* --- 4. FEATURE BLOCKS STYLES (ZIG-ZAG) --- */
-        .feature-block-container {
-            padding: 5rem 0;
-            margin-bottom: 5rem;
-        }
-        
-        /* New Styles for Color Picker Palette */
-        .color-palette-wrapper {
-            width: 100vw;
-            position: relative;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            padding: 1rem 20px;
-            box-sizing: border-box;
-            background-color: #f0f0f0; /* Added a subtle background to see the full-width effect */
-            margin-bottom: 3rem;
-        }
-        
-        .container-items {
-            display: flex;
-            justify-content: center; /* Center the items within the container */
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            max-width: 100%; /* Ensures it respects screen width */
-        }
-
-        .item-color {
-            position: relative;
-            flex-shrink: 0;
-            width: 32px;
-            height: 40px;
-            border: none;
-            outline: none;
-            transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            cursor: pointer;
-            background-color: transparent; /* Must be transparent to show ::after */
-        }
-
-        .item-color::after {
-            position: absolute;
-            content: "";
-            inset: 0;
-            width: 40px;
-            height: 40px;
-            background-color: var(--color);
-            border-radius: 6px;
-            transform: scale(1.2);
-            pointer-events: none;
-            transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            /* Center the pseudo-element since the button is only 32px wide */
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-
-        .item-color::before {
-            position: absolute;
-            content: attr(aria-color);
-            left: 50%; /* Center relative to the button */
-            bottom: 52px;
-            font-size: 8px;
-            line-height: 12px;
-            transform: translateX(-50%);
-            padding: 2px 0.25rem;
-            background-color: #ffffff;
-            border-radius: 6px;
-            pointer-events: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            white-space: nowrap; /* Prevent color code wrap */
-        }
-
-        .item-color:hover {
-            transform: scale(1.5);
-            z-index: 99999;
-        }
-
-        .item-color:hover::before {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .item-color:active::after {
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .item-color:focus::before {
-            content: "✅Copy";
-        }
-
-        /* Complex adjacent sibling selectors for 3D effect */
-        .item-color:hover + * {
-            transform: scale(1.3);
-            z-index: 9999;
-        }
-
-        .item-color:hover + * + * {
-            transform: scale(1.15);
-            z-index: 999;
-        }
-
-        .item-color:has(+ *:hover) {
-            transform: scale(1.3);
-            z-index: 9999;
-        }
-
-        .item-color:has(+ * + *:hover) {
-            transform: scale(1.15);
-            z-index: 999;
-        }
-        
-        .feature-row {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            margin-bottom: 4rem;
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            z-index: 5; /* Ensures feature blocks are above the bubbles */
-        }
-        .feature-row:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-        }
-        .feature-content, .feature-image {
-            width: 100%;
-        }
-        .feature-content h3 {
-            color: #1f2937;
-            margin-top: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-        .feature-content p {
-            color: #4b5563;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        .feature-image img {
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border: 3px solid #f3f4f6;
-            width: 100%;
-            height: auto;
-        }
-        .feature-link {
-            color: #4f46e5;
-            font-weight: 600;
-            padding-top: 0.5rem;
-            display: inline-block;
-        }
-        .feature-link:hover {
-            color: #3730a3;
-        }
-
-        /* Responsive Zig-Zag Layout */
-        @media (min-width: 768px) {
-            .feature-row {
-                flex-direction: row;
-                gap: 3rem;
-                padding: 3rem;
-            }
-            /* Zig-Zag pattern for even rows */
-            .feature-row:nth-child(even) {
-                flex-direction: row-reverse;
-            }
-            .feature-content, .feature-image {
-                width: 50%;
-            }
-            .feature-row .order-1 { order: 1; }
-            .feature-row .order-2 { order: 2; }
-        }
-
-        /* --- 5. FOOTER STYLES --- */
-        footer {
-            background-color: #111827;
-            color: white;
-            padding: 4rem 0;
-            position: relative;
-            z-index: 5;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            border-bottom: 1px solid #374151;
-            padding-bottom: 2rem;
-            margin-bottom: 1.5rem;
-        }
-        @media (min-width: 768px) {
-            .footer-grid {
-                grid-template-columns: repeat(5, 1fr);
-                gap: 2rem;
-            }
-            .footer-grid > div:first-child {
-                grid-column: span 2 / span 2;
-            }
-        }
-        .footer-logo-text {
-            /* Separated class for just the text part of the logo */
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #a5b4fc;
-            margin-bottom: 1rem;
-        }
-        .footer-mission {
-            color: #9ca3af;
-            font-size: 0.875rem;
-            max-width: 28rem;
-        }
-        .footer-heading {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: #e5e7eb;
-        }
-        .footer-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            font-size: 0.875rem;
-        }
-        .footer-links a {
-            color: #9ca3af;
-        }
-        .footer-links a:hover {
-            color: white;
-        }
-        .copyright {
-            text-align: center;
-            color: #6b7280;
-            font-size: 0.875rem;
-            padding-top: 1rem;
-        }
-    </style>
-</head>
-<body>
-    
-    <!-- === ABSTRACT BACKGROUND: LAVA LAMP BALLS === -->
-    <div class="lava-lamp">
-        <div class="bubble"></div>
-        <div class="bubble1"></div>
-        <div class="bubble2"></div>
-        <div class="bubble3"></div>
+      <!-- NEW MENU REPLACEMENT -->
+      <div class="menu">
+        <a href="#home" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <path
+                d="M213.3815,109.61945,133.376,36.88436a8,8,0,0,0-10.76339.00036l-79.9945,72.73477A8,8,0,0,0,40,115.53855V208a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V115.53887A8,8,0,0,0,213.3815,109.61945Z"
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16">
+              </path>
+            </svg>
+          </span>
+          <span class="link-title">Home</span>
+        </a>
+        <a href="#" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <polyline points="76.201 132.201 152.201 40.201 216 40 215.799 103.799 123.799 179.799" fill="none"
+                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline>
+              <line x1="100" y1="156" x2="160" y2="96" fill="none" stroke="currentColor" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="16"></line>
+              <path
+                d="M82.14214,197.45584,52.201,227.397a8,8,0,0,1-11.31371,0L28.603,215.11268a8,8,0,0,1,0-11.31371l29.94113-29.94112a8,8,0,0,0,0-11.31371L37.65685,141.65685a8,8,0,0,1,0-11.3137l12.6863-12.6863a8,8,0,0,1,11.3137,0l76.6863,76.6863a8,8,0,0,1,0,11.3137l-12.6863,12.6863a8,8,0,0,1-11.3137,0L93.45584,197.45584A8,8,0,0,0,82.14214,197.45584Z"
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16">
+              </path>
+            </svg>
+          </span>
+          <span class="link-title">Games</span>
+        </a>
+        <a href="#" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <path
+                d="M45.42853,176.99811A95.95978,95.95978,0,1,1,79.00228,210.5717l.00023-.001L45.84594,220.044a8,8,0,0,1-9.89-9.89l9.47331-33.15657Z"
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16">
+              </path>
+              <line x1="96" y1="112" x2="160" y2="112" fill="none" stroke="currentColor" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="16"></line>
+              <line x1="96" y1="144" x2="160" y2="144" fill="none" stroke="currentColor" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="16"></line>
+            </svg>
+          </span>
+          <span class="link-title">Chat</span>
+        </a>
+        <a href="#" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <circle cx="116" cy="116" r="84" fill="none" stroke="currentColor" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="16"></circle>
+              <line x1="175.39356" y1="175.40039" x2="223.99414" y2="224.00098" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+            </svg>
+          </span>
+          <span class="link-title">Search</span>
+        </a>
+        <a href="#" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <circle cx="128" cy="96" r="64" fill="none" stroke="currentColor" stroke-miterlimit="10"
+                stroke-width="16"></circle>
+              <path d="M30.989,215.99064a112.03731,112.03731,0,0,1,194.02311.002" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+            </svg>
+          </span>
+          <span class="link-title">Profile</span>
+        </a>
+      </div>
+      <!-- END NEW MENU REPLACEMENT -->
+      <button class="header-cta rounded shadow transition">Get Started</button>
     </div>
-    
-    <!-- === 1. Simple Header - Now containing the new dynamic menu === -->
-    <header>
-        <div class="header-content">
-            <!-- Logo Text -->
-            <div class="logo">MyImageTools.</div>
-            
-            <!-- NEW MENU REPLACEMENT -->
-            <div class="menu">
-                <a href="#home" class="link">
-                    <span class="link-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="192"
-                        height="192"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <rect width="256" height="256" fill="none"></rect>
-                        <path
-                          d="M213.3815,109.61945,133.376,36.88436a8,8,0,0,0-10.76339.00036l-79.9945,72.73477A8,8,0,0,0,40,115.53855V208a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V115.53887A8,8,0,0,0,213.3815,109.61945Z"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></path>
-                      </svg>
-                    </span>
-                    <span class="link-title">Home</span>
-                </a>
-                <a href="#" class="link">
-                    <span class="link-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="192"
-                        height="192"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <rect width="256" height="256" fill="none"></rect>
-                        <polyline
-                          points="76.201 132.201 152.201 40.201 216 40 215.799 103.799 123.799 179.799"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></polyline>
-                        <line
-                          x1="100"
-                          y1="156"
-                          x2="160"
-                          y2="96"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></line>
-                        <path
-                          d="M82.14214,197.45584,52.201,227.397a8,8,0,0,1-11.31371,0L28.603,215.11268a8,8,0,0,1,0-11.31371l29.94113-29.94112a8,8,0,0,0,0-11.31371L37.65685,141.65685a8,8,0,0,1,0-11.3137l12.6863-12.6863a8,8,0,0,1,11.3137,0l76.6863,76.6863a8,8,0,0,1,0,11.3137l-12.6863,12.6863a8,8,0,0,1-11.3137,0L93.45584,197.45584A8,8,0,0,0,82.14214,197.45584Z"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></path>
-                      </svg>
-                    </span>
-                    <span class="link-title">Games</span>
-                </a>
-                <a href="#" class="link">
-                    <span class="link-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="192"
-                        height="192"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <rect width="256" height="256" fill="none"></rect>
-                        <path
-                          d="M45.42853,176.99811A95.95978,95.95978,0,1,1,79.00228,210.5717l.00023-.001L45.84594,220.044a8,8,0,0,1-9.89-9.89l9.47331-33.15657Z"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></path>
-                        <line
-                          x1="96"
-                          y1="112"
-                          x2="160"
-                          y2="112"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></line>
-                        <line
-                          x1="96"
-                          y1="144"
-                          x2="160"
-                          y2="144"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></line>
-                      </svg>
-                    </span>
-                    <span class="link-title">Chat</span>
-                </a>
-                <a href="#" class="link">
-                    <span class="link-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="192"
-                        height="192"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <rect width="256" height="256" fill="none"></rect>
-                        <circle
-                          cx="116"
-                          cy="116"
-                          r="84"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></circle>
-                        <line
-                          x1="175.39356"
-                          y1="175.40039"
-                          x2="223.99414"
-                          y2="224.00098"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></line>
-                      </svg>
-                    </span>
-                    <span class="link-title">Search</span>
-                </a>
-                <a href="#" class="link">
-                    <span class="link-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="192"
-                        height="192"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <rect width="256" height="256" fill="none"></rect>
-                        <circle
-                          cx="128"
-                          cy="96"
-                          r="64"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-miterlimit="10"
-                          stroke-width="16"
-                        ></circle>
-                        <path
-                          d="M30.989,215.99064a112.03731,112.03731,0,0,1,194.02311.002"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="16"
-                        ></path>
-                      </svg>
-                    </span>
-                    <span class="link-title">Profile</span>
-                </a>
-            </div>
-            <!-- END NEW MENU REPLACEMENT -->
-            <button class="header-cta rounded shadow transition">Get Started</button>
+  </header>
+
+  <main>
+
+    <!-- === 2. Hero Section: "Visual Suite for Everyone" === -->
+    <section class="bg-hero-gradient">
+         <div class="container hero-content">
+             <h1>
+                 Visual Suite <span>for Simple Editing</span>
+             </h1>
+             <p class="hero-description">
+                 Welcome! This is an ML-powered project from <strong>sunnyinstitute</strong>, designed for fast, intuitive, and functional image processing.
+                 <br>
+                 Tools like <strong>Black & White</strong>, <strong>Compress</strong>, and <strong>Crop</strong> are now simpler than ever.
+             </p>
+             <button class="hero-cta">
+                 <span>Dive Right In</span>
+             </button>
+         </div>
+         
+         <!-- SHIMMER EFFECT (Linear Bar) -->
+         <div class="shimmer-effect">
+             <div class="shimmer-bar"></div>
+         </div>
+    </section>
+
+    <!-- === 3. Main Tool Panel Section (The Glass Frame) === -->
+    <section id="tools" class="container tool-section">
+
+      <!-- NEW FIRE LOGO PLACEMENT: Above the H2 -->
+      <div class="tool-fire-logo-wrapper">
+        <div class="fire fire-large">
+          <div class="fire-left">
+            <div class="main-fire"></div>
+            <div class="particle-fire"></div>
+          </div>
+          <div class="fire-center">
+            <div class="main-fire"></div>
+            <div class="particle-fire"></div>
+          </div>
+          <div class="fire-right">
+            <div class="main-fire"></div>
+            <div class="particle-fire"></div>
+          </div>
+          <div class="fire-bottom">
+            <div class="main-fire"></div>
+          </div>
         </div>
-    </header>
+      </div>
+      <!-- END FIRE LOGO PLACEMENT -->
 
-    <main>
-        
-        <!-- === 2. Hero Section: "Visual Suite for Everyone" === -->
-        <section class="bg-hero-gradient">
-            <div class="container hero-content">
-                <h1>
-                    Visual Suite <span>for Simple Editing</span>
-                </h1>
-                <p class="max-w-3xl">
-                    Hi! This is my ML-powered project designed for fast, humanly, and functional image processing. **Black & White**, **Compress**, and **Crop**—your everyday tools, made simple.
-                </p>
-                <button class="hero-cta rounded transition">
-                    Dive Right In
-                </button>
-            </div>
-        </section>
+      <h2>
+        Your Image Workbench 🛠️
+      </h2>
 
-        <!-- === 3. Main Tool Panel Section (The Glass Frame) === -->
-        <section id="tools" class="container tool-section">
-            
-            <!-- NEW FIRE LOGO PLACEMENT: Above the H2 -->
-            <div class="tool-fire-logo-wrapper">
-                <div class="fire fire-large">
-                    <div class="fire-left">
-                        <div class="main-fire"></div>
-                        <div class="particle-fire"></div>
-                    </div>
-                    <div class="fire-center">
-                        <div class="main-fire"></div>
-                        <div class="particle-fire"></div>
-                    </div>
-                    <div class="fire-right">
-                        <div class="main-fire"></div>
-                        <div class="particle-fire"></div>
-                    </div>
-                    <div class="fire-bottom">
-                        <div class="main-fire"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- END FIRE LOGO PLACEMENT -->
+      <!-- Glass Container for Tools -->
+      <div class="glass-container rounded">
+        <h3 style="text-align: center; margin-bottom: 2rem;">Choose Your Action:</h3>
 
-             <h2>
-                Your Image Workbench 🛠️
-            </h2>
+        <!-- User's Tool Navigation Menu - Updated with all 5 features -->
+        <nav class="tool-nav" id="tool-nav-container">
+          <div class="tool-nav-menu">
+            <!-- Black & White (Active by default, using 'takephoto' URL as placeholder) -->
+            <a href="{% url 'takephoto' %}"><button class="tool-nav-btn active" data-form-action="{% url 'takephoto' %}"
+                data-input-name="userimage">Black & White</button></a>
 
-            <!-- Glass Container for Tools -->
-            <div class="glass-container rounded">
-                <h3 style="text-align: center; margin-bottom: 2rem;">Choose Your Action:</h3>
+            <!-- Compress -->
+            <a href="{% url 'compress' %}"><button class="tool-nav-btn" data-form-action="{% url 'compress' %}"
+                data-input-name="compressimg">Compress</button></a>
 
-                <!-- User's Tool Navigation Menu - Updated with all 5 features -->
-                <nav class="tool-nav">
-                    <div class="tool-nav-menu">
-                        <!-- Black & White (Active by default, using 'takephoto' URL as placeholder) -->
-                        <a href="{% url 'takephoto' %}"><button class="tool-nav-btn active">Black & White</button></a>
-                        
-                        <!-- Compress -->
-                        <a href="{% url 'compress' %}"><button class="tool-nav-btn">Compress</button></a>
-                        
-                        <!-- Crop (Placeholder URL) -->
-                        <a href="#"><button class="tool-nav-btn">Crop</button></a>
+            <!-- Crop (Placeholder URL) -->
+            <a href="#"><button class="tool-nav-btn">Crop</button></a>
 
-                        <!-- Resize (New Feature) -->
-                        <a href="{% url 'resizing' %}"><button class="tool-nav-btn">Resize</button></a>
+            <!-- Resize (New Feature) -->
+            <a href="{% url 'resizing' %}"><button class="tool-nav-btn" data-form-action="{% url 'resizing' %}"
+                data-input-name="resizing">Resize</button></a>
 
-                        <!-- Rotate (New Feature) -->
-                        <a href="{% url 'rotatephoto' %}"><button class="tool-nav-btn">Rotate</button></a>
-                    </div>
-                </nav>
+            <!-- Rotate (New Feature) - NOTE: Your rotate.html has a range slider. I've added it here, hidden by default. -->
+            <a href="{% url 'rotatephoto' %}"><button class="tool-nav-btn" data-form-action="{% url 'rotatephoto' %}"
+                data-input-name="rotating">Rotate</button></a>
+          </div>
+        </nav>
 
-                <!-- Main Content Area (Upload Form and Result Area) -->
-                <div class="main tool-content-area rounded">
-                    <p style="font-size: 1.125rem; color: #4b5563; font-weight: 700; margin-bottom: 1rem;">Upload an image to start transforming it!</p>
-                    
-                    <!-- The Upload Form (Django Template Tags maintained as placeholders) -->
-                    <form action="{% url 'takephoto' %}" enctype="multipart/form-data" method="post" class="upload-form">
-                        <!-- {% csrf_token %} -->
-                        <input id="input" type="file" name="userimage" class="upload-input">
-                        
-                        <button type="submit" class="upload-submit rounded shadow transition">
-                            Submit and Process Image
-                        </button>
-                    </form>
+        <!-- Main Content Area (Upload Form and Result Area) -->
+        <div class="tool-content-area rounded">
+          <p style="font-size: 1.125rem; color: #4b5563; font-weight: 700; margin-bottom: 1rem;">Upload an image to
+            start transforming it!</p>
 
-                    <!-- Result Placeholder (Django Template Tags maintained as placeholders) -->
-                    <div class="ord result-area">
-                        <p style="font-size: 1rem; font-weight: 600; color: #1f2937; margin-bottom: 1rem;">Your Result:</p>
-                        
-                        <!-- {% if lelo %} -->
-                        <div style="display: flex; flex-direction: column; gap: 1rem;">
-                            <!-- Placeholder image is used here -->
-                            <img src="https://placehold.co/400x200/e0f2fe/6366f1?text=Your+Processed+Image" alt="Processed Image">
-                            <p>
-                                <a href="{% static 'gray/'%}{{lelo}}" download class="download-link transition">
-                                    Click to download
-                                </a>
-                            </p>
-                        </div>
-                        <!-- {% else %} -->
-                        <p style="font-size: 0.875rem; color: #6b7280; font-style: italic;">
-                            Your processed image will show up right here after submission!
-                        </p>
-                        <!-- {% endif %} -->
-                    </div>
-                </div>
-            </div>
-        </section>
+          <form id="tool-form" action="{% url 'takephoto' %}" enctype="multipart/form-data" method="post"
+            class="upload-form">
+            {% csrf_token %}
 
-        <!-- --- 4. Focused Feature Blocks (Zig-Zag Layout) --- -->
-        <section id="features" class="container feature-block-container">
-            
-            <!-- NEW COLOR PICKER PALETTE -->
-            <div class="color-palette-wrapper">
-                 <div class="container-items">
-                    <button
-                        class="item-color"
-                        style="--color: #e11d48"
-                        aria-color="#e11d48"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #f472b6"
-                        aria-color="#f472b6"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #fb923c"
-                        aria-color="#fb923c"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #facc15"
-                        aria-color="#facc15"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #84cc16"
-                        aria-color="#84cc16"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #10b981"
-                        aria-color="#10b981"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #0ea5e9"
-                        aria-color="#0ea5e9"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #3b82f6"
-                        aria-color="#3b82f6"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #8b5cf6"
-                        aria-color="#8b5cf6"
-                    ></button>
-                    <button
-                        class="item-color"
-                        style="--color: #a78bfa"
-                        aria-color="#a78bfa"
-                    ></button>
-                </div>
-            </div>
-            <!-- END COLOR PICKER PALETTE -->
-            
-            <h2 style="color: #1f2937;">
-                Explore Our Simple Image Tools
-            </h2>
-
-            <!-- Feature Block 1: Black & White (Text Left, Image Right) -->
-            <div class="feature-row">
-                <div class="feature-content order-2">
-                    <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 1:</span>
-                    <h3>Black & White Conversion</h3>
-                    <p>
-                        Give your photos a timeless, dramatic look. Our **ML model** handles the conversion with smooth transitions and deep contrast, transforming your colorful picture into classic Black & White. This is not just a filter, but an optimized process delivering excellent results.
-                    </p>
-                    <a href="{% url 'takephoto' %}" class="feature-link">
-                        Try Black & White Now &rarr;
-                    </a>
-                </div>
-                <div class="feature-image order-1">
-                    <img src="https://placehold.co/600x400/374151/FFFFFF?text=Black+%26+White+Demo+Image" alt="Black & White Demo Image">
-                </div>
+            <!-- New File Uploader UI -->
+            <div class="uploader-container">
+              <label for="file-input" class="uploader-header">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
+                    stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <p>Browse File to upload!</p>
+              </label>
+              <div class="uploader-footer">
+                <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15.331 6H8.5v20h15V14.154h-8.169z"></path>
+                  <path d="M18.153 6h-.009v5.342H23.5v-.002z"></path>
+                </svg>
+                <p id="filename">Not selected file</p>
+              </div>
+              <input id="file-input" type="file" name="userimage" required>
             </div>
 
-            <!-- Feature Block 2: Compress (Image Left, Text Right - Zig-Zag) -->
-            <div class="feature-row">
-                <div class="feature-image">
-                    <img src="https://placehold.co/600x400/dbeafe/1d4ed8?text=Compression+Demo+Image" alt="Compression Demo Image">
+            <!-- Tool-specific options container -->
+            <div id="tool-options" style="margin-top: 1rem; display: none;">
+              <!-- Resize Options -->
+              <div id="resize-options" style="display: none;">
+                <label for="resize-range"
+                  style="font-weight: 600; color: #374151; margin-bottom: 0.5rem; display: block;">Select
+                  Size:</label>
+                <input id="resize-range" type="range" min="0.5" max="2.5" step="0.5" value="1" name="size"
+                  style="width: 100%;">
+                <div
+                  style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #6b7280; padding: 0 5px;">
+                  <span>x0.5</span>
+                  <span>x1</span>
+                  <span>x1.5</span>
+                  <span>x2</span>
+                  <span>x2.5</span>
                 </div>
-                <div class="feature-content">
-                    <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 2:</span>
-                    <h3>Compress for Speed</h3>
-                    <p>
-                        Reduce your file size without sacrificing quality. Our **ML technology** ensures your image is fast for uploads but looks perfect. This is best for web uploads, email attachments, or any digital use where file size matters.
-                    </p>
-                    <a href="{% url 'compress' %}" class="feature-link">
-                        Start Compressing &rarr;
-                    </a>
+              </div>
+
+              <!-- Rotate Options -->
+              <div id="rotate-options" style="display: none;">
+                <label for="rotate-range"
+                  style="font-weight: 600; color: #374151; margin-bottom: 0.5rem; display: block;">Select
+                  Angle:</label>
+                <input id="rotate-range" type="range" min="0" max="270" step="90" value="0" name="degree"
+                  style="width: 100%;">
+                <div
+                  style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #6b7280; padding: 0 5px;">
+                  <span>0°</span>
+                  <span>90°</span>
+                  <span>180°</span>
+                  <span>270°</span>
                 </div>
+              </div>
             </div>
+            <!-- End of tool-specific options -->
 
-            <!-- Feature Block 3: Crop (Text Left, Image Right) -->
-            <div class="feature-row">
-                <div class="feature-content order-2">
-                    <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 3:</span>
-                    <h3>Precise Cropping</h3>
-                    <p>
-                        Focus on the most important part of your picture. This tool helps you easily remove unwanted edges and perfect your composition. Quickly prepare your photo for any social media ratio or print size.
-                    </p>
-                    <a href="#" class="feature-link">
-                        Try the Crop Editor &rarr;
-                    </a>
-                </div>
-                <div class="feature-image order-1">
-                    <img src="https://placehold.co/600x400/10b981/ffffff?text=Cropping+Demo+Image" alt="Cropping Demo Image">
-                </div>
+            <button type="submit" class="upload-submit rounded shadow transition">
+              Submit and Process Image
+            </button>
+          </form>
+
+          <!-- Result Area -->
+          <div class="result-area">
+            <p style="font-size: 1rem; font-weight: 600; color: #1f2937; margin-bottom: 1rem;">Your Result:</p>
+            {% if lelo %}
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <img src="{% static '' %}{{ tool_type }}/{{ lelo }}" alt="Processed Image">
+              <p>
+                <a href="{% static '' %}{{ tool_type }}/{{ lelo }}" download
+                  class="download-link transition">Click to download</a>
+              </p>
             </div>
-
-            <!-- Feature Block 4: Resize (Image Left, Text Right - Zig-Zag) -->
-            <div class="feature-row">
-                <div class="feature-image">
-                    <img src="https://placehold.co/600x400/fcd34d/78350f?text=Resize+Demo+Image" alt="Resizing Demo Image">
-                </div>
-                <div class="feature-content">
-                    <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 4:</span>
-                    <h3>Instant Resizing</h3>
-                    <p>
-                        Dynamically change the dimensions of your image to fit print or screen requirements. Optimizing content for various platforms is now easier. Input dimensions in pixels or a percentage and get immediate results.
-                    </p>
-                    <a href="{% url 'resizing' %}" class="feature-link">
-                        Start Resizing &rarr;
-                    </a>
-                </div>
-            </div>
-
-            <!-- Feature Block 5: Rotate (Text Left, Image Right) -->
-            <div class="feature-row">
-                <div class="feature-content order-2">
-                    <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 5:</span>
-                    <h3>Quick Rotation</h3>
-                    <p>
-                        Easily fix orientation issues or add a creative angle to your photo. Rotate your image by 90 degrees, 180 degrees, or any angle you prefer. This is essential for perfect alignment and artistic adjustments.
-                    </p>
-                    <a href="{% url 'rotatephoto' %}" class="feature-link">
-                        Rotate Your Photo &rarr;
-                    </a>
-                </div>
-                <div class="feature-image order-1">
-                    <img src="https://placehold.co/600x400/f472b6/ffffff?text=Rotate+Demo+Image" alt="Rotation Demo Image">
-                </div>
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- === 5. LONG, PROFESSIONAL FOOTER === -->
-    <footer>
-        <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-            <div class="footer-grid">
-                
-                <!-- Column 1: Logo & Mission -->
-                <div>
-                    <div class="footer-logo-text">MyImageTools.</div>
-                    <p class="footer-mission">
-                        Simplifying everyday image processing with functional, human-focused tools. Your ML-powered utility suite for speed and quality.
-                    </p>
-                </div>
-
-                <!-- Column 2: Tools -->
-                <div>
-                    <h4 class="footer-heading">Our Tools</h4>
-                    <ul class="footer-links">
-                        <li><a href="{% url 'takephoto' %}">Black & White</a></li>
-                        <li><a href="{% url 'compress' %}">Compress Image</a></li>
-                        <li><a href="#">Crop Editor</a></li>
-                        <li><a href="{% url 'resizing' %}">Image Resize</a></li>
-                        <li><a href="{% url 'rotatephoto' %}">Rotate Image</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Company -->
-                <div>
-                    <h4 class="footer-heading">Project Info</h4>
-                    <ul class="footer-links">
-                        <li><a href="#about">About the Project</a></li>
-                        <li><a href="#features">All Features</a></li>
-                        <li><a href="#">ML Model Overview</a></li>
-                        <li><a href="#">Contact / Support</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Legal & Resources -->
-                <div>
-                    <h4 class="footer-heading">Legal</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Use</a></li>
-                        <li><a href="#">License</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- From Uiverse.io by Praashoo7 --> 
-<div class="main">
-  <div class="card">
-    <svg
-      fill-rule="nonzero"
-      height="30px"
-      width="30px"
-      viewBox="0,0,256,256"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      xmlns="http://www.w3.org/2000/svg"
-      class="instagram"
-    >
-      <g
-        style="mix-blend-mode: normal"
-        text-anchor="none"
-        font-size="none"
-        font-weight="none"
-        font-family="none"
-        stroke-dashoffset="0"
-        stroke-dasharray=""
-        stroke-miterlimit="10"
-        stroke-linejoin="miter"
-        stroke-linecap="butt"
-        stroke-width="1"
-        stroke="none"
-        fill-rule="nonzero"
-      >
-        <g transform="scale(8,8)">
-          <path
-            d="M11.46875,5c-3.55078,0 -6.46875,2.91406 -6.46875,6.46875v9.0625c0,3.55078 2.91406,6.46875 6.46875,6.46875h9.0625c3.55078,0 6.46875,-2.91406 6.46875,-6.46875v-9.0625c0,-3.55078 -2.91406,-6.46875 -6.46875,-6.46875zM11.46875,7h9.0625c2.47266,0 4.46875,1.99609 4.46875,4.46875v9.0625c0,2.47266 -1.99609,4.46875 -4.46875,4.46875h-9.0625c-2.47266,0 -4.46875,-1.99609 -4.46875,-4.46875v-9.0625c0,-2.47266 1.99609,-4.46875 4.46875,-4.46875zM21.90625,9.1875c-0.50391,0 -0.90625,0.40234 -0.90625,0.90625c0,0.50391 0.40234,0.90625 0.90625,0.90625c0.50391,0 0.90625,-0.40234 0.90625,-0.90625c0,-0.50391 -0.40234,-0.90625 -0.90625,-0.90625zM16,10c-3.30078,0 -6,2.69922 -6,6c0,3.30078 2.69922,6 6,6c3.30078,0 6,-2.69922 6,-6c0,-3.30078 -2.69922,-6 -6,-6zM16,12c2.22266,0 4,1.77734 4,4c0,2.22266 -1.77734,4 -4,4c-2.22266,0 -4,-1.77734 -4,-4c0,-2.22266 1.77734,-4 4,-4z"
-          ></path>
-        </g>
-      </g>
-    </svg>
-  </div>
-  <div class="card">
-    <svg
-      height="30px"
-      width="30px"
-      viewBox="0 0 48 48"
-      xmlns="http://www.w3.org/2000/svg"
-      class="twitter"
-    >
-      <path
-        d="M42,12.429c-1.323,0.586-2.746,0.977-4.247,1.162c1.526-0.906,2.7-2.351,3.251-4.058c-1.428,0.837-3.01,1.452-4.693,1.776C34.967,9.884,33.05,9,30.926,9c-4.08,0-7.387,3.278-7.387,7.32c0,0.572,0.067,1.129,0.193,1.67c-6.138-0.308-11.582-3.226-15.224-7.654c-0.64,1.082-1,2.349-1,3.686c0,2.541,1.301,4.778,3.285,6.096c-1.211-0.037-2.351-0.374-3.349-0.914c0,0.022,0,0.055,0,0.086c0,3.551,2.547,6.508,5.923,7.181c-0.617,0.169-1.269,0.263-1.941,0.263c-0.477,0-0.942-0.054-1.392-0.135c0.94,2.902,3.667,5.023,6.898,5.086c-2.528,1.96-5.712,3.134-9.174,3.134c-0.598,0-1.183-0.034-1.761-0.104C9.268,36.786,13.152,38,17.321,38c13.585,0,21.017-11.156,21.017-20.834c0-0.317-0.01-0.633-0.025-0.945C39.763,15.197,41.013,13.905,42,12.429"
-      ></path>
-    </svg>
-  </div>
-  <div class="card">
-    <svg
-      height="30px"
-      width="30px"
-      viewBox="0 0 40 40"
-      xmlns="http://www.w3.org/2000/svg"
-      class="dribble"
-    >
-      <path
-        d="M20,38.5C9.799,38.5,1.5,30.201,1.5,20S9.799,1.5,20,1.5S38.5,9.799,38.5,20S30.201,38.5,20,38.5z"
-      ></path>
-      <path
-        d="M20,2c9.925,0,18,8.075,18,18s-8.075,18-18,18S2,29.925,2,20S10.075,2,20,2 M20,1 C9.507,1,1,9.507,1,20s8.507,19,19,19s19-8.507,19-19S30.493,1,20,1L20,1z"
-        fill="#ea4c89"
-      ></path>
-      <path
-        d="M28.352 36.914c0 0-3.032-21.087-15.63-34.292M1.269 17.848c0 0 24.2 2.117 32.075-11.102M7.804 34.152c0 0 8.624-19.807 31.058-12.194"
-        stroke-miterlimit="10"
-        stroke="#ea4c89"
-        fill="none"
-      ></path>
-    </svg>
-  </div>
-  <div class="card">
-    <svg
-      height="30px"
-      width="30px"
-      viewBox="0 0 50 50"
-      xmlns="http://www.w3.org/2000/svg"
-      class="codepen"
-    >
-      <path
-        d="M 25 4 L 4 17.34375 L 4 32.652344 L 25 46 L 46 32.65625 L 46 17.34375 Z M 25 29.183594 L 19.066406 25.070313 L 25 21.023438 L 30.933594 25.070313 Z M 27 17.605469 L 27 9.949219 L 40.429688 18.484375 L 34.410156 22.65625 Z M 23 17.605469 L 15.589844 22.65625 L 9.570313 18.484375 L 23 9.949219 Z M 12.09375 25.042969 L 8 27.832031 L 8 22.203125 Z M 15.570313 27.453125 L 23 32.605469 L 23 40.050781 L 9.589844 31.527344 Z M 27 32.605469 L 34.429688 27.453125 L 40.410156 31.527344 L 27 40.050781 Z M 37.90625 25.042969 L 42 22.203125 L 42 27.832031 Z"
-      ></path>
-    </svg>
-  </div>
-  <div class="card">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
-      height="23px"
-      width="23px"
-      class="uiverse"
-    >
-      <path
-        fill="url(#paint0_linear_501_142)"
-        d="M38.0481 4.82927C38.0481 2.16214 40.018 0 42.4481 0H51.2391C53.6692 0 55.6391 2.16214 55.6391 4.82927V40.1401C55.6391 48.8912 53.2343 55.6657 48.4248 60.4636C43.6153 65.2277 36.7304 67.6098 27.7701 67.6098C18.8099 67.6098 11.925 65.2953 7.11548 60.6663C2.37183 56.0036 3.8147e-06 49.2967 3.8147e-06 40.5456V4.82927C3.8147e-06 2.16213 1.96995 0 4.4 0H13.2405C15.6705 0 17.6405 2.16214 17.6405 4.82927V39.1265C17.6405 43.7892 18.4805 47.2018 20.1605 49.3642C21.8735 51.5267 24.4759 52.6079 27.9678 52.6079C31.4596 52.6079 34.0127 51.5436 35.6268 49.4149C37.241 47.2863 38.0481 43.8399 38.0481 39.0758V4.82927Z"
-      ></path>
-      <path
-        fill="url(#paint1_linear_501_142)"
-        d="M86.9 61.8682C86.9 64.5353 84.9301 66.6975 82.5 66.6975H73.6595C71.2295 66.6975 69.2595 64.5353 69.2595 61.8682V4.82927C69.2595 2.16214 71.2295 0 73.6595 0H82.5C84.9301 0 86.9 2.16214 86.9 4.82927V61.8682Z"
-      ></path>
-      <path
-        fill="url(#paint2_linear_501_142)"
-        d="M2.86102e-06 83.2195C2.86102e-06 80.5524 1.96995 78.3902 4.4 78.3902H83.6C86.0301 78.3902 88 80.5524 88 83.2195V89.1707C88 91.8379 86.0301 94 83.6 94H4.4C1.96995 94 0 91.8379 0 89.1707L2.86102e-06 83.2195Z"
-      ></path>
-      <defs>
-        <linearGradient
-          gradientUnits="userSpaceOnUse"
-          y2="87.6201"
-          x2="96.1684"
-          y1="0"
-          x1="0"
-          id="paint0_linear_501_142"
-        >
-          <stop stop-color="#BF66FF"></stop>
-          <stop stop-color="#6248FF" offset="0.510417"></stop>
-          <stop stop-color="#00DDEB" offset="1"></stop>
-        </linearGradient>
-        <linearGradient
-          gradientUnits="userSpaceOnUse"
-          y2="87.6201"
-          x2="96.1684"
-          y1="0"
-          x1="0"
-          id="paint1_linear_501_142"
-        >
-          <stop stop-color="#BF66FF"></stop>
-          <stop stop-color="#6248FF" offset="0.510417"></stop>
-          <stop stop-color="#00DDEB" offset="1"></stop>
-        </linearGradient>
-        <linearGradient
-          gradientUnits="userSpaceOnUse"
-          y2="87.6201"
-          x2="96.1684"
-          y1="0"
-          x1="0"
-          id="paint2_linear_501_142"
-        >
-          <stop stop-color="#BF66FF"></stop>
-          <stop stop-color="#6248FF" offset="0.510417"></stop>
-          <stop stop-color="#00DDEB" offset="1"></stop>
-        </linearGradient>
-      </defs>
-    </svg>
-  </div>
-  <div class="card">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 48 48"
-      width="30px"
-      height="30px"
-      class="discord"
-    >
-      <path
-        d="M40,12c0,0-4.585-3.588-10-4l-0.488,0.976C34.408,10.174,36.654,11.891,39,14c-4.045-2.065-8.039-4-15-4s-10.955,1.935-15,4c2.346-2.109,5.018-4.015,9.488-5.024L18,8c-5.681,0.537-10,4-10,4s-5.121,7.425-6,22c5.162,5.953,13,6,13,6l1.639-2.185C13.857,36.848,10.715,35.121,8,32c3.238,2.45,8.125,5,16,5s12.762-2.55,16-5c-2.715,3.121-5.857,4.848-8.639,5.815L33,40c0,0,7.838-0.047,13-6C45.121,19.425,40,12,40,12z M17.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C21,28.209,19.433,30,17.5,30z M30.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C34,28.209,32.433,30,30.5,30z"
-      ></path>
-    </svg>
-  </div>
-  <div class="card">
-    <svg
-      height="30px"
-      width="30px"
-      viewBox="0 0 30 30"
-      xmlns="http://www.w3.org/2000/svg"
-      class="github"
-    >
-      <path
-        d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z"
-      ></path>
-    </svg>
-  </div>
-  <div class="card">
-    <svg
-      height="30px"
-      width="30px"
-      viewBox="0 0 48 48"
-      xmlns="http://www.w3.org/2000/svg"
-      class="telegram"
-    >
-      <path d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path>
-      <path
-        d="M33.95,15l-3.746,19.126c0,0-0.161,0.874-1.245,0.874c-0.576,0-0.873-0.274-0.873-0.274l-8.114-6.733 l-3.97-2.001l-5.095-1.355c0,0-0.907-0.262-0.907-1.012c0-0.625,0.933-0.923,0.933-0.923l21.316-8.468 c-0.001-0.001,0.651-0.235,1.126-0.234C33.667,14,34,14.125,34,14.5C34,14.75,33.95,15,33.95,15z"
-        fill="#fff"
-      ></path>
-      <path
-        d="M23,30.505l-3.426,3.374c0,0-0.149,0.115-0.348,0.12c-0.069,0.002-0.143-0.009-0.219-0.043 l0.964-5.965L23,30.505z"
-        fill="#b0bec5"
-      ></path>
-      <path
-        d="M29.897,18.196c-0.169-0.22-0.481-0.26-0.701-0.093L16,26c0,0,2.106,5.892,2.427,6.912 c0.322,1.021,0.58,1.045,0.58,1.045l0.964-5.965l9.832-9.096C30.023,18.729,30.064,18.416,29.897,18.196z"
-        fill="#cfd8dc"
-      ></path>
-    </svg>
-  </div>
-  <div class="card">
-    <svg
-      xml:space="preserve"
-      viewBox="0 0 256 256"
-      height="30"
-      width="30"
-      version="1.1"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      xmlns="http://www.w3.org/2000/svg"
-      class="reddit"
-    >
-      <defs></defs>
-      <g
-        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
-        style="stroke: none; border-radius:50%; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
-      >
-        <circle
-          transform="matrix(1 0 0 1 0 0)"
-          style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;"
-          r="45"
-          cy="45"
-          cx="45"
-        ></circle>
-        <path
-          stroke-linecap="round"
-          transform="matrix(1 0 0 1 0 0)"
-          style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;"
-          d="M 75.011 45 c -0.134 -3.624 -3.177 -6.454 -6.812 -6.331 c -1.611 0.056 -3.143 0.716 -4.306 1.823 c -5.123 -3.49 -11.141 -5.403 -17.327 -5.537 l 2.919 -14.038 l 9.631 2.025 c 0.268 2.472 2.483 4.262 4.955 3.993 c 2.472 -0.268 4.262 -2.483 3.993 -4.955 s -2.483 -4.262 -4.955 -3.993 c -1.421 0.145 -2.696 0.973 -3.4 2.204 L 48.68 17.987 c -0.749 -0.168 -1.499 0.302 -1.667 1.063 c 0 0.011 0 0.011 0 0.022 l -3.322 15.615 c -6.264 0.101 -12.36 2.025 -17.55 5.537 c -2.64 -2.483 -6.801 -2.36 -9.284 0.291 c -2.483 2.64 -2.36 6.801 0.291 9.284 c 0.515 0.481 1.107 0.895 1.767 1.186 c -0.045 0.66 -0.045 1.32 0 1.98 c 0 10.078 11.745 18.277 26.23 18.277 c 14.485 0 26.23 -8.188 26.23 -18.277 c 0.045 -0.66 0.045 -1.32 0 -1.98 C 73.635 49.855 75.056 47.528 75.011 45 z M 30.011 49.508 c 0 -2.483 2.025 -4.508 4.508 -4.508 c 2.483 0 4.508 2.025 4.508 4.508 s -2.025 4.508 -4.508 4.508 C 32.025 53.993 30.011 51.991 30.011 49.508 z M 56.152 62.058 v -0.179 c -3.199 2.405 -7.114 3.635 -11.119 3.468 c -4.005 0.168 -7.919 -1.063 -11.119 -3.468 c -0.425 -0.515 -0.347 -1.286 0.168 -1.711 c 0.447 -0.369 1.085 -0.369 1.544 0 c 2.707 1.98 6.007 2.987 9.362 2.83 c 3.356 0.179 6.667 -0.783 9.407 -2.74 c 0.492 -0.481 1.297 -0.47 1.779 0.022 C 56.655 60.772 56.644 61.577 56.152 62.058 z M 55.537 54.34 c -0.078 0 -0.145 0 -0.224 0 l 0.034 -0.168 c -2.483 0 -4.508 -2.025 -4.508 -4.508 s 2.025 -4.508 4.508 -4.508 s 4.508 2.025 4.508 4.508 C 59.955 52.148 58.02 54.239 55.537 54.34 z"
-        ></path>
-      </g>
-    </svg>
-  </div>
-  <p class="text">HOVER<br /><br />FOR<br /><br />SOCIAL</p>
-  <div class="main_back"></div>
-</div>
-
-
-            <!-- Bottom Row: Copyright -->
-            <div class="copyright">
-                <p>&copy; 2024 My Image Tools Project. All rights reserved. Built with simplicity and functionality in mind.</p>
-            </div>
+            {% else %}
+            <p style="font-size: 0.875rem; color: #6b7280; font-style: italic;">
+              Your processed image will show up right here after submission!
+            </p>
+            {% endif %}
+          </div>
         </div>
-    </footer>
+      </div>
+
+    <!-- --- 4. Focused Feature Blocks (Zig-Zag Layout) --- -->
+    <section id="features" class="container feature-block-container">
+
+      <!-- NEW COLOR PICKER PALETTE -->
+      <div class="color-palette-wrapper">
+        <div class="container-items">
+          <button class="item-color" style="--color: #e11d48" aria-color="#e11d48"></button>
+          <button class="item-color" style="--color: #f472b6" aria-color="#f472b6"></button>
+          <button class="item-color" style="--color: #fb923c" aria-color="#fb923c"></button>
+          <button class="item-color" style="--color: #facc15" aria-color="#facc15"></button>
+          <button class="item-color" style="--color: #84cc16" aria-color="#84cc16"></button>
+          <button class="item-color" style="--color: #10b981" aria-color="#10b981"></button>
+          <button class="item-color" style="--color: #0ea5e9" aria-color="#0ea5e9"></button>
+          <button class="item-color" style="--color: #3b82f6" aria-color="#3b82f6"></button>
+          <button class="item-color" style="--color: #8b5cf6" aria-color="#8b5cf6"></button>
+          <button class="item-color" style="--color: #a78bfa" aria-color="#a78bfa"></button>
+        </div>
+      </div>
+      <!-- END COLOR PICKER PALETTE -->
+
+      <h2 style="color: #1f2937;">
+        Explore Our Simple Image Tools
+      </h2>
+
+      <!-- Feature Block 1: Black & White (Text Left, Image Right) -->
+      <div class="feature-row">
+        <div class="feature-content order-2">
+          <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 1:</span>
+          <h3>Black & White Conversion</h3>
+          <p>
+            Give your photos a timeless, dramatic look. Our **ML model** handles the conversion with smooth transitions
+            and deep contrast, transforming your colorful picture into classic Black & White. This is not just a filter,
+            but an optimized process delivering excellent results.
+          </p>
+          <a href="{% url 'takephoto' %}" class="feature-link">
+            Try Black & White Now &rarr;
+          </a>
+        </div>
+        <div class="feature-image order-1">
+          <img src="https://placehold.co/600x400/374151/FFFFFF?text=Black+%26+White+Demo+Image"
+            alt="Black & White Demo Image">
+        </div>
+      </div>
+
+      <!-- Feature Block 2: Compress (Image Left, Text Right - Zig-Zag) -->
+      <div class="feature-row">
+        <div class="feature-image">
+          <img src="https://placehold.co/600x400/dbeafe/1d4ed8?text=Compression+Demo+Image"
+            alt="Compression Demo Image">
+        </div>
+        <div class="feature-content">
+          <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 2:</span>
+          <h3>Compress for Speed</h3>
+          <p>
+            Reduce your file size without sacrificing quality. Our **ML technology** ensures your image is fast for
+            uploads but looks perfect. This is best for web uploads, email attachments, or any digital use where file
+            size matters.
+          </p>
+          <a href="{% url 'compress' %}" class="feature-link">
+            Start Compressing &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Feature Block 3: Crop (Text Left, Image Right) -->
+      <div class="feature-row">
+        <div class="feature-content order-2">
+          <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 3:</span>
+          <h3>Precise Cropping</h3>
+          <p>
+            Focus on the most important part of your picture. This tool helps you easily remove unwanted edges and
+            perfect your composition. Quickly prepare your photo for any social media ratio or print size.
+          </p>
+          <a href="#" class="feature-link">
+            Try the Crop Editor &rarr;
+          </a>
+        </div>
+        <div class="feature-image order-1">
+          <img src="https://placehold.co/600x400/10b981/ffffff?text=Cropping+Demo+Image" alt="Cropping Demo Image">
+        </div>
+      </div>
+
+      <!-- Feature Block 4: Resize (Image Left, Text Right - Zig-Zag) -->
+      <div class="feature-row">
+        <div class="feature-image">
+          <img src="https://placehold.co/600x400/fcd34d/78350f?text=Resize+Demo+Image" alt="Resizing Demo Image">
+        </div>
+        <div class="feature-content">
+          <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 4:</span>
+          <h3>Instant Resizing</h3>
+          <p>
+            Dynamically change the dimensions of your image to fit print or screen requirements. Optimizing content for
+            various platforms is now easier. Input dimensions in pixels or a percentage and get immediate results.
+          </p>
+          <a href="{% url 'resizing' %}" class="feature-link">
+            Start Resizing &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Feature Block 5: Rotate (Text Left, Image Right) -->
+      <div class="feature-row">
+        <div class="feature-content order-2">
+          <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 5:</span>
+          <h3>Quick Rotation</h3>
+          <p>
+            Easily fix orientation issues or add a creative angle to your photo. Rotate your image by 90 degrees, 180
+            degrees, or any angle you prefer. This is essential for perfect alignment and artistic adjustments.
+          </p>
+          <a href="{% url 'rotatephoto' %}" class="feature-link">
+            Rotate Your Photo &rarr;
+          </a>
+        </div>
+        <div class="feature-image order-1">
+          <img src="https://placehold.co/600x400/f472b6/ffffff?text=Rotate+Demo+Image" alt="Rotation Demo Image">
+        </div>
+      </div>
+
+    </section>
+
+    <!-- === NEW: Meet the Team Section === -->
+    <section class="container team-section">
+      <h2 style="color: #1f2937;">Meet Our Team</h2>
+      <div class="team-grid">
+        <!-- Team Member 1: Frontend Dev -->
+        <div class="card">
+          <div class="sub-card category">
+            <span class="text_span">Frontend Developer</span>
+          </div>
+          <div class="card_container">
+            <svg class="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M20 5H4V19L13.2923 9.70649C13.6828 9.31595 14.3159 9.31591 14.7065 9.70641L20 15.0104V5ZM2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z">
+              </path>
+            </svg>
+          </div>
+          <div class="sub-card named">
+            <span class="text_span">Alex Doe</span>
+          </div>
+        </div>
+
+        <!-- Team Member 2: Backend Dev -->
+        <div class="card">
+          <div class="sub-card category">
+            <span class="text_span">Backend Developer</span>
+          </div>
+          <div class="card_container">
+            <svg class="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M20 5H4V19L13.2923 9.70649C13.6828 9.31595 14.3159 9.31591 14.7065 9.70641L20 15.0104V5ZM2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z">
+              </path>
+            </svg>
+          </div>
+          <div class="sub-card named">
+            <span class="text_span">Jordan Smith</span>
+          </div>
+        </div>
+
+        <!-- Team Member 3: Student Helper -->
+        <div class="card">
+          <div class="sub-card category">
+            <span class="text_span">Student Helper</span>
+          </div>
+          <div class="card_container">
+            <svg class="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M20 5H4V19L13.2923 9.70649C13.6828 9.31595 14.3159 9.31591 14.7065 9.70641L20 15.0104V5ZM2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z">
+              </path>
+            </svg>
+          </div>
+          <div class="sub-card named">
+            <span class="text_span">Chris Lee</span>
+          </div>
+        </div>
+
+        <!-- Team Member 4: Student Helper (Girl) -->
+        <div class="card">
+          <div class="sub-card category">
+            <span class="text_span">Student Helper</span>
+          </div>
+          <div class="card_container">
+            <svg class="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M20 5H4V19L13.2923 9.70649C13.6828 9.31595 14.3159 9.31591 14.7065 9.70641L20 15.0104V5ZM2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z">
+              </path>
+            </svg>
+          </div>
+          <div class="sub-card named">
+            <span class="text_span">Priya Sharma</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- === 5. LONG, PROFESSIONAL FOOTER === -->
+  <footer>
+    <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+      <div class="footer-grid">
+
+        <!-- Column 1: Logo & Mission -->
+        <div>
+          <div class="footer-logo-text">MyImageTools.</div>
+          <p class="footer-mission">
+            Simplifying everyday image processing with functional, human-focused tools. Your ML-powered utility suite
+            for speed and quality.
+          </p>
+        </div>
+
+        <!-- Column 2: Tools -->
+        <div>
+          <h4 class="footer-heading">Our Tools</h4>
+          <ul class="footer-links">
+            <li><a href="{% url 'takephoto' %}">Black & White</a></li>
+            <li><a href="{% url 'compress' %}">Compress Image</a></li>
+            <li><a href="#">Crop Editor</a></li>
+            <li><a href="{% url 'resizing' %}">Image Resize</a></li>
+            <li><a href="{% url 'rotatephoto' %}">Rotate Image</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Company -->
+        <div>
+          <h4 class="footer-heading">Project Info</h4>
+          <ul class="footer-links">
+            <li><a href="#about">About the Project</a></li>
+            <li><a href="#features">All Features</a></li>
+            <li><a href="#">ML Model Overview</a></li>
+            <li><a href="#">Contact / Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Legal & Resources -->
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">License</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Copyright -->
+      <div class="copyright">
+        <p>&copy; 2024 My Image Tools Project. All rights reserved. Built with simplicity and functionality in mind.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toolNav = document.getElementById('tool-nav-container');
+      const toolForm = document.getElementById('tool-form');
+      const fileInput = document.getElementById('file-input');
+      const toolOptionsContainer = document.getElementById('tool-options');
+      const resizeOptions = document.getElementById('resize-options');
+      const rotateOptions = document.getElementById('rotate-options');
+      const filenameDisplay = document.getElementById('filename');
+
+      if (toolNav && toolForm && fileInput && toolOptionsContainer) {
+
+        // Update filename display on file selection
+        fileInput.addEventListener('change', function() {
+          if (fileInput.files.length > 0) {
+            filenameDisplay.textContent = fileInput.files[0].name;
+          } else {
+            filenameDisplay.textContent = 'Not selected file';
+          }
+        });
+
+        // Handle tool selection logic
+        toolNav.addEventListener('click', function(e) {
+          // Use .closest() to handle clicks on either the <a> or <button>
+          const link = e.target.closest('a');
+          if (!link) return;
+
+          e.preventDefault(); // Prevent the link from navigating
+
+          const button = link.querySelector('.tool-nav-btn');
+          const toolName = button.textContent.trim();
+
+          if (!button || toolName === 'Crop') return; // Ignore crop for now
+
+          // Update form action and file input name
+          toolForm.action = button.dataset.formAction;
+          fileInput.name = button.dataset.inputName;
+
+          // Hide all specific options first
+          resizeOptions.style.display = 'none';
+          rotateOptions.style.display = 'none';
+          toolOptionsContainer.style.display = 'none';
+
+          // Show options for the selected tool
+          if (toolName === 'Resize') {
+            resizeOptions.style.display = 'block';
+            toolOptionsContainer.style.display = 'block';
+          } else if (toolName === 'Rotate') {
+            rotateOptions.style.display = 'block';
+            toolOptionsContainer.style.display = 'block';
+          }
+
+          // Update active button style
+          document.querySelectorAll('.tool-nav-btn').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+        });
+      }
+    });
+  </script>
 
 </body>
+
 </html>

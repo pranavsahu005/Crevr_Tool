@@ -1,4 +1,3 @@
-
 /* --- 0. Beginner-Friendly CSS --- */
 
 /* 0.1 GLOBAL STYLES (Applies to the whole page) */
@@ -491,44 +490,140 @@ header {
 
 
 /* --- 2. HERO SECTION STYLES --- */
+        /* 1. HERO SECTION (Blue Glass Panel) - SHIMMER TARGET */
+        /* ---------------------------------- */
+
 .bg-hero-gradient {
-  background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #f472b6 100%);
-  color: white;
-  padding: 6rem 0 8rem 0;
-  margin-bottom: 5rem;
-  position: relative;
-  /* Ensures hero content is above background balls */
-  z-index: 1;
+            /* Blue-Tinted Glassmorphism Effect */
+            background-color: rgba(180, 210, 255, 0.4); /* Blue Glass */
+            backdrop-filter: blur(16px); 
+            
+            border: 1px solid rgba(255, 255, 255, 0.6); 
+            
+            /* Soft, lifted shadow */
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3);
+            
+            color: #1f2937; /* Dark text for readability */
+            padding: 50px 40px; 
+            max-width: 900px; 
+            margin: auto;
+            border-radius: 1.75rem; 
+            position: relative;
+            overflow: hidden; 
+            z-index: 10; /* Z-index high for content visibility */
+            transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
 }
 
+.bg-hero-gradient:hover {
+            transform: scale(1.02); 
+            /* DUAL SHINE EFFECT: White Inset + Blue Inset */
+            box-shadow: 
+                0 15px 60px rgba(0, 0, 0, 0.35), 
+                0 0 20px 5px rgba(255, 255, 255, 1) inset,
+                0 0 40px 10px rgba(0, 119, 182, 0.5) inset; 
+            animation: none;
+}
+        
+        /* ---------------------------------- */
+        /* 2. SHIMMER EFFECT STYLES (Linear Bar Movement) */
+        /* ---------------------------------- */
+
+        /* Shimmer Container */
+.shimmer-effect {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0; 
+            z-index: 5; 
+            display: flex;
+            height: 100%;
+            width: 100%;
+            /* Initial state for keyframes to take over */
+            transform: skew(-13deg); 
+            overflow: hidden; 
+}
+
+        /* Shimmer movement on SECTION hover */
+.bg-hero-gradient:hover .shimmer-effect {
+            animation: shimmer-move 1.5s ease-in-out forwards;
+}
+
+@keyframes shimmer-move {
+            0% { transform: skew(-13deg) translateX(-120%); }
+            100% { transform: skew(-13deg) translateX(120%); }
+}
+
+        /* The actual Shimmer Bar (White on Blue background is highly visible) */
+.shimmer-bar {
+            position: relative;
+            height: 100%;
+            width: 3rem; 
+            background-color: #ffffff; /* Increased visibility */
+}
+
+        /* ---------------------------------- */
+        /* 3. INNER CONTENT STYLES */
+        /* ---------------------------------- */
+
 .hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 20; /* Ensure content is above shimmer bar (z-index: 5) */
+}
+
+.hero-content h1 span {
+            display: block;
+            font-weight: 400;
+            font-size: 2rem;
+            /* Blue Accent */
+            color: #0077b6; 
+            text-transform: none;
 }
 
 .hero-content p {
-  opacity: 0.9;
-  margin-bottom: 2.5rem;
-  max-width: 48rem;
-  font-size: 1.25rem;
+            opacity: 1;
+            margin-bottom: 2.5rem;
+            max-width: 48rem;
+            font-size: 1.25rem;
+            text-transform: none;
 }
-
+        
+        /* CTA Button (Blue Themed) */
 .hero-cta {
-  padding: 1rem 2rem;
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #4f46e5;
-  background-color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            
+            border-radius: 0.5rem; 
+            /* Solid Deep Blue Background */
+            background-color: #0077b6; 
+            border: none;
+            
+            padding: 0.75rem 2rem; 
+            font-size: 1.125rem; 
+            font-weight: 700; 
+            color: white; 
+            
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 119, 182, 0.4); /* Button shadow with blue color */
+            transition: all 300ms ease-in-out;
+            z-index: 20;
 }
 
+.hero-cta span {
+            text-transform: none;
+}
+        
 .hero-cta:hover {
-  background-color: #f3f4f6;
+            /* Lighter Blue on hover */
+            background-color: #0096c7;
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(0, 119, 182, 0.6);
 }
 
 /* --- 3. TOOL PANEL STYLES (GLASS MORPHISM) --- */
@@ -670,19 +765,24 @@ main {
 
 /* New Styles for Color Picker Palette */
 .color-palette-wrapper {
-  margin: 0 auto 3rem auto;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  /* Full width container for centering */
+  margin: 0 auto 4rem auto; /* Increased bottom margin */
+  padding: 1.5rem 0; /* Added vertical padding */
+  background-image: repeating-linear-gradient(45deg,
+      rgba(239, 246, 255, 0.5),
+      rgba(239, 246, 255, 0.5) 10px,
+      rgba(255, 255, 255, 0.5) 10px,
+      rgba(255, 255, 255, 0.5) 20px); /* Creative: Subtle background pattern */
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(167, 139, 250, 0.2); /* Creative: Soft glow */
 }
 
 .container-items {
   display: flex;
+  justify-content: center; /* Center the color items */
+  gap: 0.5rem; /* Add a small gap between items */
   transform-style: preserve-3d;
   transform: perspective(1000px);
-  padding: 0 1rem;
-  gap: 1rem;
+  max-width: 100%;
 }
 
 .item-color {
@@ -694,8 +794,7 @@ main {
   outline: none;
   transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
   cursor: pointer;
-  background-color: transparent;
-  /* Must be transparent to show ::after */
+  background-color: transparent; /* Must be transparent to show ::after */
 }
 
 .item-color::after {
@@ -706,33 +805,32 @@ main {
   height: 40px;
   background-color: var(--color);
   border-radius: 6px;
-  transform: scale(1.2);
   pointer-events: none;
   transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
   /* Center the pseudo-element since the button is only 32px wide */
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(1.2); /* Centered and scaled */
 }
 
 .item-color::before {
   position: absolute;
   content: attr(aria-color);
-  left: 50%;
-  /* Center relative to the button */
+  left: 50%; /* Centered relative to the button */
   bottom: 52px;
   font-size: 8px;
   line-height: 12px;
   transform: translateX(-50%);
   padding: 2px 0.25rem;
   background-color: #ffffff;
+  color: #333; /* Added text color for better readability */
   border-radius: 6px;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
   transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
-  white-space: nowrap;
-  /* Prevent color code wrap */
+  white-space: nowrap; /* Prevent color code wrap */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Added subtle shadow to tooltip */
 }
 
 .item-color:hover {
@@ -746,14 +844,14 @@ main {
 }
 
 .item-color:active::after {
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1.1); /* Centered active state */
 }
 
 .item-color:focus::before {
   content: "✅Copy";
 }
 
-/* Complex adjacent sibling selectors for 3D effect */
+/* --- 3D Hover Effect --- */
 .item-color:hover+* {
   transform: scale(1.3);
   z-index: 9999;
@@ -764,6 +862,11 @@ main {
   z-index: 999;
 }
 
+.item-color:hover+*+*+* {
+  transform: scale(1.05);
+  z-index: 99;
+}
+
 .item-color:has(+ *:hover) {
   transform: scale(1.3);
   z-index: 9999;
@@ -772,6 +875,11 @@ main {
 .item-color:has(+ * + *:hover) {
   transform: scale(1.15);
   z-index: 999;
+}
+
+.item-color:has(+ * + * + *:hover) {
+  transform: scale(1.05);
+  z-index: 99;
 }
 
 .feature-row {
@@ -932,8 +1040,15 @@ footer {
   font-size: 0.875rem;
   padding-top: 1rem;
 }
-/* --- 6. RESPONSIVE ADJUSTMENTS --- */
-/* From Uiverse.io by Praashoo7 */ 
+
+/* --- Social Media Icons (Added by Gemini Code Assist) --- */
+.social-icons-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem; /* Add some space above the icons */
+  margin-bottom: 2rem; /* Add some space below the icons */
+}
+
 .main_back {
   position: absolute;
   border-radius: 10px;
@@ -945,15 +1060,6 @@ footer {
   box-shadow: inset 0px 0px 180px 5px #ffffff;
 }
 
-.main {
-  display: flex;
-  flex-wrap: wrap;
-  width: 14em;
-  align-items: center;
-  justify-content: center;
-  z-index: -1;
-}
-
 .card {
   display: flex;
   align-items: center;
@@ -961,11 +1067,9 @@ footer {
   width: 60px;
   height: 60px;
   border-top-left-radius: 10px;
-  background: lightgrey;
   transition: 0.4s ease-in-out, 0.2s background-color ease-in-out,
     0.2s background-image ease-in-out;
   background: rgba(255, 255, 255, 0.596);
-  backdrop-filter: blur(5px);
   border: 1px solid transparent;
   -webkit-backdrop-filter: blur(5px);
 }
@@ -1061,7 +1165,7 @@ footer {
 }
 
 .main:hover {
-  width: 14em;
+  width: 12em; /* Adjusted hover width to match */
   cursor: pointer;
 }
 
@@ -1071,7 +1175,7 @@ footer {
 
 .main:hover .card {
   margin: 0.2em;
-  border-radius: 10px;
+  border-radius: 10px !important; /* Ensure border-radius applies on hover */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.2);
@@ -1225,9 +1329,237 @@ footer {
   position: absolute;
   font-size: 0.7em;
   transition: 0.4s ease-in-out;
-  color: black;
+  color: #d1d5db; /* Changed to light gray for visibility on dark footer */
   text-align: center;
   font-weight: bold;
   letter-spacing: 0.33em;
   z-index: 3;
+}
+
+/* --- New File Uploader Styles --- */
+.uploader-container {
+  height: 250px;
+  width: 100%;
+  max-width: 350px; /* Max width for larger screens */
+  margin: 0 auto 1rem auto; /* Center it and add bottom margin */
+  border-radius: 10px;
+  box-shadow: 4px 4px 30px rgba(0, 0, 0, .1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  gap: 5px;
+  background-color: rgba(0, 110, 255, 0.041);
+}
+
+.uploader-header {
+  flex: 1;
+  width: 100%;
+  border: 2px dashed royalblue;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.uploader-header svg {
+  height: 80px;
+}
+
+.uploader-header p {
+  text-align: center;
+  color: black;
+  margin-bottom: 0;
+}
+
+.uploader-footer {
+  background-color: rgba(0, 110, 255, 0.075);
+  width: 100%;
+  height: 40px;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: black;
+  border: none;
+}
+
+.uploader-footer svg {
+  height: 130%;
+  fill: royalblue;
+  background-color: rgba(70, 66, 66, 0.103);
+  border-radius: 50%;
+  padding: 2px;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
+}
+
+.uploader-footer p {
+  flex: 1;
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+}
+
+#file-input {
+  display: none;
+}
+/* --- Team Section Styles --- */
+.team-section {
+  padding: 4rem 0;
+  margin-bottom: 2rem;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  justify-items: center;
+}
+
+.team-grid .card {
+  --white: hsl(0, 0%, 83%);
+  --black: hsl(240, 15%, 9%);
+  --stone-300: hsl(24, 6%, 83%);
+  --pink-500: hsl(299, 100%, 83%);
+
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease-in-out; /* Added for smooth hover effect */
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.15); /* Cloud effect shadow */
+  /* Reset styles from footer icons */
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  -webkit-backdrop-filter: none;
+  border: none;
+}
+
+.team-grid .card:hover {
+  transform: translateY(-8px); /* Lifts the card on hover */
+  box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25); /* Enhances cloud shadow on hover */
+}
+
+.team-grid .sub-card {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  min-width: 11.5rem;
+  height: 2.25rem;
+  background-color: var(--stone-300);
+}
+
+.team-grid .sub-card.category {
+  justify-content: space-between;
+  border-radius: 0.5rem 0.5rem 0rem 0rem;
+  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+.team-grid .sub-card.named {
+  justify-content: center;
+  border-radius: 0rem 0rem 0.5rem 0.5rem;
+  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+.team-grid .card:hover .sub-card.category {
+  transform: translateY(100%);
+}
+
+.team-grid .card:hover .sub-card.named {
+  transform: translateY(-100%);
+}
+
+.team-grid .sub-card .text_span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--black);
+  text-transform: capitalize;
+}
+
+.team-grid .sub-card .icon_svg {
+  width: 1rem;
+  fill: var(--black);
+}
+
+.team-grid .card_container {
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+  width: 13rem;  /* Made the card smaller */
+  height: 11rem; /* Made the card smaller */
+  background-color: var(--pink-500);
+  border-radius: 0.5rem;
+}
+
+.team-grid .card_container::before {
+  content: "";
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0rem;
+  aspect-ratio: 1;
+  background-color: hsl(240, 15%, 9%, 0.2);
+  border-radius: 50%;
+  transform-origin: center;
+  transition: all 1s cubic-bezier(1, 0, 0, 1) 0.2s;
+}
+
+.team-grid .card_container::after {
+  content: "See more";
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem;
+  box-sizing: border-box;
+  width: 0rem;
+  aspect-ratio: 1;
+  background-color: hsl(240, 15%, 9%, 0.5);
+  font-size: 0rem;
+  font-weight: bold;
+  color: var(--white);
+  text-align: center;
+  border-radius: 50%;
+  transform-origin: center;
+  transition: all 1s cubic-bezier(1, 0, 0, 1) 0s;
+}
+
+.team-grid .card:hover .card_container::before {
+  width: 22.5rem;
+  transition: all 1s cubic-bezier(1, 0, 0, 1) 0s;
+}
+
+.team-grid .card:hover .card_container::after {
+  padding: 1rem;
+  width: 5rem;
+  font-size: 0.75rem;
+  transition: all 0.3s ease-in-out 0.4s;
+}
+
+.team-grid .card_container .image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.2); /* Start slightly zoomed in */
+  width: 100%; /* Make image fill the container */
+  height: 100%;
+  object-fit: cover; /* Ensure image covers the area without distortion */
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.team-grid .card:hover .card_container .image {
+  transform: translate(-50%, -50%) scale(1); /* Zoom out to normal on hover */
 }

@@ -1,110 +1,78 @@
-import numpy as np
 import cv2
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render
 import os
-def takePhoto(request):
-    if request.method=="POST":
-        image=request.FILES.get("userimage")
-        #filesystestorage ka object banaya
-        fs=FileSystemStorage()
-        #file ko save karwaya
-        filename=fs.save(image.name,image)
-        #jaha file save hui uska address nikala
-        filepath=fs.path(filename)
-        #address file ko cv2 mein read karwaaya
-        data=cv2.imread(filepath)
+from django.views.decorators.http import require_http_methods
+from django.conf import settings
+@require_http_methods(["GET"])
+def home(request):
+    """
+    This view handles GET requests and renders the main user interface page.
+    """
+    return render(request, "user.html")
 
-        #grayscale mein 
-        # convert kiya
-        data2=cv2.cvtColor(data,cv2.COLOR_BGR2GRAY)
-        #naya address banaya taki grayscale photo ko save kiya ja sake
-        path=os.path.join(fs.location,"../../static/gray")
-        #naya filename banaya with extension explicitly
-        newfilename=f"gray_{filename}.jpg"
 
-        #new address or filename ko join kiya
-        completePath=os.path.join(path,newfilename)
+@require_http_methods(["POST"])
+def process_image(request):
+    """
+    This view handles POST requests from the tool form to process an uploaded image.
+    It determines the tool used based on the submission URL.
+    """
+    # Determine the tool from the path, e.g., '/compress/' -> 'compress'
+    path = request.path.strip('/')
+    tool_type = path
 
-        #grayscale matrix(2d) array ko image mein convert kiya
-        cv2.imwrite(completePath,data2)
-    
-        return render(request,'black.html',{'lelo':newfilename})
-    else:
-        return render(request,"user.html")
+    # The name of the file input field changes based on the tool
+    input_name_map = {
+        'grayscale': 'userimage',
+        'compress': 'compressimg',
+        'resize': 'resizing',
+        'rotate': 'rotating'
+    }
+    input_name = input_name_map.get(tool_type)
+    image_file = request.FILES.get(input_name)
 
-   #compress Image
+    if not image_file:
+        return render(request, "user.html", {'error': 'No image file was submitted.'})
 
-def compressing(request):
-        if request.method=='POST':
-            image=request.FILES.get("compressimg")
-            fs=FileSystemStorage()
-            filename=fs.save(image.name,image)
-            filepath=fs.path(filename)
-            data=cv2.imread(filepath)
-            
-            #compress image function
-            data2=data.astype("uint8")
-            path=os.path.join(fs.location,"../../static/compress")
-            newfilename=f"comp_{filename}.jpg"
-            completePath=os.path.join(path,newfilename)
-            cv2.imwrite(completePath,data2)
-            print(data2)
-            return render(request,'comp.html',{'lelo':newfilename})
-        else:
-            return render(request,"comp.html")
-        
-def resizing(request):
+    fs = FileSystemStorage()
+    filename = fs.save(image_file.name, image_file)
+    filepath = fs.path(filename)
+    original_image = cv2.imread(filepath)
+    processed_image = None
+    new_filename_prefix = tool_type
 
-    if request.method=='POST':
-            image=request.FILES.get("resizing")
-            size=float(request.POST.get("size"))
-            fs=FileSystemStorage()
-            filename=fs.save(image.name,image)
-            filepath=fs.path(filename)
-            data=cv2.imread(filepath)
-            print(size)
-            #resizeing image function
-            data2=cv2.resize(data,None,fx=size,fy=size)           
-            path=os.path.join(fs.location,"../../static/resize")
-            newfilename=f"resize_{filename}.jpg"
-            completePath=os.path.join(path,newfilename)
-            cv2.imwrite(completePath,data2)
-            print(data2)
-            return render(request,'resize.html',{'lelo':newfilename})
-    else:
-            return render(request,"resize.html")
-        
-          
-def rotate(request):
-      if request.method=='POST':
-           image=request.FILES.get("rotating")
-           degree=int(request.POST.get("degree"))
-           fs=FileSystemStorage()
-           filename=fs.save(image.name,image)
-           filepath=fs.path(filename)
-           data=cv2.imread(filepath)
-           print(degree)
+    # --- Apply processing based on the tool ---
+    if tool_type == 'grayscale':
+        processed_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2GRAY)
 
-           #function rotate
-           if degree==0:
-                rotate=data
-           elif degree==90:
-                rotate=cv2.rotate(data,cv2.ROTATE_90_CLOCKWISE)
-           elif degree==180:
-                rotate=cv2.rotate(data,cv2.ROTATE_180)
-           elif degree==270:
-                rotate=cv2.rotate(data,cv2.ROTATE_90_COUNTERCLOCKWISE)
+    elif tool_type == 'compress':
+        # For compression, we just re-save the image. The quality is handled by imwrite.
+        # The user's old code just saved it as is, which we will replicate.
+        processed_image = original_image
 
-           data2=rotate
-           path=os.path.join(fs.location,"../../static/rotate")
-           newfilename=f"rotate_{filename}.jpg"
-           completePath=os.path.join(path,newfilename)
-           cv2.imwrite(completePath,data2)
-           print(data2)
-           return render(request,'rotate.html',{'lelo':newfilename})
-      else:
-           return render(request,"rotate.html")
+    elif tool_type == 'resize':
+        size = float(request.POST.get("size", 1.0))
+        processed_image = cv2.resize(original_image, None, fx=size, fy=size)
+
+    elif tool_type == 'rotate':
+        degree = int(request.POST.get("degree", 0))
+        rotation_map = {90: cv2.ROTATE_90_CLOCKWISE, 180: cv2.ROTATE_180, 270: cv2.ROTATE_90_COUNTERCLOCKWISE}
+        rotation_code = rotation_map.get(degree)
+        processed_image = cv2.rotate(original_image, rotation_code) if rotation_code is not None else original_image
+
+    if processed_image is None:
+        return render(request, "user.html", {'error': 'Invalid tool specified.'})
+
+    # --- Save the processed image ---
+    output_dir = os.path.join(settings.BASE_DIR, "static", new_filename_prefix)
+    os.makedirs(output_dir, exist_ok=True)
+    # Ensure the new filename has a common extension like .jpg for consistency
+    new_filename = f"{new_filename_prefix}_{os.path.splitext(filename)[0]}.jpg"
+    complete_path = os.path.join(output_dir, new_filename)
+    cv2.imwrite(complete_path, processed_image)
+
+    return render(request, 'user.html', {'lelo': new_filename, 'tool_type': new_filename_prefix})
 
 def signup(request):
-     return render(request,'signin.html')
+    return render(request, 'signin.html')

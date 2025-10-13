@@ -1,5 +1,6 @@
 body{
-    background-color: #0099ff;
+    background: #FFEFBA;
+    background: linear-gradient(to bottom, #FFFFFF, #FFEFBA);
 }
 .container {
     max-width: 500px;
