@@ -1,4 +1,5 @@
-{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visual Suite for Everyone - Crevr</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'user.css' %}">
+  <link rel="stylesheet" href="/static/user.css">
 </head>
 
 <body>
@@ -25,7 +26,7 @@
     <div class="header-content">
       <!-- Logo Text -->
       <div class="logo crevr-logo-container">
-        <img src="{% static 'image/crevr_logo1.png' %}" alt="Crevr Logo">
+        <img src="/static/image/crevr_logo1.png" alt="Crevr Logo">
       </div>
 
       <!-- NEW MENU REPLACEMENT -->
@@ -100,7 +101,7 @@
         </a>
       </div>
       <!-- END NEW MENU REPLACEMENT -->
-      <a href="{% url 'signin' %}" class="header-cta rounded shadow transition">Get Started</a>
+      <a href="/signin/" class="header-cta rounded shadow transition">Get Started</a>
     </div>
   </header>
 
@@ -165,23 +166,23 @@
         <nav class="tool-nav" id="tool-nav-container">
           <div class="tool-nav-menu">
             <!-- Black & White (Active by default, using 'takephoto' URL as placeholder) -->
-            <a href="{% url 'takephoto' %}"><button class="tool-nav-btn active" data-form-action="{% url 'takephoto' %}"
+            <a href="/grayscale/"><button class="tool-nav-btn active" data-form-action="/grayscale/"
                 data-input-name="userimage">Black & White</button></a>
 
             <!-- Compress -->
-            <a href="{% url 'compress' %}"><button class="tool-nav-btn" data-form-action="{% url 'compress' %}"
+            <a href="/compress/"><button class="tool-nav-btn" data-form-action="/compress/"
                 data-input-name="compressimg">Compress</button></a>
 
             <!-- Crop (Placeholder URL) -->
-            <a href="{% url 'crop' %}"><button class="tool-nav-btn" data-form-action="{% url 'crop' %}"
+            <a href="/crop/"><button class="tool-nav-btn" data-form-action="/crop/"
                 data-input-name="cropimg">Crop</button></a>
 
             <!-- Resize (New Feature) -->
-            <a href="{% url 'resizing' %}"><button class="tool-nav-btn" data-form-action="{% url 'resizing' %}"
+            <a href="/resize/"><button class="tool-nav-btn" data-form-action="/resize/"
                 data-input-name="resizing">Resize</button></a>
 
             <!-- Rotate (New Feature) - NOTE: Your rotate.html has a range slider. I've added it here, hidden by default. -->
-            <a href="{% url 'rotatephoto' %}"><button class="tool-nav-btn" data-form-action="{% url 'rotatephoto' %}"
+            <a href="/rotate/"><button class="tool-nav-btn" data-form-action="/rotate/"
                 data-input-name="rotating">Rotate</button></a>
           </div>
         </nav>
@@ -191,9 +192,9 @@
           <p style="font-size: 1.125rem; color: #4b5563; font-weight: 700; margin-bottom: 1rem;">Upload an image to
             start transforming it!</p>
 
-          <form id="tool-form" action="{% url 'takephoto' %}" enctype="multipart/form-data" method="post"
+          <form id="tool-form" action="/grayscale/" enctype="multipart/form-data" method="post"
             class="upload-form">
-            {% csrf_token %}
+            <input type="hidden" name="csrfmiddlewaretoken" value="kbyVOsYl0WzD91CHqd8qRG5I4fTAcFsWQIFCgHP5Ytqi6zYEYJbFY2BDW8f6s1SE">
 
             <!-- New File Uploader UI -->
             <div class="uploader-container">
@@ -260,19 +261,11 @@
           <!-- Result Area -->
           <div class="result-area">
             <p style="font-size: 1rem; font-weight: 600; color: #1f2937; margin-bottom: 1rem;">Your Result:</p>
-            {% if lelo %}
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-              <img src="{% static '' %}{{ tool_type }}/{{ lelo }}" alt="Processed Image">
-              <p>
-                <a href="{% static '' %}{{ tool_type }}/{{ lelo }}" download
-                  class="download-link transition">Click to download</a>
-              </p>
-            </div>
-            {% else %}
+            
             <p style="font-size: 0.875rem; color: #6b7280; font-style: italic;">
               Your processed image will show up right here after submission!
             </p>
-            {% endif %}
+            
           </div>
         </div>
       </div>
@@ -311,19 +304,19 @@
             and deep contrast, transforming your colorful picture into classic Black & White. This is not just a filter,
             but an optimized process delivering excellent results.
           </p>
-          <a href="{% url 'takephoto' %}" class="feature-link">
+          <a href="/grayscale/" class="feature-link">
             Try Black & White Now &rarr;
           </a>
         </div>
         <div class="feature-image order-1">
-          <img src="{% static 'image/black.jpg' %}" alt="Black & White Demo Image">
+          <img src="/static/image/black.jpg" alt="Black & White Demo Image">
         </div>
       </div>
 
       <!-- Feature Block 2: Compress (Image Left, Text Right - Zig-Zag) -->
       <div class="feature-row">
         <div class="feature-image">
-          <img src="{% static 'image/compress.jpg' %}" alt="Side-by-side comparison of the same landscape photo, left original with high detail and color, right compressed with slightly softened detail; neutral studio background; practical, efficiency-focused tone">
+          <img src="/static/image/compress.jpg" alt="Side-by-side comparison of the same landscape photo, left original with high detail and color, right compressed with slightly softened detail; neutral studio background; practical, efficiency-focused tone">
         </div>
         <div class="feature-content">
           <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 2:</span>
@@ -333,7 +326,7 @@
             uploads but looks perfect. This is best for web uploads, email attachments, or any digital use where file
             size matters.
           </p>
-          <a href="{% url 'compress' %}" class="feature-link">
+          <a href="/compress/" class="feature-link">
             Start Compressing &rarr;
           </a>
         </div>
@@ -353,14 +346,14 @@
           </a>
         </div>
         <div class="feature-image order-1">
-          <img src="{% static 'image/crop.jpg' %}" alt="Cropping Demo Image">
+          <img src="/static/image/crop.jpg" alt="Cropping Demo Image">
         </div>
       </div>
 
       <!-- Feature Block 4: Resize (Image Left, Text Right - Zig-Zag) -->
       <div class="feature-row">
         <div class="feature-image">
-          <img src="{% static 'image/resize.jpg' %}" alt="Resizing Demo Image">
+          <img src="/static/image/resize.jpg" alt="Resizing Demo Image">
         </div>
         <div class="feature-content">
           <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 4:</span>
@@ -369,7 +362,7 @@
             Dynamically change the dimensions of your image to fit print or screen requirements. Optimizing content for
             various platforms is now easier. Input dimensions in pixels or a percentage and get immediate results.
           </p>
-          <a href="{% url 'resizing' %}" class="feature-link">
+          <a href="/resize/" class="feature-link">
             Start Resizing &rarr;
           </a>
         </div>
@@ -384,16 +377,38 @@
             Easily fix orientation issues or add a creative angle to your photo. Rotate your image by 90 degrees, 180
             degrees, or any angle you prefer. This is essential for perfect alignment and artistic adjustments.
           </p>
-          <a href="{% url 'rotatephoto' %}" class="feature-link">
+          <a href="/rotate/" class="feature-link">
             Rotate Your Photo &rarr;
           </a>
         </div>
         <div class="feature-image order-1">
-          <img src="{% static 'image/rotate.jpg' %}" alt="Rotation Demo Image">
+          <img src="/static/image/rotate.jpg" alt="Rotation Demo Image">
         </div>
       </div>
 
     </section>
+
+    <!-- === NEW: Video Intro Section === -->
+    <section id="intro" class="container video-intro-section">
+      <h2>Our Impact & Benefits</h2>
+      <p>
+        Discover how Crevr simplifies your creative workflow. Our suite of ML-powered tools is designed for speed,
+        quality, and ease of use, helping you transform your images in seconds.
+      </p>
+      <div id="video-player-container" class="video-container">
+a        <video id="intro-video" poster="/static/image/template.png" preload="metadata" controlslist="nodownload noplaybackrate" disablepictureinpicture>
+          <source src="/static/vedio/crevr_into.mp4" type="video/mp4" />
+          
+          Your browser does not support the video tag.
+        </video>
+        <div class="play-button-overlay">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="80px" height="80px">
+            <path d="M8 5v14l11-7z"></path>
+          </svg>
+        </div>
+      </div>
+    </section>
+
 
     <!-- === NEW: Meet the Team Section === -->
     <section id="team" class="container team-section">
@@ -405,7 +420,7 @@
             <span class="text_span">Frontend Developer</span>
           </div>
           <div class="card_container">
-            <img class="image" src="{% static 'image/pranav.png' %}" alt="Pranav">
+            <img class="image" src="/static/image/pranav.png" alt="Pranav">
           </div>
           <div class="sub-card named">
             <span class="text_span">Pranav</span>
@@ -418,7 +433,7 @@
             <span class="text_span">Backend Developer</span>
           </div>
           <div class="card_container">
-            <img class="image" src="{% static 'image/mahendra.png' %}" alt="Mahendra">
+            <img class="image" src="/static/image/mahendra.png" alt="Mahendra">
           </div>
           <div class="sub-card named">
             <span class="text_span">Mahendra</span>
@@ -431,7 +446,7 @@
             <span class="text_span">Backend Developer</span>
           </div>
           <div class="card_container">
-            <img class="image" src="{% static 'image/vaikunth.png' %}" alt="Vaikunth">
+            <img class="image" src="/static/image/vaikunth.png" alt="Vaikunth">
           </div>
           <div class="sub-card named">
             <span class="text_span">Vaikunth</span>
@@ -444,7 +459,7 @@
             <span class="text_span">Frontend Developer</span>
           </div>
           <div class="card_container">
-            <img class="image" src="{% static 'image/sujata.png' %}" alt="Sujata">
+            <img class="image" src="/static/image/sujata.png" alt="Sujata">
           </div>
           <div class="sub-card named">
             <span class="text_span">Sujata</span>
@@ -630,6 +645,28 @@
           button.classList.add('active');
         });
       }
+
+      // --- NEW: Custom Video Player Logic ---
+      const videoContainer = document.getElementById('video-player-container');
+      const video = document.getElementById('intro-video');
+      const playButtonOverlay = videoContainer.querySelector('.play-button-overlay');
+
+      const playVideo = () => {
+        videoContainer.classList.add('playing');
+        video.controls = true; // Show default browser controls
+        video.play();
+      };
+
+      playButtonOverlay.addEventListener('click', playVideo);
+
+      // When the video is paused by the user, show the overlay again
+      video.addEventListener('pause', () => {
+        if (video.currentTime > 0 && !video.ended) {
+          videoContainer.classList.remove('playing');
+          video.controls = false;
+        }
+      });
+
     });
   </script>
 
