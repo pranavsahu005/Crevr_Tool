@@ -20,9 +20,9 @@ body {
 
 /* Center container for content (like max-width) */
 .container {
-  max-width: 1280px;
+  max-width: 1000px;
   margin: 0 auto;
-  /* Center the container */
+  /* Center he container */
   padding: 0 1rem;
 }
 
@@ -30,8 +30,8 @@ body {
 h1 {
   font-size: 2.5rem;
   font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
+  line-height: 1;
+  /* margin-bottom: 1.5rem; */
 }
 
 h2 {
@@ -75,10 +75,7 @@ a {
     font-size: 4rem;
   }
 
-  .container {
-    padding: 0 2rem;
-  }
-}
+ 
 
 /* --- ABSTRACT BACKGROUND ANIMATION STYLES (LAVA LAMP) --- */
 @keyframes drop {
@@ -233,6 +230,7 @@ a {
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
+  margin-top: 150px;
   /* Space between fire and H2 */
 }
 
@@ -500,20 +498,20 @@ header {
 .bg-hero-gradient {
             /* Blue-Tinted Glassmorphism Effect */
             background-color: rgba(180, 210, 255, 0.4); /* Blue Glass */
-            backdrop-filter: blur(16px); 
-            
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.6); 
             
             /* Soft, lifted shadow */
             box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3);
-            
+            height: 380px;
+            top: 90px;
             color: #1f2937; /* Dark text for readability */
-            padding: 50px 40px; 
-            max-width: 900px; 
+            padding: 50px;
+            max-width: 1100px;
             margin: auto;
-            border-radius: 1.75rem; 
+            border-radius: 1.75rem;
             position: relative;
-            overflow: hidden; 
+            overflow: hidden;
             z-index: 10; /* Z-index high for content visibility */
             transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
 }
@@ -591,7 +589,7 @@ header {
 .hero-content p {
             opacity: 1;
             margin-bottom: 2.5rem;
-            max-width: 48rem;
+            max-width: 45rem;
             font-size: 1.25rem;
             text-transform: none;
 }
@@ -852,7 +850,7 @@ main {
 }
 
 .item-color:focus::before {
-  content: "✅Copy";
+  content: "âœ…Copy";
 }
 
 /* --- 3D Hover Effect --- */
@@ -1454,14 +1452,14 @@ footer {
 }
 /* --- Team Section Styles --- */
 .team-section {
-  padding: 4rem 0;
+  /* padding: 4rem 0; */
   margin-bottom: 2rem;
 }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
   justify-items: center;
 }
 
