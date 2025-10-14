@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - My Image Tools</title>
+  <title>Sign Up - Crevr</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <!-- Main styles for header/footer -->
   <link rel="stylesheet" href="{% static 'user.css' %}">
@@ -19,7 +19,9 @@
   <header>
     <div class="header-content">
       <!-- Logo Text -->
-      <a href="{% url 'home' %}" class="logo" style="text-decoration: none;">MyImageTools.</a>
+      <a href="{% url 'home' %}" class="logo crevr-logo-container" style="text-decoration: none;">
+        <img src="{% static 'image/crevr_logo1.png' %}" alt="Crevr Logo">
+      </a>
 
       <!-- NEW MENU REPLACEMENT -->
       <div class="menu">
@@ -35,7 +37,7 @@
           </span>
           <span class="link-title">Home</span>
         </a>
-        <a href="#" class="link">
+        <a href="{% url 'home' %}#team" class="link">
           <span class="link-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
               <rect width="256" height="256" fill="none"></rect>
@@ -49,7 +51,7 @@
               </path>
             </svg>
           </span>
-          <span class="link-title">Games</span>
+          <span class="link-title">About Us</span>
         </a>
       </div>
       <!-- END NEW MENU REPLACEMENT -->
@@ -98,9 +100,9 @@
 
         <!-- Column 1: Logo & Mission -->
         <div>
-          <div class="footer-logo-text">MyImageTools.</div>
+          <div class="footer-logo-text">Crevr</div>
           <p class="footer-mission">
-            Simplifying everyday image processing with functional, human-focused tools. Your ML-powered utility suite
+            Simplifying everyday image processing with functional, human-focused tools. Your ML-powered utility suite.
             for speed and quality.
           </p>
         </div>
@@ -204,7 +206,7 @@
 
       <!-- Bottom Row: Copyright -->
       <div class="copyright">
-        <p>&copy; 2024 My Image Tools Project. All rights reserved. Built with simplicity and functionality in mind.</p>
+        <p>&copy; 2024 Crevr Project. All rights reserved. Built with simplicity and functionality in mind.</p>
       </div>
     </div>
   </footer>

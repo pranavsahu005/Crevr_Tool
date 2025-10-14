@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visual Suite for Everyone - My Image Tools</title>
+  <title>Visual Suite for Everyone - Crevr</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'user.css' %}">
 </head>
@@ -24,7 +24,9 @@
   <header>
     <div class="header-content">
       <!-- Logo Text -->
-      <div class="logo">MyImageTools.</div>
+      <div class="logo crevr-logo-container">
+        <img src="{% static 'image/crevr_logo1.png' %}" alt="Crevr Logo">
+      </div>
 
       <!-- NEW MENU REPLACEMENT -->
       <div class="menu">
@@ -40,7 +42,7 @@
           </span>
           <span class="link-title">Home</span>
         </a>
-        <a href="#" class="link">
+        <a href="#team" class="link">
           <span class="link-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
               <rect width="256" height="256" fill="none"></rect>
@@ -54,7 +56,7 @@
               </path>
             </svg>
           </span>
-          <span class="link-title">Games</span>
+          <span class="link-title">About Us</span>
         </a>
         <a href="#" class="link">
           <span class="link-icon">
@@ -416,7 +418,7 @@
             <span class="text_span">Backend Developer</span>
           </div>
           <div class="card_container">
-            <img class="image" src="{% static 'image/mahendra.jpg' %}" alt="Mahendra">
+            <img class="image" src="{% static 'image/mahendra.png' %}" alt="Mahendra">
           </div>
           <div class="sub-card named">
             <span class="text_span">Mahendra</span>
@@ -426,10 +428,10 @@
         <!-- Team Member 3: Student Helper -->
         <div class="card">
           <div class="sub-card category">
-            <span class="text_span">Student Helper</span>
+            <span class="text_span">Backend Developer</span>
           </div>
           <div class="card_container">
-            <img class="image" src="{% static 'image/vaikunth.jpg' %}" alt="Vaikunth">
+            <img class="image" src="{% static 'image/vaikunth.png' %}" alt="Vaikunth">
           </div>
           <div class="sub-card named">
             <span class="text_span">Vaikunth</span>
@@ -439,7 +441,7 @@
         <!-- Team Member 4: Student Helper (Girl) -->
         <div class="card">
           <div class="sub-card category">
-            <span class="text_span">Student Helper</span>
+            <span class="text_span">Frontend Developer</span>
           </div>
           <div class="card_container">
             <img class="image" src="{% static 'image/sujata.png' %}" alt="Sujata">
@@ -460,9 +462,9 @@
 
         <!-- Column 1: Logo & Mission -->
         <div>
-          <div class="footer-logo-text">MyImageTools.</div>
+          <div class="footer-logo-text">Crevr</div>
           <p class="footer-mission">
-            Simplifying everyday image processing with functional, human-focused tools. Your ML-powered utility suite
+            Simplifying everyday image processing with functional, human-focused tools. Your ML-powered utility suite.
             for speed and quality.
           </p>
         </div>
@@ -566,7 +568,7 @@
 
       <!-- Bottom Row: Copyright -->
       <div class="copyright">
-        <p>&copy; 2024 My Image Tools Project. All rights reserved. Built with simplicity and functionality in mind.</p>
+        <p>&copy; 2024 Crevr Project. All rights reserved. Built with simplicity and functionality in mind.</p>
       </div>
     </div>
   </footer>

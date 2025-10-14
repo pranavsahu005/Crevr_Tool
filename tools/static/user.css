@@ -74,6 +74,7 @@ a {
   h1 {
     font-size: 4rem;
   }
+}
 
  
 
@@ -223,6 +224,18 @@ a {
   color: #4f46e5;
   /* Indigo color */
 }
+
+/* --- NEW: Crevr Logo Styles --- */
+.crevr-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.crevr-logo-container img {
+  height: 45px; /* Adjust height as needed */
+  width: auto;
+}
+
 
 /* New wrapper for the large fire logo above the workbench */
 .tool-fire-logo-wrapper {
@@ -850,7 +863,7 @@ main {
 }
 
 .item-color:focus::before {
-  content: "âœ…Copy";
+  content: "✅ Copied!";
 }
 
 /* --- 3D Hover Effect --- */
@@ -1270,7 +1283,7 @@ footer {
 }
 
 .card:nth-child(1):hover {
-  background-color: #cc39a4;
+  background-color: #f77474;
 }
 
 .card:nth-child(1):hover .instagram {
@@ -1278,7 +1291,7 @@ footer {
 }
 
 .card:nth-child(2):hover {
-  background-color: #03A9F4;
+  background-color: #27e6e7;
 }
 
 .card:nth-child(2):hover .twitter {
@@ -1286,7 +1299,7 @@ footer {
 }
 
 .card:nth-child(3):hover {
-  background-color: #ffb5d2;
+  background-color: #f30d69;
 }
 
 .card:nth-child(3):hover .dribble {
@@ -1294,7 +1307,7 @@ footer {
 }
 
 .card:nth-child(4):hover {
-  background-color: #1E1F26;
+  background-color: #806bf5;
 }
 
 .card:nth-child(4):hover .codepen {
@@ -1613,17 +1626,17 @@ footer {
 
 /* Card 1 (Pranav): Light Blue */
 .team-grid .card:nth-child(1) .card_container {
-  background-color: #dbeafe; /* Light Blue */
+  background-color: #ffffff; /* Light Blue */
 }
 
 /* Card 2 (Mahendra): Light Yellow */
 .team-grid .card:nth-child(2) .card_container {
-  background-color: #fef9c3; /* Light Yellow */
+  background-color: #ffffff; /* Light Yellow */
 }
 
 /* Card 3 (Vaikunth): Light Green */
 .team-grid .card:nth-child(3) .card_container {
-  background-color: #dcfce7; /* Light Green */
+  background-color: #ffffff; /* Light Green */
 }
 
 /* Card 4 (Sujata): Light Pink */
