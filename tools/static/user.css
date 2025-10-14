@@ -1613,20 +1613,20 @@ footer {
 
 /* Card 1 (Pranav): Light Blue */
 .team-grid .card:nth-child(1) .card_container {
-  background-color: #e0e7ff; /* Light Indigo */
+  background-color: #dbeafe; /* Light Blue */
 }
 
-/* Card 2 (Mahendra): Light Green */
+/* Card 2 (Mahendra): Light Yellow */
 .team-grid .card:nth-child(2) .card_container {
-  background-color: #d1fae5; /* Light Green */
+  background-color: #fef9c3; /* Light Yellow */
 }
 
-/* Card 3 (Vaikunth): Light Purple */
+/* Card 3 (Vaikunth): Light Green */
 .team-grid .card:nth-child(3) .card_container {
-  background-color: #ede9fe; /* Light Violet */
+  background-color: #dcfce7; /* Light Green */
 }
 
-/* Card 4 (Sujata): Light Pink/Red */
+/* Card 4 (Sujata): Light Pink */
 .team-grid .card:nth-child(4) .card_container {
-  background-color: #fee2e2; /* Light Red */
+  background-color: #fce7f3; /* Light Pink */
 }

@@ -10,6 +10,7 @@ urlpatterns = [
     path('grayscale/', process_image, name="takephoto"),
     path('compress/', process_image, name="compress"),
     path('resize/', process_image, name="resizing"),
+    path('crop/', process_image, name="crop"),
     path('rotate/', process_image, name="rotatephoto"),
     path('signin/', signup, name="signin"),
 ]

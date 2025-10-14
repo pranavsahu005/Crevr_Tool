@@ -27,7 +27,8 @@ def process_image(request):
         'grayscale': 'userimage',
         'compress': 'compressimg',
         'resize': 'resizing',
-        'rotate': 'rotating'
+        'rotate': 'rotating',
+        'crop': 'cropimg'
     }
     input_name = input_name_map.get(tool_type)
     image_file = request.FILES.get(input_name)
@@ -49,6 +50,11 @@ def process_image(request):
     elif tool_type == 'compress':
         # For compression, we just re-save the image. The quality is handled by imwrite.
         # The user's old code just saved it as is, which we will replicate.
+        processed_image = original_image
+
+    elif tool_type == 'crop':
+        # Placeholder for crop functionality.
+        # For now, it returns the original image. The user will add logic later.
         processed_image = original_image
 
     elif tool_type == 'resize':

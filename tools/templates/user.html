@@ -98,7 +98,7 @@
         </a>
       </div>
       <!-- END NEW MENU REPLACEMENT -->
-      <button class="header-cta rounded shadow transition">Get Started</button>
+      <a href="{% url 'signin' %}" class="header-cta rounded shadow transition">Get Started</a>
     </div>
   </header>
 
@@ -171,7 +171,8 @@
                 data-input-name="compressimg">Compress</button></a>
 
             <!-- Crop (Placeholder URL) -->
-            <a href="#"><button class="tool-nav-btn">Crop</button></a>
+            <a href="{% url 'crop' %}"><button class="tool-nav-btn" data-form-action="{% url 'crop' %}"
+                data-input-name="cropimg">Crop</button></a>
 
             <!-- Resize (New Feature) -->
             <a href="{% url 'resizing' %}"><button class="tool-nav-btn" data-form-action="{% url 'resizing' %}"
@@ -208,7 +209,7 @@
                   <path d="M18.153 6h-.009v5.342H23.5v-.002z"></path>
                 </svg>
                 <p id="filename">Not selected file</p>
-              </div>
+              </div> 
               <input id="file-input" type="file" name="userimage" required>
             </div>
 
@@ -402,7 +403,7 @@
             <span class="text_span">Frontend Developer</span>
           </div>
           <div class="card_container">
-            <img class="image" src="{% static 'image/pranav.jpg' %}" alt="Pranav">
+            <img class="image" src="{% static 'image/pranav.png' %}" alt="Pranav">
           </div>
           <div class="sub-card named">
             <span class="text_span">Pranav</span>
@@ -441,7 +442,7 @@
             <span class="text_span">Student Helper</span>
           </div>
           <div class="card_container">
-            <img class="image" src="{% static 'image/sujata.jpg' %}" alt="Sujata">
+            <img class="image" src="{% static 'image/sujata.png' %}" alt="Sujata">
           </div>
           <div class="sub-card named">
             <span class="text_span">Sujata</span>
@@ -602,7 +603,7 @@
           const button = link.querySelector('.tool-nav-btn');
           const toolName = button.textContent.trim();
 
-          if (!button || toolName === 'Crop') return; // Ignore crop for now
+          if (!button) return;
 
           // Update form action and file input name
           toolForm.action = button.dataset.formAction;
