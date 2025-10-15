@@ -19,7 +19,7 @@ body {
 
 /* Make the selector more specific to avoid conflicts with the footer's .container */
 .signin-main .container {
-  max-width: 450px; /* Slightly smaller for a tighter look */
+  max-width: 500px; /* Slightly smaller for a tighter look */
   background: #f8f9fd;
   border-radius: 20px; /* More pronounced rounding */
   padding: 25px 35px;
@@ -44,7 +44,6 @@ body {
 }
 
 .signin-main .form .input {
-  width: 100%;
   background: rgb(230, 226, 226);
   border: none;
   padding: 15px 20px;

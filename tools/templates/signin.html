@@ -7,23 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up - Crevr</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-  <!-- Main styles for header/footer -->
   <link rel="stylesheet" href="{% static 'user.css' %}">
-  <!-- Page-specific styles for the form -->
   <link rel="stylesheet" href="{% static 'signin.css' %}">
 </head>
 
 <body>
 
-  <!-- === 1. Reused Header from user.html === -->
+  <!-- === 1. HEADER === -->
   <header>
     <div class="header-content">
-      <!-- Logo Text -->
       <a href="{% url 'home' %}" class="logo crevr-logo-container" style="text-decoration: none;">
         <img src="{% static 'image/crevr_logo1.png' %}" alt="Crevr Logo">
       </a>
 
-      <!-- NEW MENU REPLACEMENT -->
       <div class="menu">
         <a href="{% url 'home' %}#home" class="link">
           <span class="link-icon">
@@ -53,16 +49,40 @@
           </span>
           <span class="link-title">About Us</span>
         </a>
+        <a href="{% url 'home' %}#tools" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <path d="M128,32,32,128l96,96,96-96Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+              <path d="M128,32,32,128l96,96,96-96Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" transform="translate(256 256) rotate(180)"></path>
+            </svg>
+          </span>
+          <span class="link-title">More Tools</span>
+        </a>
+        <a href="{% url 'home' %}#footer" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <path d="M224,48H32a8,8,0,0,0-8,8V192a8,8,0,0,0,8,8H224a8,8,0,0,0,8-8V56A8,8,0,0,0,224,48Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+              <polyline points="224 56 128 144 32 56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline>
+            </svg>
+          </span>
+          <span class="link-title">Contact Us</span>
+        </a>
       </div>
-      <!-- END NEW MENU REPLACEMENT -->
-      <a href="{% url 'signin' %}" class="header-cta rounded shadow transition" style="text-decoration: none;">Get Started</a>
+      <div class="header-actions">
+        <button class="join-now-btn">Join now</button>
+        <a href="{% url 'signin' %}" class="header-cta rounded shadow transition" style="text-decoration: none;">Get Started</a>
+      </div>
     </div>
   </header>
 
+  <!-- === 2. SIGN UP FORM === -->
   <main class="signin-main">
     <div class="container">
       <p class="heading">Create Your Account</p>
-      <form class="form">
+      <form class="form" method="post">
+        {% csrf_token %}
         <input required="" class="input" type="email" name="email" id="email" placeholder="Email">
         <input required="" class="input" type="password" name="password" id="password" placeholder="Password">
         <input required="" class="input" type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password">
@@ -93,12 +113,51 @@
     </div>
   </main>
 
-  <!-- === 2. Reused Footer from user.html === -->
+  <!-- === 3. COLLABORATORS & PARTNERS === -->
+  <section class="collaborators-section">
+    <div class="container">
+      <h2 class="collaborators-title">Our Collaborators & Partners</h2>
+      <p class="collaborators-description">
+        We are proud to work alongside these creative and innovative brands.
+      </p>
+      <div class="collaborators-grid">
+        <a href="https://wear-tome.blinkstore.ai/" target="_blank" class="logo-item">
+          
+          <img src="{% static 'image/wear_tome.png' %}" alt="Wear_Tome Logo">
+        </a>
+        <a href="https://sunnyinstitute.com/" target="_blank" class="logo-item">
+          
+          <img src="{% static 'image/sunny_ins.png' %}" alt="Sunny Institute Logo">
+        </a>
+        <a href="https://www.instagram.com/the_hexatom/" target="_blank" class="logo-item">
+          
+          <img src="{% static 'image/hex_atom.png' %}" alt="Hextome Logo">
+        </a>
+        <a href="https://youtube.com/@the_lamha_music?si=RmRoXbKBuLg8wVFb" target="_blank" class="logo-item">
+          
+          <img src="{% static 'image/lamha.png' %}" alt="Lamha Studio Logo">
+        </a>
+        <a href="https://www.instagram.com/the_trio_verse/" target="_blank" class="logo-item">
+          
+          <img src="{% static 'image/trio.png' %}" alt="Trio Music Channel Logo">
+        </a>
+        <a href="https://www.redbubble.com/people/DrVx/shop" target="_blank" class="logo-item">
+          
+          <img src="{% static 'image/juke.png' %}" alt="JUKE Brand Logo">
+        </a>
+        <a href="#" class="logo-item">
+          
+          <img src="{% static 'image/van_vrinda.png' %}" alt="Van Vrinda Logo">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- === 4. FOOTER === -->
  <footer id="footer">
     <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
       <div class="footer-grid">
 
-        <!-- Column 1: Logo & Mission -->
         <div>
           <div class="footer-logo-text">Crevr</div>
           <p class="footer-mission">
@@ -107,7 +166,6 @@
           </p>
         </div>
 
-        <!-- Column 2: Tools -->
         <div>
           <h4 class="footer-heading">Our Tools</h4>
           <ul class="footer-links">
@@ -119,7 +177,6 @@
           </ul>
         </div>
 
-        <!-- Column 3: Company -->
         <div>
           <h4 class="footer-heading">Project Info</h4>
           <ul class="footer-links">
@@ -130,7 +187,6 @@
           </ul>
         </div>
 
-        <!-- Column 4: Legal & Resources -->
         <div>
           <h4 class="footer-heading">Legal</h4>
           <ul class="footer-links">
@@ -141,7 +197,6 @@
         </div>
       </div>
 
-      <!-- Social Media Icons -->
       <div class="social-icons-wrapper">
         <div class="main">
           <div class="card">
@@ -204,7 +259,6 @@
         </div>
       </div>
 
-      <!-- Bottom Row: Copyright -->
       <div class="copyright">
         <p>&copy; 2024 Crevr Project. All rights reserved. Built with simplicity and functionality in mind.</p>
       </div>

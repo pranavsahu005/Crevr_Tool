@@ -1,37 +1,44 @@
-/* --- 0. Beginner-Friendly CSS --- */
+/* === TABLE OF CONTENTS ===
+
+0.  Global Styles & Typography
+1.  Header & Navigation
+2.  Hero Section
+3.  Tool Panel & Uploader
+4.  Feature Blocks
+5.  Video & Team Sections
+6.  Collaborators & Partners
+7.  Feedback Form
+8.  Footer
+9.  Animations & Effects (Lava Lamp, Fire, etc.)
+
+========================= */
+
+/* === 0. GLOBAL STYLES & TYPOGRAPHY === */
 
 html {
   scroll-behavior: smooth;
 }
 
-/* 0.1 GLOBAL STYLES (Applies to the whole page) */
 body {
   font-family: 'Inter', sans-serif;
   background-color: #f8f8f8;
-  /* Very light background */
   color: #1f2937;
-  /* Dark text for readability */
   margin: 0;
   padding: 0;
   line-height: 1.5;
   position: relative;
-  /* Needed for absolute positioning of lava-lamp */
 }
 
-/* Center container for content (like max-width) */
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  /* Center he container */
   padding: 0 1rem;
 }
 
-/* Basic Typography */
 h1 {
   font-size: 2.5rem;
   font-weight: 800;
   line-height: 1;
-  /* margin-bottom: 1.5rem; */
 }
 
 h2 {
@@ -50,7 +57,6 @@ p {
   margin-bottom: 1rem;
 }
 
-/* Simple Visuals */
 a {
   text-decoration: none;
   transition: color 0.3s ease;
@@ -58,321 +64,6 @@ a {
 
 .rounded {
   border-radius: 0.75rem;
-}
-
-/* Default rounded corners */
-.shadow {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.transition {
-  transition: all 0.3s ease;
-}
-
-/* Media Query for larger screens (Tablet/Desktop) */
-@media (min-width: 640px) {
-  h1 {
-    font-size: 4rem;
-  }
-}
-
- 
-
-/* --- ABSTRACT BACKGROUND ANIMATION STYLES (LAVA LAMP) --- */
-@keyframes drop {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(600px);
-    /* Increased drop distance */
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-.lava-lamp {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 1200px;
-  /* Increased height to cover more of the screen */
-  background: transparent;
-  overflow: hidden;
-  z-index: -2;
-  /* Ensures it is behind all content */
-}
-
-.bubble,
-.bubble1,
-.bubble2,
-.bubble3 {
-  position: absolute;
-  top: 0;
-  width: 90px;
-  /* Increased size */
-  height: 90px;
-  /* Increased size */
-  border-radius: 50%;
-  animation: drop 8s ease-in-out infinite;
-  opacity: 0.8;
-  /* Increased opacity for better visibility */
-}
-
-.bubble {
-  background: linear-gradient(to bottom, #e64980, #ff8787);
-  /* Pink/Red gradient */
-  left: 55%;
-  animation-duration: 8s;
-}
-
-.bubble1 {
-  background: linear-gradient(to bottom, #82c91e, #3bc9db);
-  /* Green/Teal gradient */
-  left: 15%;
-  animation-duration: 6s;
-}
-
-.bubble2 {
-  background: linear-gradient(to bottom, #7950f2, #f783ac);
-  /* Purple/Pink gradient */
-  left: 75%;
-  animation-duration: 10s;
-}
-
-.bubble3 {
-  background: linear-gradient(to bottom, #4481eb, #04befe);
-  /* Blue gradient */
-  left: 30%;
-  animation-duration: 8s;
-}
-
-/* --- FIRE LOGO STYLES --- */
-
-/* Keyframes */
-@keyframes scaleUpDown {
-
-  0%,
-  100% {
-    transform: scaleY(1) scaleX(1);
-  }
-
-  50%,
-  90% {
-    transform: scaleY(1.1);
-  }
-
-  75% {
-    transform: scaleY(0.95);
-  }
-
-  80% {
-    transform: scaleX(0.95);
-  }
-}
-
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: skewX(0) scale(1);
-  }
-
-  50% {
-    transform: skewX(5deg) scale(0.9);
-  }
-}
-
-@keyframes particleUp {
-  0% {
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  80% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    top: -100%;
-    transform: scale(0.5);
-  }
-}
-
-@keyframes glow {
-
-  0%,
-  100% {
-    background-color: #ef5a00;
-  }
-
-  50% {
-    background-color: #ff7800;
-  }
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #4f46e5;
-  /* Indigo color */
-}
-
-/* --- NEW: Crevr Logo Styles --- */
-.crevr-logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.crevr-logo-container img {
-  height: 45px; /* Adjust height as needed */
-  width: auto;
-}
-
-
-/* New wrapper for the large fire logo above the workbench */
-.tool-fire-logo-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem; /* Increased bottom margin slightly */
-  margin-top: 4rem; /* Reduced top margin significantly */
-  /* Space between fire and H2 */
-}
-
-.fire {
-  /* This is the base style. We use a modifier class for the tool section fire */
-  background-color: transparent;
-  position: relative;
-}
-
-/* Scaling the fire logo to be prominent above the tools */
-.fire-large {
-  width: 120px;
-  /* Much larger */
-  height: 120px;
-  /* Much larger */
-  position: relative;
-  transform: none;
-  margin: 0;
-}
-
-.fire-center {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  animation: scaleUpDown 3s ease-out infinite both;
-}
-
-.fire-center .main-fire {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(farthest-corner at 10px 0, #d43300 0%, #ef5a00 95%);
-  transform: scaleX(0.8) rotate(45deg);
-  border-radius: 0 40% 60% 40%;
-  filter: drop-shadow(0 0 5px #d43322);
-}
-
-.fire-center .particle-fire {
-  position: absolute;
-  top: 60%;
-  left: 45%;
-  width: 8px;
-  /* Scaled up particle */
-  height: 8px;
-  /* Scaled up particle */
-  background-color: #ef5a00;
-  border-radius: 50%;
-  filter: drop-shadow(0 0 5px #d43322);
-  animation: particleUp 2s ease-out 0s infinite both;
-}
-
-.fire-right {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  animation: shake 2s ease-out 0s infinite both;
-}
-
-.fire-right .main-fire {
-  position: absolute;
-  top: 15%;
-  right: -25%;
-  width: 80%;
-  height: 80%;
-  background-color: #ef5a00;
-  transform: scaleX(0.8) rotate(45deg);
-  border-radius: 0 40% 60% 40%;
-  filter: drop-shadow(0 0 5px #d43322);
-}
-
-.fire-right .particle-fire {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  width: 12px;
-  /* Scaled up particle */
-  height: 12px;
-  /* Scaled up particle */
-  background-color: #ef5a00;
-  transform: scaleX(0.8) rotate(45deg);
-  border-radius: 50%;
-  filter: drop-shadow(0 0 5px #d43322);
-  animation: particleUp 2s ease-out 0s infinite both;
-}
-
-.fire-left {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  animation: shake 3s ease-out 0s infinite both;
-}
-
-.fire-left .main-fire {
-  position: absolute;
-  top: 15%;
-  left: -20%;
-  width: 80%;
-  height: 80%;
-  background-color: #ef5a00;
-  transform: scaleX(0.8) rotate(45deg);
-  border-radius: 0 40% 60% 40%;
-  filter: drop-shadow(0 0 5px #d43322);
-}
-
-.fire-left .particle-fire {
-  position: absolute;
-  top: 10%;
-  left: 20%;
-  width: 8px;
-  /* Scaled up particle */
-  height: 8px;
-  /* Scaled up particle */
-  background-color: #ef5a00;
-  border-radius: 50%;
-  filter: drop-shadow(0 0 5px #d43322);
-  animation: particleUp 3s infinite ease-out 0s both;
-}
-
-.fire-bottom .main-fire {
-  position: absolute;
-  top: 30%;
-  left: 20%;
-  width: 75%;
-  height: 75%;
-  background-color: #ff7800;
-  transform: scaleX(0.8) rotate(45deg);
-  border-radius: 0 40% 100% 40%;
-  filter: blur(5px);
-  animation: glow 2s ease-out 0s infinite both;
 }
 
 /* --- 1. NEW MENU STYLES (Replaces old header) --- */
@@ -383,7 +74,6 @@ header {
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(5px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  /* NEW: Ensure header content is displayed properly */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -391,15 +81,29 @@ header {
 }
 
 .header-content {
-  /* Use flex to align logo, menu, and button */
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   max-width: 1280px;
-  /* Inherit container width */
   padding: 0 1rem;
   margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #4f46e5;
+}
+
+.crevr-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.crevr-logo-container img {
+  height: 45px;
+  width: auto;
 }
 
 .menu {
@@ -420,6 +124,7 @@ header {
   height: 50px;
   border-radius: 8px;
   position: relative;
+  padding: 0 10px;
   z-index: 1;
   overflow: hidden;
   transform-origin: center left;
@@ -469,8 +174,7 @@ header {
 .link-icon svg {
   width: 28px;
   height: 28px;
-  /* Ensure the SVG color matches the link color */
-  stroke: currentColor;
+  stroke: rgb(160 191 234);
 }
 
 .link-title {
@@ -479,172 +183,207 @@ header {
   transform-origin: center right;
   display: block;
   text-align: center;
-  text-indent: 28px;
+  text-indent: 35px;
   width: 100%;
   opacity: 0;
-  /* Hidden by default */
   white-space: nowrap;
   font-weight: 600;
   color: #4f46e5;
-  /* Set specific color for title */
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .header-cta {
   padding: 0.5rem 1.25rem;
-  font-weight: 600;
   color: white;
   background-color: #4f46e5;
   border: none;
   cursor: pointer;
   border-radius: 0.5rem;
+  /* Added for shine effect */
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s ease;
 }
 
 .header-cta:hover {
   background-color: #4338ca;
 }
 
+/* --- Shine Effect on Get Started Button --- */
+.header-cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-25deg);
+}
+
+.header-cta:hover::after {
+  left: 125%;
+  transition: all 0.6s ease-in-out;
+}
+
+/* --- Join Now Button --- */
+.join-now-btn {
+  --width: 110px;
+  --timing: 2s;
+  border: 0;
+  width: var(--width);
+  padding-block: 0.80em;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  font-size: 0.9rem;
+  background: rgb(64, 192, 87);
+  transition: all 0.2s;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.join-now-btn:hover {
+  background-image: linear-gradient(to right,
+      rgb(250, 82, 82),
+      rgb(250, 82, 82) 16.65%,
+      rgb(190, 75, 219) 16.65%,
+      rgb(190, 75, 219) 33.3%,
+      rgb(76, 110, 245) 33.3%,
+      rgb(76, 110, 245) 49.95%,
+      rgb(64, 192, 87) 49.95%,
+      rgb(64, 192, 87) 66.6%,
+      rgb(250, 176, 5) 66.6%,
+      rgb(250, 176, 5) 83.25%,
+      rgb(253, 126, 20) 83.25%,
+      rgb(253, 126, 20) 100%,
+      rgb(250, 82, 82) 100%);
+  animation: var(--timing) linear dance6123 infinite;
+  transform: scale(1.1) translateY(-1px);
+}
 
 /* --- 2. HERO SECTION STYLES --- */
-        /* 1. HERO SECTION (Blue Glass Panel) - SHIMMER TARGET */
-        /* ---------------------------------- */
-
 .bg-hero-gradient {
-            /* Blue-Tinted Glassmorphism Effect */
-            background-color: rgba(180, 210, 255, 0.4); /* Blue Glass */
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.6); 
-            
-            /* Soft, lifted shadow */
-            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3);
-            height: 380px;
-            top: 90px;
-            color: #1f2937; /* Dark text for readability */
-            padding: 50px;
-            max-width: 1100px;
-            margin: auto;
-            border-radius: 1.75rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 10; /* Z-index high for content visibility */
-            transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
+  background-color: rgba(180, 210, 255, 0.4);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3);
+  height: 380px;
+  margin-top: 90px;
+  color: #1f2937;
+  padding: 50px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+  transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
 }
 
 .bg-hero-gradient:hover {
-            transform: scale(1.02); 
-            /* DUAL SHINE EFFECT: White Inset + Blue Inset */
-            box-shadow: 
-                0 15px 60px rgba(0, 0, 0, 0.35), 
-                0 0 20px 5px rgba(255, 255, 255, 1) inset,
-                0 0 40px 10px rgba(0, 119, 182, 0.5) inset; 
-            animation: none;
+  transform: scale(1.02);
+  box-shadow:
+    0 15px 60px rgba(0, 0, 0, 0.35),
+    0 0 20px 5px rgba(255, 255, 255, 1) inset,
+    0 0 40px 10px rgba(0, 119, 182, 0.5) inset;
+  animation: none;
 }
-        
-        /* ---------------------------------- */
-        /* 2. SHIMMER EFFECT STYLES (Linear Bar Movement) */
-        /* ---------------------------------- */
 
-        /* Shimmer Container */
+/* --- Shimmer Effect --- */
 .shimmer-effect {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0; 
-            z-index: 5; 
-            display: flex;
-            height: 100%;
-            width: 100%;
-            /* Initial state for keyframes to take over */
-            transform: skew(-13deg); 
-            overflow: hidden; 
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transform: skew(-13deg);
+  overflow: hidden;
 }
 
-        /* Shimmer movement on SECTION hover */
 .bg-hero-gradient:hover .shimmer-effect {
-            animation: shimmer-move 1.5s ease-in-out forwards;
+  animation: shimmer-move 1.5s ease-in-out forwards;
 }
 
-@keyframes shimmer-move {
-            0% { transform: skew(-13deg) translateX(-120%); }
-            100% { transform: skew(-13deg) translateX(120%); }
-}
-
-        /* The actual Shimmer Bar (White on Blue background is highly visible) */
 .shimmer-bar {
-            position: relative;
-            height: 100%;
-            width: 3rem; 
-            background-color: #ffffff; /* Increased visibility */
+  position: relative;
+  height: 100%;
+  width: 3rem;
+  background-color: #ffffff;
 }
-
-        /* ---------------------------------- */
-        /* 3. INNER CONTENT STYLES */
-        /* ---------------------------------- */
 
 .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            z-index: 20; /* Ensure content is above shimmer bar (z-index: 5) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 20;
+  transform: translateY(-5%);
 }
 
 .hero-content h1 span {
-            display: block;
-            font-weight: 400;
-            font-size: 2rem;
-            /* Blue Accent */
-            color: #0077b6; 
-            text-transform: none;
+  display: block;
+  font-weight: 400;
+  font-size: 2rem;
+  color: #0077b6;
+  text-transform: none;
 }
 
 .hero-content p {
-            opacity: 1;
-            margin-bottom: 2.5rem;
-            max-width: 45rem;
-            font-size: 1.25rem;
-            text-transform: none;
+  opacity: 1;
+  margin-bottom: 2.5rem;
+  max-width: 45rem;
+  font-size: 1.25rem;
+  text-transform: none;
 }
-        
-        /* CTA Button (Blue Themed) */
+
 .hero-cta {
-            position: relative; 
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            
-            border-radius: 0.5rem; 
-            /* Solid Deep Blue Background */
-            background-color: #0077b6; 
-            border: none;
-            
-            padding: 0.75rem 2rem; 
-            font-size: 1.125rem; 
-            font-weight: 700; 
-            color: white; 
-            
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 119, 182, 0.4); /* Button shadow with blue color */
-            transition: all 300ms ease-in-out;
-            z-index: 20;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: #0077b6;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 119, 182, 0.4);
+  transition: all 300ms ease-in-out;
+  z-index: 20;
 }
 
 .hero-cta span {
-            text-transform: none;
+  text-transform: none;
 }
-        
+
 .hero-cta:hover {
-            /* Lighter Blue on hover */
-            background-color: #0096c7;
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 20px rgba(0, 119, 182, 0.6);
+  background-color: #0096c7;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 119, 182, 0.6);
 }
 
 /* --- 3. TOOL PANEL STYLES (GLASS MORPHISM) --- */
 main {
   z-index: 5;
-  /* FIX: Ensure all main content is above background elements */
   position: relative;
 }
 
@@ -652,7 +391,6 @@ main {
   margin-bottom: 6rem;
 }
 
-/* Custom Glassmorphism Effect */
 .glass-container {
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -664,11 +402,9 @@ main {
   margin: 0 auto;
   border-radius: 1.5rem;
   position: relative;
-  /* Ensures the glass container is above the bubbles */
   z-index: 10;
 }
 
-/* Tool Navigation Menu */
 .tool-nav-menu {
   display: flex;
   flex-wrap: wrap;
@@ -685,7 +421,6 @@ main {
   border: 1px solid #d1d5db;
   cursor: pointer;
   border-radius: 50px;
-  /* Full rounded pill shape */
   transition: all 0.2s ease;
 }
 
@@ -697,12 +432,10 @@ main {
 .tool-nav-btn.active {
   color: white;
   background: linear-gradient(to right, #6d28d9, #a78bfa);
-  /* Active color */
   border: 1px solid transparent;
   box-shadow: 0 2px 8px rgba(109, 40, 217, 0.4);
 }
 
-/* Upload Area */
 .tool-content-area {
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -732,7 +465,6 @@ main {
   font-weight: 600;
   color: white;
   background-color: #10b981;
-  /* Green color */
   border: none;
   cursor: pointer;
   width: 100%;
@@ -743,7 +475,6 @@ main {
   background-color: #059669;
 }
 
-/* Result Area */
 .result-area {
   margin-top: 2rem;
   padding-top: 1.5rem;
@@ -759,42 +490,117 @@ main {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.download-link {
-  display: inline-block;
-  padding: 0.5rem 1.5rem;
-  color: white;
-  background-color: #4f46e5;
-  border-radius: 50px;
-  font-weight: 500;
+/* --- Download Button --- */
+.botao {
+  width: 125px;
+  height: 45px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 1px 1px rgba(107, 221, 215, 0.37);
+  padding: 5px 10px;
+  background-color: rgb(59, 190, 230);
+  color: #fff;
+  font-family: Roboto, sans-serif;
+  font-weight: 505;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(59, 190, 230, 0.568));
+  transition: 0.5s linear;
+  text-decoration: none;
+  margin-top: 1rem;
+  /* Added to center the content */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.download-link:hover {
-  background-color: #4338ca;
+.botao .mysvg {
+  display: none;
+}
+
+.botao:hover {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: 0.5s linear;
+}
+
+.botao:hover .texto {
+  display: none;
+}
+
+.botao:hover .mysvg {
+  display: inline;
+}
+
+.botao:hover::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 3px;
+  background-color: rgb(59, 190, 230);
+  margin-left: -20px;
+  animation: animate 0.9s linear infinite;
+}
+
+.botao:hover::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 100%;
+  height: 100%;
+  border: 3.5px solid transparent;
+  border-top: 3.5px solid #fff;
+  border-right: 3.5px solid #fff;
+  border-radius: 50%;
+  animation: animateC 2s linear infinite;
 }
 
 /* --- 4. FEATURE BLOCKS STYLES (ZIG-ZAG) --- */
 .feature-block-container {
-  padding: 5rem 0;
-  margin-bottom: 5rem;
+  padding: 5rem 0 2rem 0;
+  margin-bottom: 2rem;
 }
 
-/* New Styles for Color Picker Palette */
+/* --- Color Picker Palette --- */
 .color-palette-wrapper {
-  margin: 0 auto 4rem auto; /* Increased bottom margin */
-  padding: 1.5rem 0; /* Added vertical padding */
+  margin: 0 auto 4rem auto;
+  padding: 1.5rem 0;
   background-image: repeating-linear-gradient(45deg,
       rgba(239, 246, 255, 0.5),
       rgba(239, 246, 255, 0.5) 10px,
       rgba(255, 255, 255, 0.5) 10px,
-      rgba(255, 255, 255, 0.5) 20px); /* Creative: Subtle background pattern */
+      rgba(255, 255, 255, 0.5) 20px);
   border-radius: 1rem;
-  box-shadow: 0 4px 15px rgba(167, 139, 250, 0.2); /* Creative: Soft glow */
+  box-shadow: 0 4px 15px rgba(167, 139, 250, 0.2);
+}
+
+@keyframes animateC {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(20px);
+  }
 }
 
 .container-items {
   display: flex;
-  justify-content: center; /* Center the color items */
-  gap: 0.5rem; /* Add a small gap between items */
+  justify-content: center;
+  gap: 0.5rem;
   transform-style: preserve-3d;
   transform: perspective(1000px);
   max-width: 100%;
@@ -809,7 +615,7 @@ main {
   outline: none;
   transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
   cursor: pointer;
-  background-color: transparent; /* Must be transparent to show ::after */
+  background-color: transparent;
 }
 
 .item-color::after {
@@ -822,30 +628,29 @@ main {
   border-radius: 6px;
   pointer-events: none;
   transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
-  /* Center the pseudo-element since the button is only 32px wide */
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) scale(1.2); /* Centered and scaled */
+  transform: translate(-50%, -50%) scale(1.2);
 }
 
 .item-color::before {
   position: absolute;
   content: attr(aria-color);
-  left: 50%; /* Centered relative to the button */
+  left: 50%;
   bottom: 52px;
   font-size: 8px;
   line-height: 12px;
   transform: translateX(-50%);
   padding: 2px 0.25rem;
   background-color: #ffffff;
-  color: #333; /* Added text color for better readability */
+  color: #333;
   border-radius: 6px;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
   transition: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
-  white-space: nowrap; /* Prevent color code wrap */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Added subtle shadow to tooltip */
+  white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .item-color:hover {
@@ -859,14 +664,13 @@ main {
 }
 
 .item-color:active::after {
-  transform: translate(-50%, -50%) scale(1.1); /* Centered active state */
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .item-color:focus::before {
   content: "✅ Copied!";
 }
 
-/* --- 3D Hover Effect --- */
 .item-color:hover+* {
   transform: scale(1.3);
   z-index: 9999;
@@ -910,7 +714,6 @@ main {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   z-index: 5;
-  /* Ensures feature blocks are above the bubbles */
 }
 
 .feature-row:hover {
@@ -941,8 +744,8 @@ main {
   border: 3px solid #f3f4f6;
   width: 100%;
   height: auto;
-  opacity: 0.85; /* Make the image slightly transparent */
-  mix-blend-mode: multiply; /* Blends the image with the background color */
+  opacity: 0.85;
+  mix-blend-mode: multiply;
 }
 
 .feature-link {
@@ -956,7 +759,6 @@ main {
   color: #3730a3;
 }
 
-/* Responsive Zig-Zag Layout */
 @media (min-width: 768px) {
   .feature-row {
     flex-direction: row;
@@ -964,7 +766,6 @@ main {
     padding: 3rem;
   }
 
-  /* Zig-Zag pattern for even rows */
   .feature-row:nth-child(even) {
     flex-direction: row-reverse;
   }
@@ -983,11 +784,10 @@ main {
   }
 }
 
-/* --- 5. FOOTER STYLES --- */
+/* --- 8. FOOTER --- */
 footer {
   background-color: #111827;
   color: white;
-  padding: 4rem 0;
   position: relative;
   z-index: 5;
 }
@@ -1013,7 +813,6 @@ footer {
 }
 
 .footer-logo-text {
-  /* Separated class for just the text part of the logo */
   font-size: 1.5rem;
   font-weight: 800;
   color: #a5b4fc;
@@ -1058,12 +857,16 @@ footer {
   padding-top: 1rem;
 }
 
+/* --- Social Icons Widget --- */
+/* Attribution: This social icon widget is based on code from: */
+/* https://github.com/JVictor07/codepen-clone (License Unknown) */
 .social-icons-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 2rem; /* Add some space above the icons */
-  margin-bottom: 2rem; /* Add some space below the icons */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
+
 .main_back {
   position: absolute;
   border-radius: 10px;
@@ -1082,8 +885,9 @@ footer {
   width: 14em;
   align-items: center;
   justify-content: center;
-  z-index: 1; /* Changed from -1 to bring it to the front */
+  z-index: 1;
 }
+
 .card {
   width: 60px;
   height: 60px;
@@ -1108,6 +912,7 @@ footer {
 .card:nth-child(2) {
   border-radius: 0px;
 }
+
 .card:nth-child(2) .twitter {
   opacity: 0;
   transition: .2s ease-in-out;
@@ -1118,6 +923,7 @@ footer {
   border-top-right-radius: 10px;
   border-top-left-radius: 0px;
 }
+
 .card:nth-child(3) .dribble {
   opacity: 0;
   transition: .2s ease-in-out;
@@ -1127,6 +933,7 @@ footer {
 .card:nth-child(4) {
   border-radius: 0px;
 }
+
 .card:nth-child(4) .codepen {
   opacity: 0;
   transition: .2s ease-in-out;
@@ -1136,6 +943,7 @@ footer {
 .card:nth-child(5) {
   border-radius: 0px;
 }
+
 .card:nth-child(5) .uiverse {
   position: absolute;
   margin-left: 0.2em;
@@ -1147,6 +955,7 @@ footer {
 .card:nth-child(6) {
   border-radius: 0px;
 }
+
 .card:nth-child(6) .discord {
   opacity: 0;
   transition: .2s ease-in-out;
@@ -1157,6 +966,7 @@ footer {
   border-bottom-left-radius: 10px;
   border-top-left-radius: 0px;
 }
+
 .card:nth-child(7) .github {
   opacity: 0;
   transition: .2s ease-in-out;
@@ -1166,6 +976,7 @@ footer {
 .card:nth-child(8) {
   border-radius: 0px;
 }
+
 .card:nth-child(8) .telegram {
   opacity: 0;
   transition: .2s ease-in-out;
@@ -1176,6 +987,7 @@ footer {
   border-bottom-right-radius: 10px;
   border-top-left-radius: 0px;
 }
+
 .card:nth-child(9) .reddit {
   opacity: 0;
   transition: .2s ease-in-out;
@@ -1315,8 +1127,7 @@ footer {
 }
 
 .card:nth-child(5):hover {
-  animation: backgroundIMG .1s;
-  animation-fill-mode: forwards;
+  background-image: linear-gradient(#BF66FF, #6248FF, #00DDEB);
 }
 
 .card:nth-child(5):hover .uiverse #paint0_linear_501_142 stop {
@@ -1329,12 +1140,6 @@ footer {
 
 .card:nth-child(5):hover .uiverse #paint2_linear_501_142 stop {
   stop-color: white;
-}
-
-@keyframes backgroundIMG {
-  100% {
-    background-image: linear-gradient(#BF66FF,#6248FF,#00DDEB);
-  }
 }
 
 .card:nth-child(6):hover {
@@ -1357,27 +1162,27 @@ footer {
   background-color: #29b6f6;
 }
 
-.card:nth-child(8):hover .telegram > path:nth-of-type(1) {
+.card:nth-child(8):hover .telegram>path:nth-of-type(1) {
   fill: white;
 }
 
-.card:nth-child(8):hover .telegram > path:nth-of-type(2) {
+.card:nth-child(8):hover .telegram>path:nth-of-type(2) {
   fill: #29b6f6;
 }
 
-.card:nth-child(8):hover .telegram > path:nth-of-type(3) {
+.card:nth-child(8):hover .telegram>path:nth-of-type(3) {
   fill: #29b6f6;
 }
 
 .card:nth-child(9):hover {
-  background-color: rgb(255,69,0);
+  background-color: rgb(255, 69, 0);
 }
 
-.card:nth-child(9) .reddit > g circle {
-  fill: rgb(255,69,0);
+.card:nth-child(9) .reddit>g circle {
+  fill: rgb(255, 69, 0);
 }
 
-.card:nth-child(9) .reddit > g path {
+.card:nth-child(9) .reddit>g path {
   fill: white;
 }
 
@@ -1389,15 +1194,15 @@ footer {
   text-align: center;
   font-weight: bold;
   letter-spacing: 0.33em;
-  z-index: 1; /* Adjusted to match the container */
+  z-index: 1;
 }
 
 /* --- New File Uploader Styles --- */
 .uploader-container {
   height: 250px;
   width: 100%;
-  max-width: 350px; /* Max width for larger screens */
-  margin: 0 auto 1rem auto; /* Center it and add bottom margin */
+  max-width: 350px;
+  margin: 0 auto 1rem auto;
   border-radius: 10px;
   box-shadow: 4px 4px 30px rgba(0, 0, 0, .1);
   display: flex;
@@ -1463,10 +1268,11 @@ footer {
 #file-input {
   display: none;
 }
-/* --- Team Section Styles --- */
+
+/* --- 5. VIDEO & TEAM SECTIONS --- */
 .video-intro-section {
   text-align: center;
-  padding: 4rem 1rem;
+  padding: 2rem 1rem;
   margin-bottom: 2rem;
 }
 
@@ -1489,22 +1295,37 @@ footer {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
   overflow: hidden;
-  /* NEW: Gradient border */
   padding: 5px;
- 
-  position: relative; /* Needed for play button overlay */
-  aspect-ratio: 1920 / 1170; /* NEW: Set aspect ratio based on thumbnail */
+  position: relative;
+  aspect-ratio: 1920 / 1170;
 }
 
+.video-watermark {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.video-watermark:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
 .video-container video {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover; /* Ensures the entire thumbnail is visible and covers the area */
-  border-radius: 0.75rem; /* Match inner radius with container */
+  object-fit: cover;
+  border-radius: 0.75rem;
 }
 
-/* NEW: Ensure poster image covers the area properly */
 video[poster] {
   object-fit: cover;
   background-image: url(/static/vedio/template.png);
@@ -1516,7 +1337,7 @@ video[poster] {
   background-position: center;
 }
 
-/* --- NEW: Play Button Overlay --- */
+/* --- Video Player --- */
 .play-button-overlay {
   position: absolute;
   top: 0;
@@ -1538,7 +1359,7 @@ video[poster] {
 
 .play-button-overlay svg {
   color: rgba(255, 255, 255, 0.9);
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
   transition: transform 0.2s ease;
 }
 
@@ -1546,14 +1367,13 @@ video[poster] {
   transform: scale(1.1);
 }
 
-/* Use data-state for more explicit control */
 .video-container.playing .play-button-overlay {
   opacity: 0;
-  pointer-events: none; /* Make it unclickable when hidden */
+  pointer-events: none;
 }
 
+/* --- Team Section --- */
 .team-section {
-  /* padding: 4rem 0; */
   margin-bottom: 2rem;
 }
 
@@ -1575,20 +1395,18 @@ video[poster] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 0.3s ease-in-out; /* Added for smooth hover effect */
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.15); /* Cloud effect shadow */
-  /* Reset styles from footer icons */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.15);
   width: auto;
   height: auto;
   background: none;
   border-radius: 0;
-  -webkit-backdrop-filter: none;
   border: none;
 }
 
 .team-grid .card:hover {
-  transform: translateY(-8px); /* Lifts the card on hover */
-  box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25); /* Enhances cloud shadow on hover */
+  transform: translateY(-8px);
+  box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
 }
 
 .team-grid .sub-card {
@@ -1636,8 +1454,9 @@ video[poster] {
   overflow: hidden;
   position: relative;
   z-index: 5;
-  width: 13rem;  /* Made the card smaller */
-  height: 11rem; /* Made the card smaller */
+  width: 13rem;
+  width: 13rem;
+  height: 11rem;
   background-color: var(--pink-500);
   border-radius: 0.5rem;
 }
@@ -1697,37 +1516,580 @@ video[poster] {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1.2); /* Start slightly zoomed in */
-  width: 100%; /* Make image fill the container */
+  transform: translate(-50%, -50%) scale(1.2);
+  width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensure image covers the area without distortion */
+  object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  opacity: 0.9; /* Make the image slightly transparent */
-  mix-blend-mode: multiply; /* Blends the image with the pink background */
+  opacity: 0.9;
+  mix-blend-mode: multiply;
 }
 
 .team-grid .card:hover .card_container .image {
-  transform: translate(-50%, -50%) scale(1); /* Zoom out to normal on hover */
+  transform: translate(-50%, -50%) scale(1);
 }
 
-/* --- NEW: Unique Background Colors for Team Cards --- */
-
-/* Card 1 (Pranav): Light Blue */
 .team-grid .card:nth-child(1) .card_container {
-  background-color: #ffffff; /* Light Blue */
+  background-color: #ffffff;
 }
 
-/* Card 2 (Mahendra): Light Yellow */
 .team-grid .card:nth-child(2) .card_container {
-  background-color: #ffffff; /* Light Yellow */
+  background-color: #ffffff;
 }
 
-/* Card 3 (Vaikunth): Light Green */
 .team-grid .card:nth-child(3) .card_container {
-  background-color: #ffffff; /* Light Green */
+  background-color: #ffffff;
 }
 
-/* Card 4 (Sujata): Light Pink */
 .team-grid .card:nth-child(4) .card_container {
-  background-color: #fce7f3; /* Light Pink */
+  background-color: #fce7f3;
 }
+
+/* --- 6. COLLABORATORS & PARTNERS --- */
+.collaborators-section {
+  background-color: #111827;
+  color: #ffffff;
+  padding: 4rem 1rem;
+  padding: 4rem 1rem 2rem 1rem;
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
+
+.collaborators-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.collaborators-description {
+  font-size: 1.1rem;
+  color: #d1d5db;
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+}
+
+.collaborators-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.logo-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+}
+
+.logo-item img {
+  height: 4rem;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease-in-out;
+}
+
+.logo-item:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+  .collaborators-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+:root {
+  --bg-dark: #030712;
+  --card-bg: #1f2937;
+  --border-color: #334155;
+  --input-bg: #111827;
+  --input-border: #475569;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-placeholder: #6b7280;
+  --color-blue: #2563eb;
+  --color-red: #dc2626;
+  --focus-blue: #3b82f6;
+}
+
+/* --- 7. FEEDBACK FORM --- */
+.feedback-section {
+  background-color: var(--bg-dark);
+  background-image: radial-gradient(circle at 50% 100%, #1f2937 0%, #111827 50%, #030712 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  color: var(--text-primary);
+}
+
+.feedback-form {
+  background-color: var(--card-bg);
+  border: 2px solid #374151;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  font-size: 0.875rem;
+  width: 100%;
+  max-width: 28rem;
+  box-shadow:
+    0 0 20px rgba(37, 99, 235, 0.3),
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.feedback-heading {
+  grid-column: span 6 / span 6;
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+/* --- 5-Star Rating --- */
+.rating-container {
+  grid-column: span 6 / span 6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0.5rem;
+}
+
+.rating-label {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0.3rem;
+  --stroke: #9ca3af;
+  --fill: #ffc73a;
+}
+
+.rating input {
+  appearance: unset;
+}
+
+.rating label {
+  cursor: pointer;
+}
+
+.rating svg {
+  width: 2rem;
+  height: 2rem;
+  overflow: visible;
+  fill: transparent;
+  stroke: var(--stroke);
+  stroke-linejoin: bevel;
+  stroke-dasharray: 12;
+  transition: stroke 0.2s, fill 0.5s;
+}
+
+.rating label:hover svg {
+  stroke: var(--fill);
+}
+
+.rating input:checked~label svg {
+  transition: 0s;
+  animation: idle 4s linear infinite, yippee 0.75s backwards;
+  fill: var(--fill);
+  stroke: var(--fill);
+  stroke-opacity: 0;
+  stroke-dasharray: 0;
+  stroke-linejoin: miter;
+  stroke-width: 8px;
+}
+
+.feedback-textarea {
+  grid-column: span 6 / span 6;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  height: 7rem;
+  border: 1px solid var(--input-border);
+  resize: none;
+  outline: none;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.feedback-textarea::placeholder {
+  color: var(--text-placeholder);
+  opacity: 0.9;
+}
+
+.feedback-textarea:focus {
+  border-color: var(--focus-blue);
+  box-shadow: 0 0 0 2px var(--focus-blue);
+}
+
+.mood-button {
+  grid-column: span 1 / span 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  transition: all 0.3s;
+  cursor: pointer;
+  color: var(--text-secondary);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.mood-button span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 0.35rem;
+  transition: color 0.3s;
+}
+
+.mood-button svg {
+  fill: var(--text-secondary);
+  height: 24px;
+  width: 24px;
+  transition: fill 0.3s;
+}
+
+.mood-button:hover,
+.mood-button:focus {
+  background-color: #2c3e50;
+  border-color: var(--focus-blue);
+  outline: none;
+}
+
+#happy-mood-btn:hover svg,
+#happy-mood-btn:focus svg {
+  fill: #4ade80;
+}
+
+#happy-mood-btn:hover span,
+#happy-mood-btn:focus span {
+  color: #4ade80;
+}
+
+#happy-mood-btn:focus {
+  box-shadow: 0 0 0 2px var(--card-bg), 0 0 0 4px #4ade80;
+}
+
+#sad-mood-btn:hover svg,
+#sad-mood-btn:focus svg {
+  fill: #f87171;
+}
+
+#sad-mood-btn:hover span,
+#sad-mood-btn:focus span {
+  color: #f87171;
+}
+
+#sad-mood-btn:focus {
+  box-shadow: 0 0 0 2px var(--card-bg), 0 0 0 4px #f87171;
+}
+
+.spacer {
+  display: none;
+}
+
+.send-button {
+  grid-column: span 4 / span 4;
+  color: #f1f5f9;
+  background: linear-gradient(135deg, var(--color-blue) 0%, #1e40af 100%);
+  font-weight: 600;
+  border: 1px solid #60a5fa;
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4), 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.send-button svg {
+  stroke: currentColor;
+  height: 20px;
+  width: 20px;
+}
+
+.send-button:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.8), 0 6px 15px rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+.send-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--card-bg), 0 0 0 4px #60a5fa;
+}
+
+@media (min-width: 640px) {
+  .send-button {
+    grid-column: span 2 / span 2;
+  }
+
+  .spacer {
+    display: block;
+    grid-column: span 2 / span 2;
+  }
+}
+
+/* === 9. ANIMATIONS & EFFECTS === */
+
+/* --- Lava Lamp Animation --- */
+@keyframes drop {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(600px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.lava-lamp {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 1200px;
+  background: transparent;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.bubble,
+.bubble1,
+.bubble2,
+.bubble3 {
+  position: absolute;
+  top: 0;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  animation: drop 8s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.bubble {
+  background: linear-gradient(to bottom, #e64980, #ff8787);
+  left: 55%;
+  animation-duration: 8s;
+}
+
+.bubble1 {
+  background: linear-gradient(to bottom, #82c91e, #3bc9db);
+  left: 15%;
+  animation-duration: 6s;
+}
+
+.bubble2 {
+  background: linear-gradient(to bottom, #7950f2, #f783ac);
+  left: 75%;
+  animation-duration: 10s;
+}
+
+.bubble3 {
+  background: linear-gradient(to bottom, #4481eb, #04befe);
+  left: 30%;
+  animation-duration: 8s;
+}
+
+/* --- Fire Logo Animation --- */
+.tool-fire-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+}
+
+.fire {
+  background-color: transparent;
+  position: relative;
+}
+
+.fire-large {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  transform: none;
+  margin: 0;
+}
+
+.fire-center {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  animation: scaleUpDown 3s ease-out infinite both;
+}
+
+.fire-center .main-fire {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(farthest-corner at 10px 0, #d43300 0%, #ef5a00 95%);
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 0 40% 60% 40%;
+  filter: drop-shadow(0 0 5px #d43322);
+}
+
+.fire-center .particle-fire {
+  position: absolute;
+  top: 60%;
+  left: 45%;
+  width: 8px;
+  height: 8px;
+  background-color: #ef5a00;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 5px #d43322);
+  animation: particleUp 2s ease-out 0s infinite both;
+}
+
+.fire-right {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  animation: shake 2s ease-out 0s infinite both;
+}
+
+.fire-right .main-fire {
+  position: absolute;
+  top: 15%;
+  right: -25%;
+  width: 80%;
+  height: 80%;
+  background-color: #ef5a00;
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 0 40% 60% 40%;
+  filter: drop-shadow(0 0 5px #d43322);
+}
+
+.fire-right .particle-fire {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: #ef5a00;
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 5px #d43322);
+  animation: particleUp 2s ease-out 0s infinite both;
+}
+
+.fire-left {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  animation: shake 3s ease-out 0s infinite both;
+}
+
+.fire-left .main-fire {
+  position: absolute;
+  top: 15%;
+  left: -20%;
+  width: 80%;
+  height: 80%;
+  background-color: #ef5a00;
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 0 40% 60% 40%;
+  filter: drop-shadow(0 0 5px #d43322);
+}
+
+.fire-left .particle-fire {
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 8px;
+  height: 8px;
+  background-color: #ef5a00;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 5px #d43322);
+  animation: particleUp 3s infinite ease-out 0s both;
+}
+
+.fire-bottom .main-fire {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  width: 75%;
+  height: 75%;
+  background-color: #ff7800;
+  transform: scaleX(0.8) rotate(45deg);
+  border-radius: 0 40% 100% 40%;
+  filter: blur(5px);
+  animation: glow 2s ease-out 0s infinite both;
+}
+
+/* --- Keyframes --- */
+@keyframes scaleUpDown {
+  0%, 100% { transform: scaleY(1) scaleX(1); }
+  50%, 90% { transform: scaleY(1.1); }
+  75% { transform: scaleY(0.95); }
+  80% { transform: scaleX(0.95); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: skewX(0) scale(1); }
+  50% { transform: skewX(5deg) scale(0.9); }
+}
+
+@keyframes particleUp {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; top: -100%; transform: scale(0.5); }
+}
+
+@keyframes glow {
+  0%, 100% { background-color: #ef5a00; }
+  50% { background-color: #ff7800; }
+}
+
+@keyframes dance6123 {
+  to { background-position: var(--width); }
+}
+
+@keyframes shimmer-move {
+  0% { transform: skew(-13deg) translateX(-120%); }
+  100% { transform: skew(-13deg) translateX(120%); }
+}
+
+@keyframes yippee {
+  0% { transform: scale(1); fill: var(--fill); fill-opacity: 0; stroke-opacity: 1; stroke: var(--stroke); stroke-dasharray: 10; stroke-width: 1px; stroke-linejoin: bevel; }
+  30% { transform: scale(0); fill: var(--fill); fill-opacity: 0; stroke-opacity: 1; stroke: var(--stroke); stroke-dasharray: 10; stroke-width: 1px; stroke-linejoin: bevel; }
+  30.1% { stroke: var(--fill); stroke-dasharray: 0; stroke-linejoin: miter; stroke-width: 8px; }
+  60% { transform: scale(1.2); fill: var(--fill); }}

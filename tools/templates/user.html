@@ -13,7 +13,7 @@
 
 <body>
 
-  <!-- === ABSTRACT BACKGROUND: LAVA LAMP BALLS === -->
+  <!-- === BACKGROUND ANIMATION: LAVA LAMP === -->
   <div class="lava-lamp">
     <div class="bubble"></div>
     <div class="bubble1"></div>
@@ -21,15 +21,13 @@
     <div class="bubble3"></div>
   </div>
 
-  <!-- === 1. Simple Header - Now containing the new dynamic menu === -->
+  <!-- === 1. HEADER & NAVIGATION === -->
   <header>
     <div class="header-content">
-      <!-- Logo Text -->
       <div class="logo crevr-logo-container">
         <img src="/static/image/crevr_logo1.png" alt="Crevr Logo">
       </div>
 
-      <!-- NEW MENU REPLACEMENT -->
       <div class="menu">
         <a href="#home" class="link">
           <span class="link-icon">
@@ -99,15 +97,37 @@
           </span>
           <span class="link-title">Profile</span>
         </a>
+        <a href="#tools" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <path d="M128,32,32,128l96,96,96-96Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+              <path d="M128,32,32,128l96,96,96-96Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" transform="translate(256 256) rotate(180)"></path>
+            </svg>
+          </span>
+          <span class="link-title">More Tools</span>
+        </a>
+        <a href="#footer" class="link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none"></rect>
+              <path d="M224,48H32a8,8,0,0,0-8,8V192a8,8,0,0,0,8,8H224a8,8,0,0,0,8-8V56A8,8,0,0,0,224,48Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+              <polyline points="224 56 128 144 32 56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline>
+            </svg>
+          </span>
+          <span class="link-title">Contact Us</span>
+        </a>
       </div>
-      <!-- END NEW MENU REPLACEMENT -->
-      <a href="/signin/" class="header-cta rounded shadow transition">Get Started</a>
+      <div class="header-actions">
+        <button class="join-now-btn">Join now</button>
+        <a href="/signin/" class="header-cta rounded shadow transition">Get Started</a>
+      </div>
     </div>
   </header>
 
   <main>
 
-    <!-- === 2. Hero Section: "Visual Suite for Everyone" === -->
+    <!-- === 2. HERO SECTION === -->
     <section id="home" class="bg-hero-gradient">
          <div class="container hero-content">
              <h1>
@@ -119,20 +139,17 @@
                  Tools like <strong>Black & White</strong>, <strong>Compress</strong>, and <strong>Crop</strong> are now simpler than ever.
              </p>
              <button class="hero-cta">
-                 <span>Dive Right In</span>
+                <span>Dive Right In</span>
              </button>
          </div>
-         
-         <!-- SHIMMER EFFECT (Linear Bar) -->
          <div class="shimmer-effect">
              <div class="shimmer-bar"></div>
          </div>
     </section>
 
-    <!-- === 3. Main Tool Panel Section (The Glass Frame) === -->
+    <!-- === 3. TOOL PANEL SECTION === -->
     <section id="tools" class="container tool-section">
 
-      <!-- NEW FIRE LOGO PLACEMENT: Above the H2 -->
       <div class="tool-fire-logo-wrapper">
         <div class="fire fire-large">
           <div class="fire-left">
@@ -152,51 +169,40 @@
           </div>
         </div>
       </div>
-      <!-- END FIRE LOGO PLACEMENT -->
 
       <h2>
         Your Image Workbench 🛠️
       </h2>
 
-      <!-- Glass Container for Tools -->
       <div class="glass-container rounded">
         <h3 style="text-align: center; margin-bottom: 2rem;">Choose Your Action:</h3>
 
-        <!-- User's Tool Navigation Menu - Updated with all 5 features -->
         <nav class="tool-nav" id="tool-nav-container">
           <div class="tool-nav-menu">
-            <!-- Black & White (Active by default, using 'takephoto' URL as placeholder) -->
             <a href="/grayscale/"><button class="tool-nav-btn active" data-form-action="/grayscale/"
                 data-input-name="userimage">Black & White</button></a>
 
-            <!-- Compress -->
             <a href="/compress/"><button class="tool-nav-btn" data-form-action="/compress/"
                 data-input-name="compressimg">Compress</button></a>
 
-            <!-- Crop (Placeholder URL) -->
             <a href="/crop/"><button class="tool-nav-btn" data-form-action="/crop/"
                 data-input-name="cropimg">Crop</button></a>
 
-            <!-- Resize (New Feature) -->
             <a href="/resize/"><button class="tool-nav-btn" data-form-action="/resize/"
                 data-input-name="resizing">Resize</button></a>
 
-            <!-- Rotate (New Feature) - NOTE: Your rotate.html has a range slider. I've added it here, hidden by default. -->
             <a href="/rotate/"><button class="tool-nav-btn" data-form-action="/rotate/"
                 data-input-name="rotating">Rotate</button></a>
           </div>
         </nav>
 
-        <!-- Main Content Area (Upload Form and Result Area) -->
         <div class="tool-content-area rounded">
           <p style="font-size: 1.125rem; color: #4b5563; font-weight: 700; margin-bottom: 1rem;">Upload an image to
             start transforming it!</p>
 
           <form id="tool-form" action="/grayscale/" enctype="multipart/form-data" method="post"
             class="upload-form">
-            <input type="hidden" name="csrfmiddlewaretoken" value="kbyVOsYl0WzD91CHqd8qRG5I4fTAcFsWQIFCgHP5Ytqi6zYEYJbFY2BDW8f6s1SE">
-
-            <!-- New File Uploader UI -->
+            {% csrf_token %}
             <div class="uploader-container">
               <label for="file-input" class="uploader-header">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -216,9 +222,7 @@
               <input id="file-input" type="file" name="userimage" required>
             </div>
 
-            <!-- Tool-specific options container -->
             <div id="tool-options" style="margin-top: 1rem; display: none;">
-              <!-- Resize Options -->
               <div id="resize-options" style="display: none;">
                 <label for="resize-range"
                   style="font-weight: 600; color: #374151; margin-bottom: 0.5rem; display: block;">Select
@@ -235,7 +239,6 @@
                 </div>
               </div>
 
-              <!-- Rotate Options -->
               <div id="rotate-options" style="display: none;">
                 <label for="rotate-range"
                   style="font-weight: 600; color: #374151; margin-bottom: 0.5rem; display: block;">Select
@@ -251,29 +254,58 @@
                 </div>
               </div>
             </div>
-            <!-- End of tool-specific options -->
 
             <button type="submit" class="upload-submit rounded shadow transition">
               Submit and Process Image
             </button>
           </form>
 
-          <!-- Result Area -->
           <div class="result-area">
             <p style="font-size: 1rem; font-weight: 600; color: #1f2937; margin-bottom: 1rem;">Your Result:</p>
-            
-            <p style="font-size: 0.875rem; color: #6b7280; font-style: italic;">
-              Your processed image will show up right here after submission!
-            </p>
-            
+            {% if lelo %}
+              <img src="/static/{{ tool_type }}/{{ lelo }}" alt="Processed Image class="result-image" />
+              <a href="/static/{{ tool_type }}/{{ lelo }}" download class="botao">
+                <svg
+                  class="mysvg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  height="24px"
+                  width="24px"
+                >
+                  <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                  <g
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    id="SVGRepo_tracerCarrier"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <g id="Interface / Download">
+                      <path
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2"
+                        stroke="#f1f1f1"
+                        d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12"
+                        id="Vector"
+                      ></path>
+                    </g>
+                  </g>
+                </svg>
+                <span class="texto">Download</span>
+              </a>
+            {% else %}
+              <p style="font-size: 0.875rem; color: #6b7280; font-style: italic;">
+                Your processed image will show up right here after submission!
+              </p>
+            {% endif %}
           </div>
         </div>
       </div>
 
-    <!-- --- 4. Focused Feature Blocks (Zig-Zag Layout) --- -->
+    <!-- === 4. FEATURE BLOCKS === -->
     <section id="features" class="container feature-block-container">
 
-      <!-- NEW COLOR PICKER PALETTE -->
       <div class="color-palette-wrapper">
         <div class="container-items">
           <button class="item-color" style="--color: #e11d48" aria-color="#e11d48"></button>
@@ -288,13 +320,11 @@
           <button class="item-color" style="--color: #a78bfa" aria-color="#a78bfa"></button>
         </div>
       </div>
-      <!-- END COLOR PICKER PALETTE -->
 
       <h2 style="color: #1f2937;">
         Explore Our Simple Image Tools
       </h2>
 
-      <!-- Feature Block 1: Black & White (Text Left, Image Right) -->
       <div class="feature-row">
         <div class="feature-content order-2">
           <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 1:</span>
@@ -313,7 +343,6 @@
         </div>
       </div>
 
-      <!-- Feature Block 2: Compress (Image Left, Text Right - Zig-Zag) -->
       <div class="feature-row">
         <div class="feature-image">
           <img src="/static/image/compress.jpg" alt="Side-by-side comparison of the same landscape photo, left original with high detail and color, right compressed with slightly softened detail; neutral studio background; practical, efficiency-focused tone">
@@ -332,7 +361,6 @@
         </div>
       </div>
 
-      <!-- Feature Block 3: Crop (Text Left, Image Right) -->
       <div class="feature-row">
         <div class="feature-content order-2">
           <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 3:</span>
@@ -350,7 +378,6 @@
         </div>
       </div>
 
-      <!-- Feature Block 4: Resize (Image Left, Text Right - Zig-Zag) -->
       <div class="feature-row">
         <div class="feature-image">
           <img src="/static/image/resize.jpg" alt="Resizing Demo Image">
@@ -368,7 +395,6 @@
         </div>
       </div>
 
-      <!-- Feature Block 5: Rotate (Text Left, Image Right) -->
       <div class="feature-row">
         <div class="feature-content order-2">
           <span style="font-size: 1rem; font-weight: 600; color: #4f46e5;">Feature 5:</span>
@@ -388,15 +414,15 @@
 
     </section>
 
-    <!-- === NEW: Video Intro Section === -->
+    <!-- === 5. VIDEO & TEAM SECTIONS === -->
     <section id="intro" class="container video-intro-section">
       <h2>Our Impact & Benefits</h2>
       <p>
         Discover how Crevr simplifies your creative workflow. Our suite of ML-powered tools is designed for speed,
         quality, and ease of use, helping you transform your images in seconds.
       </p>
-      <div id="video-player-container" class="video-container">
-a        <video id="intro-video" poster="/static/image/template.png" preload="metadata" controlslist="nodownload noplaybackrate" disablepictureinpicture>
+      <div id="video-player-container" class="video-container"> <a href="#" class="video-watermark">@Crevr.io</a>
+        <video id="intro-video" poster="/static/image/template.png" preload="metadata" controlslist="nodownload noplaybackrate" disablepictureinpicture>
           <source src="/static/vedio/crevr_into.mp4" type="video/mp4" />
           
           Your browser does not support the video tag.
@@ -409,12 +435,9 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
       </div>
     </section>
 
-
-    <!-- === NEW: Meet the Team Section === -->
     <section id="team" class="container team-section">
       <h2 style="color: #1f2937;">Meet Our Team</h2>
       <div class="team-grid">
-        <!-- Team Member 1: Frontend Dev -->
         <div class="card">
           <div class="sub-card category">
             <span class="text_span">Frontend Developer</span>
@@ -427,7 +450,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
           </div>
         </div>
 
-        <!-- Team Member 2: Backend Dev -->
         <div class="card">
           <div class="sub-card category">
             <span class="text_span">Backend Developer</span>
@@ -440,7 +462,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
           </div>
         </div>
 
-        <!-- Team Member 3: Student Helper -->
         <div class="card">
           <div class="sub-card category">
             <span class="text_span">Backend Developer</span>
@@ -453,7 +474,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
           </div>
         </div>
 
-        <!-- Team Member 4: Student Helper (Girl) -->
         <div class="card">
           <div class="sub-card category">
             <span class="text_span">Frontend Developer</span>
@@ -470,12 +490,111 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
 
   </main>
 
-  <!-- === 5. LONG, PROFESSIONAL FOOTER === -->
+  <!-- === 6. COLLABORATORS & PARTNERS === -->
+  <section class="collaborators-section">
+    <div class="container">
+      <h2 class="collaborators-title">Our Collaborators & Partners</h2>
+      <p class="collaborators-description">
+        We are proud to work alongside these creative and innovative brands.
+      </p>
+      <div class="collaborators-grid">
+        <a href="https://wear-tome.blinkstore.ai/" target="_blank" class="logo-item">
+          
+          <img src="/static/image/wear_tome.png" alt="Wear_Tome Logo">
+        </a>
+        <a href="https://sunnyinstitute.com/" target="_blank" class="logo-item">
+          
+          <img src="/static/image/sunny_ins.png" alt="Sunny Institute Logo">
+        </a>
+        <a href="https://www.instagram.com/the_hexatom/" target="_blank" class="logo-item">
+          
+          <img src="/static/image/hex_atom.png" alt="Hextome Logo">
+        </a>
+        <a href="https://youtube.com/@the_lamha_music?si=RmRoXbKBuLg8wVFb" target="_blank" class="logo-item">
+          
+          <img src="/static/image/lamha.png" alt="Lamha Studio Logo">
+        </a>
+        <a href="https://www.instagram.com/the_trio_verse/" target="_blank" class="logo-item">
+          
+          <img src="/static/image/trio.png" alt="Trio Music Channel Logo">
+        </a>
+        <a href="https://www.redbubble.com/people/DrVx/shop" target="_blank" class="logo-item">
+          
+          <img src="/static/image/juke.png" alt="JUKE Brand Logo">
+        </a>
+        <a href="#" class="logo-item">
+          
+          <img src="/static/image/van_vrinda.png" alt="Van Vrinda Logo">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- === 7. FEEDBACK FORM === -->
+  <section class="feedback-section">
+    <form class="feedback-form" method="post">
+      {% csrf_token %}
+      <h1 class="feedback-heading">Send Feedback</h1>
+
+      <div class="rating-container">
+        <label for="star-5" class="rating-label">Rate your overall experience:</label>
+        <div class="rating">
+          <input type="radio" id="star-5" name="star-radio" value="5">
+          <label for="star-5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+          </label>
+          <input type="radio" id="star-4" name="star-radio" value="4">
+          <label for="star-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+          </label>
+          <input type="radio" id="star-3" name="star-radio" value="3">
+          <label for="star-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+          </label>
+          <input type="radio" id="star-2" name="star-radio" value="2">
+          <label for="star-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+          </label>
+          <input type="radio" id="star-1" name="star-radio" value="1">
+          <label for="star-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+          </label>
+        </div>
+      </div>
+
+      <textarea name="feedback-text" class="feedback-textarea" placeholder="Describe your experience or suggestion..." required></textarea>
+
+      <button type="button" class="mood-button" id="happy-mood-btn">
+        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm177.6 62.1C192.8 334.5 218.8 352 256 352s63.2-17.5 78.4-33.9c9-9.7 24.2-10.4 33.9-1.4s10.4 24.2 1.4 33.9c-22 23.8-60 49.4-113.6 49.4s-91.7-25.5-113.6-49.4c-9-9.7-8.4-24.9 1.4-33.9s24.9-8.4 33.9 1.4zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+        </svg>
+        <span>Happy</span>
+      </button>
+
+      <button type="button" class="mood-button" id="sad-mood-btn">
+        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM174.6 384.1c-4.5 12.5-18.2 18.9-30.7 14.4s-18.9-18.2-14.4-30.7C146.9 319.4 198.9 288 256 288s109.1 31.4 126.6 79.9c4.5 12.5-2 26.2-14.4 30.7s-26.2-2-30.7-14.4C328.2 358.5 297.2 336 256 336s-72.2 22.5-81.4 48.1zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+        </svg>
+        <span>Sad</span>
+      </button>
+
+      <div class="spacer"></div>
+
+      <button type="submit" class="send-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+          <path d="M7.39999 6.32003L15.89 3.49003C19.7 2.22003 21.77 4.30003 20.51 8.11003L17.68 16.6C15.78 22.31 12.66 22.31 10.76 16.6L9.91999 14.08L7.39999 13.24C1.68999 11.34 1.68999 8.23003 7.39999 6.32003Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M10.11 13.6501L13.69 10.0601" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        Send Feedback
+      </button>
+    </form>
+  </section>
+
+  <!-- === 8. FOOTER === -->
   <footer id="footer">
     <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
       <div class="footer-grid">
 
-        <!-- Column 1: Logo & Mission -->
         <div>
           <div class="footer-logo-text">Crevr</div>
           <p class="footer-mission">
@@ -484,7 +603,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
           </p>
         </div>
 
-        <!-- Column 2: Tools -->
         <div>
           <h4 class="footer-heading">Our Tools</h4>
           <ul class="footer-links">
@@ -496,7 +614,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
           </ul>
         </div>
 
-        <!-- Column 3: Company -->
         <div>
           <h4 class="footer-heading">Project Info</h4>
           <ul class="footer-links">
@@ -507,7 +624,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
           </ul>
         </div>
 
-        <!-- Column 4: Legal & Resources -->
         <div>
           <h4 class="footer-heading">Legal</h4>
           <ul class="footer-links">
@@ -518,7 +634,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
         </div>
       </div>
 
-      <!-- Social Media Icons -->
       <div class="social-icons-wrapper">
         <div class="main">
           <div class="card">
@@ -581,9 +696,8 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
         </div>
       </div>
 
-      <!-- Bottom Row: Copyright -->
       <div class="copyright">
-        <p>&copy; 2024 Crevr Project. All rights reserved. Built with simplicity and functionality in mind.</p>
+        <p>&copy; 2025 Crevr Project. All rights reserved. Built with simplicity and functionality in mind.</p>
       </div>
     </div>
   </footer>
@@ -600,7 +714,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
 
       if (toolNav && toolForm && fileInput && toolOptionsContainer) {
 
-        // Update filename display on file selection
         fileInput.addEventListener('change', function() {
           if (fileInput.files.length > 0) {
             filenameDisplay.textContent = fileInput.files[0].name;
@@ -609,9 +722,7 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
           }
         });
 
-        // Handle tool selection logic
         toolNav.addEventListener('click', function(e) {
-          // Use .closest() to handle clicks on either the <a> or <button>
           const link = e.target.closest('a');
           if (!link) return;
 
@@ -622,16 +733,13 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
 
           if (!button) return;
 
-          // Update form action and file input name
           toolForm.action = button.dataset.formAction;
           fileInput.name = button.dataset.inputName;
 
-          // Hide all specific options first
           resizeOptions.style.display = 'none';
           rotateOptions.style.display = 'none';
           toolOptionsContainer.style.display = 'none';
 
-          // Show options for the selected tool
           if (toolName === 'Resize') {
             resizeOptions.style.display = 'block';
             toolOptionsContainer.style.display = 'block';
@@ -640,13 +748,11 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
             toolOptionsContainer.style.display = 'block';
           }
 
-          // Update active button style
           document.querySelectorAll('.tool-nav-btn').forEach(btn => btn.classList.remove('active'));
           button.classList.add('active');
         });
       }
 
-      // --- NEW: Custom Video Player Logic ---
       const videoContainer = document.getElementById('video-player-container');
       const video = document.getElementById('intro-video');
       const playButtonOverlay = videoContainer.querySelector('.play-button-overlay');
@@ -659,7 +765,6 @@ a        <video id="intro-video" poster="/static/image/template.png" preload="me
 
       playButtonOverlay.addEventListener('click', playVideo);
 
-      // When the video is paused by the user, show the overlay again
       video.addEventListener('pause', () => {
         if (video.currentTime > 0 && !video.ended) {
           videoContainer.classList.remove('playing');
