@@ -1,565 +1,11 @@
 {% load static %}
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Crevr (Modern Dark)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    
-    <!-- === PURE CSS STYLES ARE INCLUDED HERE === -->
-    <style>
-        /* ------------------------------------------------------------------- */
-        /* 1. Global Variables, Animations & Base Styling */
-        /* ------------------------------------------------------------------- */
-        :root {
-            /* Neon Blue Theme Colors */
-            --color-page-bg: #1E1A22;
-            --color-card-bg: #1a1620;
-            --color-input-bg: #332E3A;
-            --color-accent-cyan: #00F0FF;
-            --color-accent-magenta: #FF00E5;
-            --color-accent-purple: #7A5AFF;
-            --color-subtle-text: #A0A0A0;
-            --color-light-text: #E0E0E0;
-            --color-border: #4A4452;
-            --border-radius-xl: 16px;
-            --border-radius-2xl: 24px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 10px 20px rgba(255, 0, 229, 0.2), 0 10px 20px rgba(0, 240, 255, 0.2);
-            }
-            50% {
-                transform: scale(1.02);
-                box-shadow: 0 10px 30px rgba(255, 0, 229, 0.3), 0 10px 30px rgba(0, 240, 255, 0.3);
-            }
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body.dark-theme {
-            font-family: 'Inter', sans-serif;
-            color: var(--color-light-text);
-            /* Layered background: SVG pattern on top, then gradient, then image */
-            background-image:
-                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2328242f' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
-                linear-gradient(rgba(10, 10, 15, 0.8), rgba(10, 10, 15, 0.8)),
-                url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
-            background-size: 60px 60px, cover, cover; /* Set size for SVG pattern */
-            background-position: center, center, center;
-            background-attachment: fixed;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        a, button, input {
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* ------------------------------------------------------------------- */
-        /* 2. Header & Footer Styling (Simplified) */
-        /* ------------------------------------------------------------------- */
-        .main-header {
-            background-color: rgba(26, 22, 32, 0.7); /* Matched with footer transparency */
-            border-bottom: 1px solid var(--color-border);
-            padding: 1rem 2rem;
-        }
-        .main-footer {
-            border-bottom: none;
-            border-top: 1px solid var(--color-border);
-            padding: 2.5rem 1rem;
-        }
-        .header-content, .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .footer-container {
-            flex-direction: column;
-        }
-        .logo-crevr, .logo-crevr-footer {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            color: var(--color-accent-cyan);
-            text-decoration: none;
-        }
-        .header-actions .header-cta {
-            padding: 0.5rem 1rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            border: 2px solid var(--color-accent-cyan);
-            background-color: transparent;
-            color: var(--color-accent-cyan);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-            text-decoration: none;
-        }
-        .header-actions .header-cta:hover {
-            background-color: var(--color-accent-cyan);
-            color: var(--color-page-bg);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
-        }
-
-        /* --- Dark Mode Menu --- */
-        .menu {
-            display: none; /* Hidden on mobile */
-        }
-        @media (min-width: 768px) {
-            .menu {
-                padding: 0.5rem;
-                background: linear-gradient(145deg, rgba(40, 36, 47, 0.6), rgba(26, 22, 32, 0.7));
-                position: relative;
-                display: flex;
-                justify-content: center;
-                border-radius: 15px;
-                box-shadow: none;
-                border: 1px solid var(--color-border);
-            }
-        }
-        .menu .link {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px;
-            height: 40px;
-            border-radius: 8px;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            transition: width 0.3s ease-in-out;
-            text-decoration: none;
-            color: inherit;
-        }
-        .menu .link:before {
-            position: absolute;
-            z-index: -1;
-            content: "";
-            display: block;
-            border-radius: 8px;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in;
-            background: linear-gradient(90deg, var(--color-accent-cyan) 0%, var(--color-accent-magenta) 100%);
-        }
-        .menu .link:hover {
-            width: 110px;
-        }
-        .menu .link:hover:before,
-        .menu .link:hover .link-title {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        .link-icon {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-            position: absolute;
-            left: 13px;
-            stroke: white;
-            transition: stroke 0.3s ease-in;
-        }
-        .menu .link:hover .link-icon {
-            stroke: var(--color-accent-cyan);
-        }
-        .menu .link-title {
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in;
-            opacity: 0;
-            font-weight: 600;
-            color: white;
-            text-align: center;
-            text-indent: 25px;
-            width: 100%;
-            white-space: nowrap;
-        }
- 
-        .menu .link:hover .link-icon {
-            stroke: whitesmoke;
-        }
-        .menu .link:hover .link-title {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        /* --- Dark Mode Footer --- */  
-        .main-footer {
-            width: 100%;
-            background-color: rgba(26, 22, 32, 0.7); /* Lighter transparent background */
-            border-top: 1px solid var(--color-border);
-            padding: 2.5rem 1rem;
-            margin-top: auto;
-        }
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--color-border);
-            width: 100%;
-        }
-        @media (min-width: 640px) {
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        /* ------------------------------------------------------------------- */
-        /* 3. Main Sign Up Form Styling */
-        /* ------------------------------------------------------------------- */
-        .signup-main-container {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-
-        .signup-card {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            background: linear-gradient(145deg, rgba(40, 36, 47, 0.7), rgba(26, 22, 32, 0.8));
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            border-radius: var(--border-radius-2xl);
-            overflow: hidden;
-            border: 1px solid var(--color-border);
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        /* Left Image Panel */
-        .image-panel {
-            width: 35%;
-            position: relative;
-            display: none;
-            color: white;
-            /* Layered background: gradient, then a bright image */
-            background-image: linear-gradient(rgba(10, 10, 15, 0.15), rgba(10, 10, 15, 0.15)), url('https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover, cover;
-            background-position: center, center, center;
-        }
-
-        @media (min-width: 1024px) {
-            .image-panel {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding: 3rem;
-            }
-        }
-
-        .image-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-        }
-
-        .panel-header, .marketing-text {
-            position: relative;
-            z-index: 10;
-        }
-        .marketing-heading {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-        }
-
-        /* Right Form Content */
-        .signup-form-content {
-            width: 100%;
-            padding: 2.5rem;
-        }
-
-        @media (min-width: 1024px) {
-            .signup-form-content {
-                width: 65%;
-                padding: 3rem 4rem;
-            }
-        }
-
-        .form-heading {
-            font-size: 2.25rem;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 2rem;
-        }
-
-        .link-accent {
-            color: var(--color-accent-cyan);
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .link-accent:hover {
-            text-shadow: 0 0 8px var(--color-accent-cyan);
-        }
-
-        /* Form Inputs */
-        .signup-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .input-field {
-            flex-grow: 1;
-            padding: 0.75rem 1rem;
-            background-color: var(--color-input-bg);
-            border: 1px solid transparent;
-            border-radius: var(--border-radius-xl);
-            color: var(--color-light-text);
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .input-field::placeholder {
-            color: var(--color-subtle-text);
-        }
-
-        .input-field:focus {
-            border-color: var(--color-accent-cyan);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-        }
-
-        /* Checkbox */
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            font-size: 0.875rem;
-            padding-top: 0.5rem;
-            color: var(--color-subtle-text);
-        }
-
-        .checkbox-custom {
-            appearance: none;
-            width: 1.125rem;
-            height: 1.125rem;
-            background-color: var(--color-input-bg);
-            border: 1px solid var(--color-border);
-            border-radius: 4px;
-            margin-right: 0.5rem;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .checkbox-custom:checked {
-            background-color: var(--color-accent-cyan);
-            border-color: var(--color-accent-cyan);
-        }
-
-        .checkbox-custom:checked::after {
-            content: '✓';
-            color: var(--color-page-bg);
-            font-weight: bold;
-            font-size: 0.75rem;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* CTA Button */
-        .cta-button {
-            width: 100%;
-            padding: 0.875rem 1.5rem;
-            margin-top: 1rem;
-            background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-magenta));
-            color: var(--color-page-bg);
-            font-weight: 600;
-            font-size: 1rem;
-            border-radius: var(--border-radius-xl);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 0, 229, 0.2), 0 10px 20px rgba(0, 240, 255, 0.2);
-            animation: pulse 2.5s infinite;
-        }
-
-        .cta-button:hover {
-            opacity: 0.9;
-            box-shadow: 0 10px 30px rgba(255, 0, 229, 0.4), 0 10px 30px rgba(0, 240, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        /* Social Buttons */
-        .social-divider {
-            text-align: center;
-            margin: 1.5rem 0;
-            font-size: 0.75rem;
-            color: var(--color-subtle-text);
-            text-transform: uppercase;
-        }
-
-        .social-buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        @media (min-width: 640px) {
-            .social-buttons-container {
-                flex-direction: row;
-                gap: 1rem;
-            }
-        }
-
-        .social-button {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            background-color: var(--color-input-bg);
-            border: 1px solid var(--color-border);
-            border-radius: var(--border-radius-xl);
-            color: var(--color-light-text);
-            font-weight: 500;
-            cursor: pointer;
-        }
-        .social-button:hover {
-            background-color: #383340;
-            border-color: var(--color-accent-cyan);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .social-icon {
-            width: 1.25rem;
-            height: 1.25rem;
-            fill: white;
-        }
-
-        .social-button:hover .social-icon {
-            filter: drop-shadow(0 0 5px white);
-        }
-
-        .agreement-text {
-            display: block;
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.75rem;
-            color: var(--color-subtle-text);
-        }
-
-        /* --- Dark Mode Footer --- */
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--color-border);
-            width: 100%;
-        }
-        @media (min-width: 640px) {
-            .footer-grid {
-            grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (min-width: 768px) {
-            .footer-grid {
-                grid-template-columns: 2fr repeat(3, 1fr);
-            }
-        }
-        .footer-mission {
-            color: var(--color-subtle-text);
-            font-size: 0.875rem;
-            max-width: 28rem;
-        }
-        .footer-heading {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--color-light-text);
-        }
-        .footer-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            font-size: 0.875rem;
-        }
-        .footer-links a {
-            color: var(--color-subtle-text);
-            text-decoration: none;
-        }
-        .footer-links a:hover {
-            color: var(--color-light-text);
-        }
-        .social-icons-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .social-icons-wrapper .social-icon-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--color-input-bg);
-            border-radius: 50%;
-            border: 1px solid var(--color-border);
-        }
-        .social-icons-wrapper .social-icon-link:hover {
-            border-color: var(--color-accent-cyan);
-            box-shadow: 0 0 15px var(--color-accent-cyan);
-        }
-        .social-icons-wrapper .social-icon-link svg {
-            fill: var(--color-subtle-text);
-            transition: fill 0.3s ease;
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Responsive adjustments for form row */
-        @media (max-width: 640px) {
-            .form-row {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'signin.css' %}">
 </head>
 
 <body class="dark-theme">
@@ -567,7 +13,7 @@
     <!-- === 1. HEADER === -->
     <header class="main-header">
         <div class="header-content">
-            <a href="{% url 'home' %}" class="logo-crevr" style="text-decoration: none;">
+            <a href="{% url 'home' %}" class="logo-crevr">
                 <img src="{% static 'image/crevr_logo1.png' %}" alt="Crevr Logo" style="height: 40px; filter: invert(1) grayscale(1) brightness(2);">
             </a>
 
@@ -599,7 +45,7 @@
             </div>
 
             <div class="header-actions">
-                <a href="#" class="header-cta">Sign In</a>
+                <a href="#" class="header-cta">Log In</a>
             </div>
         </div>
     </header>
@@ -609,17 +55,17 @@
         <div class="signup-card">
 
             <!-- Left Image Panel -->
-            <div class="image-panel">
+            <aside class="image-panel">
                 <div class="image-overlay"></div>
                 <div class="panel-header">
-                    <div class="panel-logo">CREVR</div>
+                    <div class="logo-crevr">CREVR</div>
                 </div>
                 <div class="marketing-text">
                     <h2 class="marketing-heading">
                         Capturing Moments, Creating Memories
                     </h2>
                 </div>
-            </div>
+            </aside>
 
             <!-- Right Sign Up Form -->
             <div class="signup-form-content">
@@ -638,11 +84,18 @@
                     <input type="email" name="email" placeholder="Email" required class="input-field">
                     <input type="password" name="password" placeholder="Enter your password" required class="input-field">
 
-                    <div class="checkbox-group">
-                        <input id="terms" name="terms" type="checkbox" required class="checkbox-custom">
-                        <label for="terms" class="checkbox-label">I agree to the
-                            <a href="#" class="link-accent">Terms & Conditions</a>
-                        </label>
+                    <!-- Checkbox Container (Arranged in a row) -->
+                    <div style="display: flex; flex-direction: row; gap: 1.5rem; flex-wrap: wrap; padding-top: 0.5rem;">
+                        <div class="checkbox-group" style="padding-top: 0;">
+                            <input id="terms" name="terms" type="checkbox" required class="checkbox-custom">
+                            <label for="terms" class="checkbox-label">I agree to the
+                                <a href="#" class="link-accent">Terms & Conditions</a>
+                            </label>
+                        </div>
+                        <div class="checkbox-group" style="padding-top: 0;">
+                            <input id="policy" name="policy" type="checkbox" required class="checkbox-custom">
+                            <label for="policy" class="checkbox-label">I agree to the <a href="#" class="link-accent">Privacy Policy</a></label>
+                        </div>
                     </div>
 
                     <button type="submit" class="cta-button">Create account</button>
@@ -662,6 +115,12 @@
                             <title>Apple</title><path d="M 44.527344 34.75 C 43.449219 37.144531 42.929688 38.214844 41.542969 40.328125 C 39.601563 43.28125 36.863281 46.96875 33.480469 46.992188 C 30.46875 47.019531 29.691406 45.027344 25.601563 45.0625 C 21.515625 45.082031 20.664063 47.03125 17.648438 47 C 14.261719 46.96875 11.671875 43.648438 9.730469 40.699219 C 4.300781 32.429688 3.726563 22.734375 7.082031 17.578125 C 9.457031 13.921875 13.210938 11.773438 16.738281 11.773438 C 20.332031 11.773438 22.589844 13.746094 25.558594 13.746094 C 28.441406 13.746094 30.195313 11.769531 34.351563 11.769531 C 37.492188 11.769531 40.8125 13.480469 43.1875 16.433594 C 35.421875 20.691406 36.683594 31.78125 44.527344 34.75 Z M 31.195313 8.46875 C 32.707031 6.527344 33.855469 3.789063 33.4375 1 C 30.972656 1.167969 28.089844 2.742188 26.40625 4.78125 C 24.878906 6.640625 23.613281 9.398438 24.105469 12.066406 C 26.796875 12.152344 29.582031 10.546875 31.195313 8.46875 Z"></path>
                         </svg>
                         Apple
+                    </button>
+                    <button class="social-button">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                        Facebook
                     </button>
                 </div>
 
