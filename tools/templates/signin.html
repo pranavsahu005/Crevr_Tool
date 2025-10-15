@@ -1,269 +1,735 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - Crevr</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'user.css' %}">
-  <link rel="stylesheet" href="{% static 'signin.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Crevr (Modern Dark)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- === PURE CSS STYLES ARE INCLUDED HERE === -->
+    <style>
+        /* ------------------------------------------------------------------- */
+        /* 1. Global Variables, Animations & Base Styling */
+        /* ------------------------------------------------------------------- */
+        :root {
+            /* Neon Blue Theme Colors */
+            --color-page-bg: #1E1A22;
+            --color-card-bg: #1a1620;
+            --color-input-bg: #332E3A;
+            --color-accent-cyan: #00F0FF;
+            --color-accent-magenta: #FF00E5;
+            --color-accent-purple: #7A5AFF;
+            --color-subtle-text: #A0A0A0;
+            --color-light-text: #E0E0E0;
+            --color-border: #4A4452;
+            --border-radius-xl: 16px;
+            --border-radius-2xl: 24px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 20px rgba(255, 0, 229, 0.2), 0 10px 20px rgba(0, 240, 255, 0.2);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 10px 30px rgba(255, 0, 229, 0.3), 0 10px 30px rgba(0, 240, 255, 0.3);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body.dark-theme {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-light-text);
+            /* Layered background: SVG pattern on top, then gradient, then image */
+            background-image:
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2328242f' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+                linear-gradient(rgba(10, 10, 15, 0.8), rgba(10, 10, 15, 0.8)),
+                url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
+            background-size: 60px 60px, cover, cover; /* Set size for SVG pattern */
+            background-position: center, center, center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        a, button, input {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* ------------------------------------------------------------------- */
+        /* 2. Header & Footer Styling (Simplified) */
+        /* ------------------------------------------------------------------- */
+        .main-header {
+            background-color: rgba(26, 22, 32, 0.7); /* Matched with footer transparency */
+            border-bottom: 1px solid var(--color-border);
+            padding: 1rem 2rem;
+        }
+        .main-footer {
+            border-bottom: none;
+            border-top: 1px solid var(--color-border);
+            padding: 2.5rem 1rem;
+        }
+        .header-content, .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-container {
+            flex-direction: column;
+        }
+        .logo-crevr, .logo-crevr-footer {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: var(--color-accent-cyan);
+            text-decoration: none;
+        }
+        .header-actions .header-cta {
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            border: 2px solid var(--color-accent-cyan);
+            background-color: transparent;
+            color: var(--color-accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+            text-decoration: none;
+        }
+        .header-actions .header-cta:hover {
+            background-color: var(--color-accent-cyan);
+            color: var(--color-page-bg);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+        }
+
+        /* --- Dark Mode Menu --- */
+        .menu {
+            display: none; /* Hidden on mobile */
+        }
+        @media (min-width: 768px) {
+            .menu {
+                padding: 0.5rem;
+                background: linear-gradient(145deg, rgba(40, 36, 47, 0.6), rgba(26, 22, 32, 0.7));
+                position: relative;
+                display: flex;
+                justify-content: center;
+                border-radius: 15px;
+                box-shadow: none;
+                border: 1px solid var(--color-border);
+            }
+        }
+        .menu .link {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 40px;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            transition: width 0.3s ease-in-out;
+            text-decoration: none;
+            color: inherit;
+        }
+        .menu .link:before {
+            position: absolute;
+            z-index: -1;
+            content: "";
+            display: block;
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in;
+            background: linear-gradient(90deg, var(--color-accent-cyan) 0%, var(--color-accent-magenta) 100%);
+        }
+        .menu .link:hover {
+            width: 110px;
+        }
+        .menu .link:hover:before,
+        .menu .link:hover .link-title {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .link-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            position: absolute;
+            left: 13px;
+            stroke: white;
+            transition: stroke 0.3s ease-in;
+        }
+        .menu .link:hover .link-icon {
+            stroke: var(--color-accent-cyan);
+        }
+        .menu .link-title {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in;
+            opacity: 0;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            text-indent: 25px;
+            width: 100%;
+            white-space: nowrap;
+        }
+ 
+        .menu .link:hover .link-icon {
+            stroke: whitesmoke;
+        }
+        .menu .link:hover .link-title {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* --- Dark Mode Footer --- */  
+        .main-footer {
+            width: 100%;
+            background-color: rgba(26, 22, 32, 0.7); /* Lighter transparent background */
+            border-top: 1px solid var(--color-border);
+            padding: 2.5rem 1rem;
+            margin-top: auto;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+            width: 100%;
+        }
+        @media (min-width: 640px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        /* ------------------------------------------------------------------- */
+        /* 3. Main Sign Up Form Styling */
+        /* ------------------------------------------------------------------- */
+        .signup-main-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .signup-card {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            background: linear-gradient(145deg, rgba(40, 36, 47, 0.7), rgba(26, 22, 32, 0.8));
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border-radius: var(--border-radius-2xl);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Left Image Panel */
+        .image-panel {
+            width: 35%;
+            position: relative;
+            display: none;
+            color: white;
+            /* Layered background: gradient, then a bright image */
+            background-image: linear-gradient(rgba(10, 10, 15, 0.15), rgba(10, 10, 15, 0.15)), url('https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover, cover;
+            background-position: center, center, center;
+        }
+
+        @media (min-width: 1024px) {
+            .image-panel {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 3rem;
+            }
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .panel-header, .marketing-text {
+            position: relative;
+            z-index: 10;
+        }
+        .marketing-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        }
+
+        /* Right Form Content */
+        .signup-form-content {
+            width: 100%;
+            padding: 2.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .signup-form-content {
+                width: 65%;
+                padding: 3rem 4rem;
+            }
+        }
+
+        .form-heading {
+            font-size: 2.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .link-accent {
+            color: var(--color-accent-cyan);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .link-accent:hover {
+            text-shadow: 0 0 8px var(--color-accent-cyan);
+        }
+
+        /* Form Inputs */
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .input-field {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            background-color: var(--color-input-bg);
+            border: 1px solid transparent;
+            border-radius: var(--border-radius-xl);
+            color: var(--color-light-text);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-field::placeholder {
+            color: var(--color-subtle-text);
+        }
+
+        .input-field:focus {
+            border-color: var(--color-accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            padding-top: 0.5rem;
+            color: var(--color-subtle-text);
+        }
+
+        .checkbox-custom {
+            appearance: none;
+            width: 1.125rem;
+            height: 1.125rem;
+            background-color: var(--color-input-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .checkbox-custom:checked {
+            background-color: var(--color-accent-cyan);
+            border-color: var(--color-accent-cyan);
+        }
+
+        .checkbox-custom:checked::after {
+            content: '✓';
+            color: var(--color-page-bg);
+            font-weight: bold;
+            font-size: 0.75rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* CTA Button */
+        .cta-button {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            margin-top: 1rem;
+            background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-magenta));
+            color: var(--color-page-bg);
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: var(--border-radius-xl);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 0, 229, 0.2), 0 10px 20px rgba(0, 240, 255, 0.2);
+            animation: pulse 2.5s infinite;
+        }
+
+        .cta-button:hover {
+            opacity: 0.9;
+            box-shadow: 0 10px 30px rgba(255, 0, 229, 0.4), 0 10px 30px rgba(0, 240, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Social Buttons */
+        .social-divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 0.75rem;
+            color: var(--color-subtle-text);
+            text-transform: uppercase;
+        }
+
+        .social-buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            .social-buttons-container {
+                flex-direction: row;
+                gap: 1rem;
+            }
+        }
+
+        .social-button {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--color-input-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-xl);
+            color: var(--color-light-text);
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .social-button:hover {
+            background-color: #383340;
+            border-color: var(--color-accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            fill: white;
+        }
+
+        .social-button:hover .social-icon {
+            filter: drop-shadow(0 0 5px white);
+        }
+
+        .agreement-text {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--color-subtle-text);
+        }
+
+        /* --- Dark Mode Footer --- */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+            width: 100%;
+        }
+        @media (min-width: 640px) {
+            .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 2fr repeat(3, 1fr);
+            }
+        }
+        .footer-mission {
+            color: var(--color-subtle-text);
+            font-size: 0.875rem;
+            max-width: 28rem;
+        }
+        .footer-heading {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--color-light-text);
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .footer-links a {
+            color: var(--color-subtle-text);
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: var(--color-light-text);
+        }
+        .social-icons-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .social-icons-wrapper .social-icon-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-input-bg);
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+        }
+        .social-icons-wrapper .social-icon-link:hover {
+            border-color: var(--color-accent-cyan);
+            box-shadow: 0 0 15px var(--color-accent-cyan);
+        }
+        .social-icons-wrapper .social-icon-link svg {
+            fill: var(--color-subtle-text);
+            transition: fill 0.3s ease;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Responsive adjustments for form row */
+        @media (max-width: 640px) {
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 
-<body>
+<body class="dark-theme">
 
-  <!-- === 1. HEADER === -->
-  <header>
-    <div class="header-content">
-      <a href="{% url 'home' %}" class="logo crevr-logo-container" style="text-decoration: none;">
-        <img src="{% static 'image/crevr_logo1.png' %}" alt="Crevr Logo">
-      </a>
+    <!-- === 1. HEADER === -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="{% url 'home' %}" class="logo-crevr" style="text-decoration: none;">
+                <img src="{% static 'image/crevr_logo1.png' %}" alt="Crevr Logo" style="height: 40px; filter: invert(1) grayscale(1) brightness(2);">
+            </a>
 
-      <div class="menu">
-        <a href="{% url 'home' %}#home" class="link">
-          <span class="link-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
-              <rect width="256" height="256" fill="none"></rect>
-              <path
-                d="M213.3815,109.61945,133.376,36.88436a8,8,0,0,0-10.76339.00036l-79.9945,72.73477A8,8,0,0,0,40,115.53855V208a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V115.53887A8,8,0,0,0,213.3815,109.61945Z"
-                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16">
-              </path>
-            </svg>
-          </span>
-          <span class="link-title">Home</span>
-        </a>
-        <a href="{% url 'home' %}#team" class="link">
-          <span class="link-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
-              <rect width="256" height="256" fill="none"></rect>
-              <polyline points="76.201 132.201 152.201 40.201 216 40 215.799 103.799 123.799 179.799" fill="none"
-                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline>
-              <line x1="100" y1="156" x2="160" y2="96" fill="none" stroke="currentColor" stroke-linecap="round"
-                stroke-linejoin="round" stroke-width="16"></line>
-              <path
-                d="M82.14214,197.45584,52.201,227.397a8,8,0,0,1-11.31371,0L28.603,215.11268a8,8,0,0,1,0-11.31371l29.94113-29.94112a8,8,0,0,0,0-11.31371L37.65685,141.65685a8,8,0,0,1,0-11.3137l12.6863-12.6863a8,8,0,0,1,11.3137,0l76.6863,76.6863a8,8,0,0,1,0,11.3137l-12.6863,12.6863a8,8,0,0,1-11.3137,0L93.45584,197.45584A8,8,0,0,0,82.14214,197.45584Z"
-                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16">
-              </path>
-            </svg>
-          </span>
-          <span class="link-title">About Us</span>
-        </a>
-        <a href="{% url 'home' %}#tools" class="link">
-          <span class="link-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
-              <rect width="256" height="256" fill="none"></rect>
-              <path d="M128,32,32,128l96,96,96-96Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
-              <path d="M128,32,32,128l96,96,96-96Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" transform="translate(256 256) rotate(180)"></path>
-            </svg>
-          </span>
-          <span class="link-title">More Tools</span>
-        </a>
-        <a href="{% url 'home' %}#footer" class="link">
-          <span class="link-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
-              <rect width="256" height="256" fill="none"></rect>
-              <path d="M224,48H32a8,8,0,0,0-8,8V192a8,8,0,0,0,8,8H224a8,8,0,0,0,8-8V56A8,8,0,0,0,224,48Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
-              <polyline points="224 56 128 144 32 56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline>
-            </svg>
-          </span>
-          <span class="link-title">Contact Us</span>
-        </a>
-      </div>
-      <div class="header-actions">
-        <button class="join-now-btn">Join now</button>
-        <a href="{% url 'signin' %}" class="header-cta rounded shadow transition" style="text-decoration: none;">Get Started</a>
-      </div>
-    </div>
-  </header>
+            <div class="menu">
+                <a href="{% url 'home' %}#home" class="link">
+                    <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>
+                    <span class="link-title">Home</span>
+                </a>
+                <a href="{% url 'home' %}#team" class="link">
+                    <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                    </svg>
+                    <span class="link-title">About Us</span>
+                </a>
+                <a href="{% url 'home' %}#tools" class="link">
+                    <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.438.992a6.759 6.759 0 0 1 0 1.985c0 .379.145.752.438.992l1.003.827c.487.402.668 1.07.26 1.431l-1.296 2.247a1.125 1.125 0 0 1-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.063-.374-.313-.686-.645-.87a6.52 6.52 0 0 1-.22-.127c-.324-.196-.72-.257-1.075-.124l-1.217.456a1.125 1.125 0 0 1-1.37-.49l-1.296-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.437-.992a6.759 6.759 0 0 1 0-1.985c0-.379-.145-.752-.438-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.431l1.296-2.247a1.125 1.125 0 0 1 1.37-.49l1.217.456c.355.133.75.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.213-1.28c.09-.543.56-.94 1.11-.94Z" />
+                    </svg>
+                    <span class="link-title">Tools</span>
+                </a>
+                <a href="{% url 'home' %}#footer" class="link">
+                    <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                    <span class="link-title">Contact</span>
+                </a>
+            </div>
 
-  <!-- === 2. SIGN UP FORM === -->
-  <main class="signin-main">
-    <div class="container">
-      <p class="heading">Create Your Account</p>
-      <form class="form" method="post">
-        {% csrf_token %}
-        <input required="" class="input" type="email" name="email" id="email" placeholder="Email">
-        <input required="" class="input" type="password" name="password" id="password" placeholder="Password">
-        <input required="" class="input" type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password">
-        <span class="forgot-password"><a href="#">Forgot Password ?</a></span>
-        <input class="login-button" type="submit" value="Sign Up">
-      </form>
-      <div class="social-account-container">
-        <span class="title">Or Sign in with</span>
-        <div class="social-accounts">
-          <button class="social-button google">
-            <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 488 512">
-              <path d="M488 261.8C488 403.3 381.5 512 244 512 109.8 512 0 402.2 0 261.8 0 120.3 109.8 11.8 244 11.8c70.3 0 129.8 27.8 174.2 71.9l-84.4 64.9C297.2 116.5 272.5 99.8 244 99.8c-66.8 0-121.5 54.6-121.5 121.9s54.7 121.9 121.5 121.9c79.2 0 101.7-61.2 104.4-91.9H244v-77.3h236.1c2.3 12.7 3.9 26.1 3.9 40.2z"></path>
-            </svg>
-          </button>
-          <button class="social-button apple">
-            <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
-              <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C39.2 141.6 0 184.2 0 241.2c0 61.6 58.3 157.4 118.4 157.4 22.9 0 41.4-15.4 63.9-15.4 22.6 0 40.9 15.4 63.9 15.4 60.1 0 118.4-95.8 118.4-157.4 0-2.9-.1-5.7-.3-8.5zM236.1 101.6c12.4-13.3 15.9-31.3 14.8-48.3-18.4 1.2-34.7 10.3-48.2 23.4-12.4 13.3-15.9 31.3-14.8 48.3 18.4-1.2 34.7-10.3 48.2-23.4z"></path>
-            </svg>
-          </button>
-          <button class="social-button twitter">
-            <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
-              <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
-            </svg>
-          </button>
+            <div class="header-actions">
+                <a href="#" class="header-cta">Sign In</a>
+            </div>
         </div>
-      </div>
-      <span class="agreement"><a href="#">Learn user licence agreement</a></span>
-    </div>
-  </main>
+    </header>
 
-  <!-- === 3. COLLABORATORS & PARTNERS === -->
-  <section class="collaborators-section">
-    <div class="container">
-      <h2 class="collaborators-title">Our Collaborators & Partners</h2>
-      <p class="collaborators-description">
-        We are proud to work alongside these creative and innovative brands.
-      </p>
-      <div class="collaborators-grid">
-        <a href="https://wear-tome.blinkstore.ai/" target="_blank" class="logo-item">
-          
-          <img src="{% static 'image/wear_tome.png' %}" alt="Wear_Tome Logo">
-        </a>
-        <a href="https://sunnyinstitute.com/" target="_blank" class="logo-item">
-          
-          <img src="{% static 'image/sunny_ins.png' %}" alt="Sunny Institute Logo">
-        </a>
-        <a href="https://www.instagram.com/the_hexatom/" target="_blank" class="logo-item">
-          
-          <img src="{% static 'image/hex_atom.png' %}" alt="Hextome Logo">
-        </a>
-        <a href="https://youtube.com/@the_lamha_music?si=RmRoXbKBuLg8wVFb" target="_blank" class="logo-item">
-          
-          <img src="{% static 'image/lamha.png' %}" alt="Lamha Studio Logo">
-        </a>
-        <a href="https://www.instagram.com/the_trio_verse/" target="_blank" class="logo-item">
-          
-          <img src="{% static 'image/trio.png' %}" alt="Trio Music Channel Logo">
-        </a>
-        <a href="https://www.redbubble.com/people/DrVx/shop" target="_blank" class="logo-item">
-          
-          <img src="{% static 'image/juke.png' %}" alt="JUKE Brand Logo">
-        </a>
-        <a href="#" class="logo-item">
-          
-          <img src="{% static 'image/van_vrinda.png' %}" alt="Van Vrinda Logo">
-        </a>
-      </div>
-    </div>
-  </section>
+    <!-- === 2. SIGN UP FORM === -->
+    <main class="signup-main-container">
+        <div class="signup-card">
 
-  <!-- === 4. FOOTER === -->
- <footer id="footer">
-    <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-      <div class="footer-grid">
+            <!-- Left Image Panel -->
+            <div class="image-panel">
+                <div class="image-overlay"></div>
+                <div class="panel-header">
+                    <div class="panel-logo">CREVR</div>
+                </div>
+                <div class="marketing-text">
+                    <h2 class="marketing-heading">
+                        Capturing Moments, Creating Memories
+                    </h2>
+                </div>
+            </div>
 
-        <div>
-          <div class="footer-logo-text">Crevr</div>
-          <p class="footer-mission">
-            Simplifying everyday image processing with functional, human-focused tools. Your ML-powered utility suite.
-            for speed and quality.
-          </p>
+            <!-- Right Sign Up Form -->
+            <div class="signup-form-content">
+                <p class="form-login-link" style="font-size: 0.875rem; color: var(--color-subtle-text); margin-bottom: 0.5rem;">
+                    Already have an account?
+                    <a href="#" class="link-accent">Log in</a>
+                </p>
+                <p class="form-heading">Create an account</p>
+
+                <form class="signup-form" method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <input type="text" name="first_name" placeholder="First Name" required class="input-field">
+                        <input type="text" name="last_name" placeholder="Last Name" required class="input-field">
+                    </div>
+                    <input type="email" name="email" placeholder="Email" required class="input-field">
+                    <input type="password" name="password" placeholder="Enter your password" required class="input-field">
+
+                    <div class="checkbox-group">
+                        <input id="terms" name="terms" type="checkbox" required class="checkbox-custom">
+                        <label for="terms" class="checkbox-label">I agree to the
+                            <a href="#" class="link-accent">Terms & Conditions</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="cta-button">Create account</button>
+                </form>
+
+                <div class="social-divider">Or register with</div>
+
+                <div class="social-buttons-container">
+                    <button class="social-button">
+                        <svg class="social-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                            <title>Google</title><path d="M32.582 370.734C15.127 336.291 5.12 297.425 5.12 256c0-41.426 10.007-80.291 27.462-114.735C74.705 57.484 161.047 0 261.12 0c69.12 0 126.836 25.367 171.287 66.793l-73.31 73.309c-26.763-25.135-60.276-38.168-97.977-38.168-66.56 0-123.113 44.917-143.36 105.426-5.12 15.36-8.146 31.65-8.146 48.64 0 16.989 3.026 33.28 8.146 48.64l-.303.232h.303c20.247 60.51 76.8 105.426 143.36 105.426 34.443 0 63.534-9.31 86.341-24.67 27.23-18.152 45.382-45.148 51.433-77.032H261.12v-99.142h241.105c3.025 16.757 4.654 34.211 4.654 52.364 0 77.963-27.927 143.592-76.334 188.276-42.356 39.098-100.305 61.905-169.425 61.905-100.073 0-186.415-57.483-228.538-141.032v-.233z" fill="#fff"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button class="social-button">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50" style="fill:#FFFFFF;">
+                            <title>Apple</title><path d="M 44.527344 34.75 C 43.449219 37.144531 42.929688 38.214844 41.542969 40.328125 C 39.601563 43.28125 36.863281 46.96875 33.480469 46.992188 C 30.46875 47.019531 29.691406 45.027344 25.601563 45.0625 C 21.515625 45.082031 20.664063 47.03125 17.648438 47 C 14.261719 46.96875 11.671875 43.648438 9.730469 40.699219 C 4.300781 32.429688 3.726563 22.734375 7.082031 17.578125 C 9.457031 13.921875 13.210938 11.773438 16.738281 11.773438 C 20.332031 11.773438 22.589844 13.746094 25.558594 13.746094 C 28.441406 13.746094 30.195313 11.769531 34.351563 11.769531 C 37.492188 11.769531 40.8125 13.480469 43.1875 16.433594 C 35.421875 20.691406 36.683594 31.78125 44.527344 34.75 Z M 31.195313 8.46875 C 32.707031 6.527344 33.855469 3.789063 33.4375 1 C 30.972656 1.167969 28.089844 2.742188 26.40625 4.78125 C 24.878906 6.640625 23.613281 9.398438 24.105469 12.066406 C 26.796875 12.152344 29.582031 10.546875 31.195313 8.46875 Z"></path>
+                        </svg>
+                        Apple
+                    </button>
+                </div>
+
+                <span class="agreement-text">
+                    By clicking "Create account," you agree to our <a href="#" class="link-accent">user license agreement</a>.
+                </span>
+            </div>
         </div>
+    </main>
 
-        <div>
-          <h4 class="footer-heading">Our Tools</h4>
-          <ul class="footer-links">
-            <li><a href="#tools">Black & White</a></li>
-            <li><a href="#tools">Compress Image</a></li>
-            <li><a href="#tools">Crop Editor</a></li>
-            <li><a href="#tools">Image Resize</a></li>
-            <li><a href="#tools">Rotate Image</a></li>
-          </ul>
+    <!-- === 3. FOOTER === -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo-crevr" style="margin-bottom: 1rem;">Crevr</div>
+                    <p class="footer-mission">
+                        Simplifying everyday image processing with functional, human-focused tools. Your ML-powered utility suite for speed and quality.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Our Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}#tools">Black & White</a></li>
+                        <li><a href="{% url 'home' %}#tools">Compress Image</a></li>
+                        <li><a href="{% url 'home' %}#tools">Crop Editor</a></li>
+                        <li><a href="{% url 'home' %}#tools">Image Resize</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Project Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}#home">About the Project</a></li>
+                        <li><a href="{% url 'home' %}#features">All Features</a></li>
+                        <li><a href="{% url 'home' %}#footer">Contact / Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">License</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="social-icons-wrapper">
+                <a href="#" class="social-icon-link">
+                    <svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>
+                </a>
+                <a href="#" class="social-icon-link">
+                    <svg viewBox="0 0 512 512"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg>
+                </a>
+                <a href="#" class="social-icon-link">
+                    <svg viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+                </a>
+                <a href="#" class="social-icon-link">
+                    <svg viewBox="0 0 384 512"><path d="M204 6.5C101.4 6.5 0 74.9 0 185.6 0 256 79.9 296 103.4 318.1c23.5 22.1 28.8 35.3 28.8 50.4 0 15.1-15.2 21.1-15.2 21.1l-3.6 1.2c-16.2 5.2-21.6 24.4-10.2 36.8l16.5 18.2c12.1 13.3 33.1 13.3 45.2 0l16.5-18.2c11.4-12.4 6-31.6-10.2-36.8l-3.6-1.2s-15.2-6-15.2-21.1c0-15.1 5.3-28.3 28.8-50.4 23.5-22.1 103.4-62.1 103.4-132.5 0-110.7-101.4-179.1-204-179.1z"></path></svg>
+                </a>
+            </div>
+
+            <div style="text-align: center; font-size: 0.875rem; color: var(--color-subtle-text);">
+                <p>&copy; 2025 Crevr Project. All rights reserved. Built with simplicity and functionality in mind.</p>
+             </div>
         </div>
+    </footer>
 
-        <div>
-          <h4 class="footer-heading">Project Info</h4>
-          <ul class="footer-links">
-            <li><a href="#home">About the Project</a></li>
-            <li><a href="#features">All Features</a></li>
-            <li><a href="#features">ML Model Overview</a></li>
-            <li><a href="#footer">Contact / Support</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="footer-heading">Legal</h4>
-          <ul class="footer-links">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Use</a></li>
-            <li><a href="#">License</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="social-icons-wrapper">
-        <div class="main">
-          <div class="card">
-            <svg fill-rule="nonzero" height="30px" width="30px" viewBox="0,0,256,256" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="instagram"><g style="mix-blend-mode: normal" text-anchor="none" font-size="none" font-weight="none" font-family="none" stroke-dashoffset="0" stroke-dasharray="" stroke-miterlimit="10" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="1" stroke="none" fill-rule="nonzero"><g transform="scale(8,8)"><path d="M11.46875,5c-3.55078,0 -6.46875,2.91406 -6.46875,6.46875v9.0625c0,3.55078 2.91406,6.46875 6.46875,6.46875h9.0625c3.55078,0 6.46875,-2.91406 6.46875,-6.46875v-9.0625c0,-3.55078 -2.91406,-6.46875 -6.46875,-6.46875zM11.46875,7h9.0625c2.47266,0 4.46875,1.99609 4.46875,4.46875v9.0625c0,2.47266 -1.99609,4.46875 -4.46875,4.46875h-9.0625c-2.47266,0 -4.46875,-1.99609 -4.46875,-4.46875v-9.0625c0,-2.47266 1.99609,-4.46875 4.46875,-4.46875zM21.90625,9.1875c-0.50391,0 -0.90625,0.40234 -0.90625,0.90625c0,0.50391 0.40234,0.90625 0.90625,0.90625c0.50391,0 0.90625,-0.40234 0.90625,-0.90625c0,-0.50391 -0.40234,-0.90625 -0.90625,-0.90625zM16,10c-3.30078,0 -6,2.69922 -6,6c0,3.30078 2.69922,6 6,6c3.30078,0 6,-2.69922 6,-6c0,-3.30078 -2.69922,-6 -6,-6zM16,12c2.22266,0 4,1.77734 4,4c0,2.22266 -1.77734,4 -4,4c-2.22266,0 -4,-1.77734 -4,-4c0,-2.22266 1.77734,-4 4,-4z"></path></g></g></svg>
-          </div>
-          <div class="card">
-            <svg height="30px" width="30px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="twitter"><path d="M42,12.429c-1.323,0.586-2.746,0.977-4.247,1.162c1.526-0.906,2.7-2.351,3.251-4.058c-1.428,0.837-3.01,1.452-4.693,1.776C34.967,9.884,33.05,9,30.926,9c-4.08,0-7.387,3.278-7.387,7.32c0,0.572,0.067,1.129,0.193,1.67c-6.138-0.308-11.582-3.226-15.224-7.654c-0.64,1.082-1,2.349-1,3.686c0,2.541,1.301,4.778,3.285,6.096c-1.211-0.037-2.351-0.374-3.349-0.914c0,0.022,0,0.055,0,0.086c0,3.551,2.547,6.508,5.923,7.181c-0.617,0.169-1.269,0.263-1.941,0.263c-0.477,0-0.942-0.054-1.392-0.135c0.94,2.902,3.667,5.023,6.898,5.086c-2.528,1.96-5.712,3.134-9.174,3.134c-0.598,0-1.183-0.034-1.761-0.104C9.268,36.786,13.152,38,17.321,38c13.585,0,21.017-11.156,21.017-20.834c0-0.317-0.01-0.633-0.025-0.945C39.763,15.197,41.013,13.905,42,12.429"></path></svg>
-          </div>
-          <div class="card">
-            <svg height="30px" width="30px" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" class="dribble"><path d="M20,38.5C9.799,38.5,1.5,30.201,1.5,20S9.799,1.5,20,1.5S38.5,9.799,38.5,20S30.201,38.5,20,38.5z"></path><path d="M20,2c9.925,0,18,8.075,18,18s-8.075,18-18,18S2,29.925,2,20S10.075,2,20,2 M20,1 C9.507,1,1,9.507,1,20s8.507,19,19,19s19-8.507,19-19S30.493,1,20,1L20,1z" fill="#ea4c89"></path><path d="M28.352 36.914c0 0-3.032-21.087-15.63-34.292M1.269 17.848c0 0 24.2 2.117 32.075-11.102M7.804 34.152c0 0 8.624-19.807 31.058-12.194" stroke-miterlimit="10" stroke="#ea4c89" fill="none"></path></svg>
-          </div>
-          <div class="card">
-            <svg height="30px" width="30px" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" class="codepen"><path d="M 25 4 L 4 17.34375 L 4 32.652344 L 25 46 L 46 32.65625 L 46 17.34375 Z M 25 29.183594 L 19.066406 25.070313 L 25 21.023438 L 30.933594 25.070313 Z M 27 17.605469 L 27 9.949219 L 40.429688 18.484375 L 34.410156 22.65625 Z M 23 17.605469 L 15.589844 22.65625 L 9.570313 18.484375 L 23 9.949219 Z M 12.09375 25.042969 L 8 27.832031 L 8 22.203125 Z M 15.570313 27.453125 L 23 32.605469 L 23 40.050781 L 9.589844 31.527344 Z M 27 32.605469 L 34.429688 27.453125 L 40.410156 31.527344 L 27 40.050781 Z M 37.90625 25.042969 L 42 22.203125 L 42 27.832031 Z"></path></svg>
-          </div>
-          <div class="card">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" height="23x" width="23px" class="uiverse">
-            <path fill="url(#paint0_linear_501_142)" d="M38.0481 4.82927C38.0481 2.16214 40.018 0 42.4481 0H51.2391C53.6692 0 55.6391 2.16214 55.6391 4.82927V40.1401C55.6391 48.8912 53.2343 55.6657 48.4248 60.4636C43.6153 65.2277 36.7304 67.6098 27.7701 67.6098C18.8099 67.6098 11.925 65.2953 7.11548 60.6663C2.37183 56.0036 3.8147e-06 49.2967 3.8147e-06 40.5456V4.82927C3.8147e-06 2.16213 1.96995 0 4.4 0H13.2405C15.6705 0 17.6405 2.16214 17.6405 4.82927V39.1265C17.6405 43.7892 18.4805 47.2018 20.1605 49.3642C21.8735 51.5267 24.4759 52.6079 27.9678 52.6079C31.4596 52.6079 34.0127 51.5436 35.6268 49.4149C37.241 47.2863 38.0481 43.8399 38.0481 39.0758V4.82927Z"></path>
-            <path fill="url(#paint1_linear_501_142)" d="M86.9 61.8682C86.9 64.5353 84.9301 66.6975 82.5 66.6975H73.6595C71.2295 66.6975 69.2595 64.5353 69.2595 61.8682V4.82927C69.2595 2.16214 71.2295 0 73.6595 0H82.5C84.9301 0 86.9 2.16214 86.9 4.82927V61.8682Z"></path>
-            <path fill="url(#paint2_linear_501_142)" d="M2.86102e-06 83.2195C2.86102e-06 80.5524 1.96995 78.3902 4.4 78.3902H83.6C86.0301 78.3902 88 80.5524 88 83.2195V89.1707C88 91.8379 86.0301 94 83.6 94H4.4C1.96995 94 0 91.8379 0 89.1707L2.86102e-06 83.2195Z"></path>
-            <defs>
-            <linearGradient gradientUnits="userSpaceOnUse" y2="87.6201" x2="96.1684" y1="0" x1="0" id="paint0_linear_501_142">
-            <stop stop-color="#BF66FF"></stop>
-            <stop stop-color="#6248FF" offset="0.510417"></stop>
-            <stop stop-color="#00DDEB" offset="1"></stop>
-            </linearGradient>
-            <linearGradient gradientUnits="userSpaceOnUse" y2="87.6201" x2="96.1684" y1="0" x1="0" id="paint1_linear_501_142">
-            <stop stop-color="#BF66FF"></stop>
-            <stop stop-color="#6248FF" offset="0.510417"></stop>
-            <stop stop-color="#00DDEB" offset="1"></stop>
-            </linearGradient>
-            <linearGradient gradientUnits="userSpaceOnUse" y2="87.6201" x2="96.1684" y1="0" x1="0" id="paint2_linear_501_142">
-            <stop stop-color="#BF66FF"></stop>
-            <stop stop-color="#6248FF" offset="0.510417"></stop>
-            <stop stop-color="#00DDEB" offset="1"></stop>
-            </linearGradient>
-            </defs>
-            </svg>
-          </div>
-          <div class="card">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="30px" height="30px" class="discord"><path d="M40,12c0,0-4.585-3.588-10-4l-0.488,0.976C34.408,10.174,36.654,11.891,39,14c-4.045-2.065-8.039-4-15-4s-10.955,1.935-15,4c2.346-2.109,5.018-4.015,9.488-5.024L18,8c-5.681,0.537-10,4-10,4s-5.121,7.425-6,22c5.162,5.953,13,6,13,6l1.639-2.185C13.857,36.848,10.715,35.121,8,32c3.238,2.45,8.125,5,16,5s12.762-2.55,16-5c-2.715,3.121-5.857,4.848-8.639,5.815L33,40c0,0,7.838-0.047,13-6C45.121,19.425,40,12,40,12z M17.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C21,28.209,19.433,30,17.5,30z M30.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C34,28.209,32.433,30,30.5,30z"></path></svg>
-          </div>
-          <div class="card">
-            <svg height="30px" width="30px" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" class="github"><path d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z"></path></svg>
-          </div>
-          <div class="card">
-            <svg height="30px" width="30px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="telegram"><path d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path><path d="M33.95,15l-3.746,19.126c0,0-0.161,0.874-1.245,0.874c-0.576,0-0.873-0.274-0.873-0.274l-8.114-6.733 l-3.97-2.001l-5.095-1.355c0,0-0.907-0.262-0.907-1.012c0-0.625,0.933-0.923,0.933-0.923l21.316-8.468 c-0.001-0.001,0.651-0.235,1.126-0.234C33.667,14,34,14.125,34,14.5C34,14.75,33.95,15,33.95,15z" fill="#fff"></path><path d="M23,30.505l-3.426,3.374c0,0-0.149,0.115-0.348,0.12c-0.069,0.002-0.143-0.009-0.219-0.043 l0.964-5.965L23,30.505z" fill="#b0bec5"></path><path d="M29.897,18.196c-0.169-0.22-0.481-0.26-0.701-0.093L16,26c0,0,2.106,5.892,2.427,6.912 c0.322,1.021,0.58,1.045,0.58,1.045l0.964-5.965l9.832-9.096C30.023,18.729,30.064,18.416,29.897,18.196z" fill="#cfd8dc"></path></svg>
-          </div>
-          <div class="card">
-            <svg xml:space="preserve" viewBox="0 0 256 256" height="30" width="30" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="reddit">
-            <defs>
-            </defs>
-            <g transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" style="stroke: none; border-radius:50%; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;">
-              <circle transform="matrix(1 0 0 1 0 0)" style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;" r="45" cy="45" cx="45"></circle>
-              <path stroke-linecap="round" transform="matrix(1 0 0 1 0 0)" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;" d="M 75.011 45 c -0.134 -3.624 -3.177 -6.454 -6.812 -6.331 c -1.611 0.056 -3.143 0.716 -4.306 1.823 c -5.123 -3.49 -11.141 -5.403 -17.327 -5.537 l 2.919 -14.038 l 9.631 2.025 c 0.268 2.472 2.483 4.262 4.955 3.993 c 2.472 -0.268 4.262 -2.483 3.993 -4.955 s -2.483 -4.262 -4.955 -3.993 c -1.421 0.145 -2.696 0.973 -3.4 2.204 L 48.68 17.987 c -0.749 -0.168 -1.499 0.302 -1.667 1.063 c 0 0.011 0 0.011 0 0.022 l -3.322 15.615 c -6.264 0.101 -12.36 2.025 -17.55 5.537 c -2.64 -2.483 -6.801 -2.36 -9.284 0.291 c -2.483 2.64 -2.36 6.801 0.291 9.284 c 0.515 0.481 1.107 0.895 1.767 1.186 c -0.045 0.66 -0.045 1.32 0 1.98 c 0 10.078 11.745 18.277 26.23 18.277 c 14.485 0 26.23 -8.188 26.23 -18.277 c 0.045 -0.66 0.045 -1.32 0 -1.98 C 73.635 49.855 75.056 47.528 75.011 45 z M 30.011 49.508 c 0 -2.483 2.025 -4.508 4.508 -4.508 c 2.483 0 4.508 2.025 4.508 4.508 s -2.025 4.508 -4.508 4.508 C 32.025 53.993 30.011 51.991 30.011 49.508 z M 56.152 62.058 v -0.179 c -3.199 2.405 -7.114 3.635 -11.119 3.468 c -4.005 0.168 -7.919 -1.063 -11.119 -3.468 c -0.425 -0.515 -0.347 -1.286 0.168 -1.711 c 0.447 -0.369 1.085 -0.369 1.544 0 c 2.707 1.98 6.007 2.987 9.362 2.83 c 3.356 0.179 6.667 -0.783 9.407 -2.74 c 0.492 -0.481 1.297 -0.47 1.779 0.022 C 56.655 60.772 56.644 61.577 56.152 62.058 z M 55.537 54.34 c -0.078 0 -0.145 0 -0.224 0 l 0.034 -0.168 c -2.483 0 -4.508 -2.025 -4.508 -4.508 s 2.025 -4.508 4.508 -4.508 s 4.508 2.025 4.508 4.508 C 59.955 52.148 58.02 54.239 55.537 54.34 z"></path>
-            </g>
-            </svg>
-          </div>
-          <p class="text">HOVER<br><br>FOR<br><br>SOCIAL</p>
-          <div class="main_back"></div>
-        </div>
-      </div>
-
-      <div class="copyright">
-        <p>&copy; 2024 Crevr Project. All rights reserved. Built with simplicity and functionality in mind.</p>
-      </div>
-    </div>
-  </footer>
 </body>
 
 </html>
