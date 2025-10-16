@@ -7,11 +7,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
-    path('grayscale/', process_image, name="takephoto"),
+    path('grayscale/', process_image, name="grayscale"),
     path('compress/', process_image, name="compress"),
     path('resize/', process_image, name="resizing"),
     path('crop/', process_image, name="crop"),
-    path('rotate/', process_image, name="rotatephoto"),
+    path('rotate/', process_image, name="rotate"),
     path('signin/', signup, name="signin"),
 ]
 
