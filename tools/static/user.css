@@ -1,19 +1,19 @@
 /* === TABLE OF CONTENTS ===
 
-0.  Global Styles & Typography
-1.  Header & Navigation
-2.  Hero Section
-3.  Tool Panel & Uploader
-4.  Feature Blocks
-5.  Video & Team Sections
-6.  Collaborators & Partners
-7.  Feedback Form
-8.  Footer
-9.  Animations & Effects (Lava Lamp, Fire, etc.)
+0. Global Styles & Typography
+1. Header & Navigation
+2. Hero Section
+3. Tool Panel & Uploader
+4. Feature Blocks
+5. Video & Team Sections
+6. Collaborators & Partners
+7. Feedback Form
+8. Footer
+9. Animations & Effects (Lava Lamp, Fire, etc.)
 
 ========================= */
 
-/* === 0. GLOBAL STYLES & TYPOGRAPHY === */
+/* == 0. GLOBAL STYLES & TYPOGRAPHY == */
 
 html {
   scroll-behavior: smooth;
