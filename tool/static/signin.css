@@ -107,6 +107,13 @@ a, button, input {
     letter-spacing: 0.1em;
     color: var(--color-accent-cyan);
     text-decoration: none;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-crevr:hover {
+    transform: scale(1.03);
+    /* White neon glow effect */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
 }
 
 .header-actions .header-cta {

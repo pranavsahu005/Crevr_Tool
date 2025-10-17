@@ -99,6 +99,18 @@ header {
 .crevr-logo-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.crevr-logo-container:hover {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 5px rgba(0, 240, 255, 0.6)) drop-shadow(0 0 10px rgba(255, 0, 229, 0.4));
+  transform: scale(1.02);
+}
+
+.crevr-logo-container:active {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 7px rgba(0, 240, 255, 0.7)) drop-shadow(0 0 15px rgba(255, 0, 229, 0.5));
+  transform: scale(0.99);
 }
 
 .crevr-logo-container img {

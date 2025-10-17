@@ -1,12 +1,11 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visual Suite for Everyone - Crevr</title>
+  <title>Photo Editing Tool</title>
+  {% load static %}
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/user.css">
 </head>
@@ -80,8 +79,8 @@
       </div>
       <div class="header-actions">
         <button class="join-now-btn">Join now</button>
-        <a href="/signin/" class="header-cta rounded shadow transition">Get Started</a>
-      </div>
+        <a href="{% url 'signin' %}" class="header-cta rounded shadow transition">Get Started</a>
+      </div> 
     </div>
   </header>
 
@@ -139,20 +138,11 @@
 
         <nav class="tool-nav" id="tool-nav-container">
           <div class="tool-nav-menu">
-            <a href="/grayscale/"><button class="tool-nav-btn active" data-form-action="/grayscale/"
-                data-input-name="userimage">Black & White</button></a>
-
-            <a href="/compress/"><button class="tool-nav-btn" data-form-action="/compress/"
-                data-input-name="compressimg">Compress</button></a>
-
-            <a href="/crop/"><button class="tool-nav-btn" data-form-action="/crop/"
-                data-input-name="cropimg">Crop</button></a>
-
-            <a href="/resize/"><button class="tool-nav-btn" data-form-action="/resize/"
-                data-input-name="resizing">Resize</button></a>
-
-            <a href="/rotate/"><button class="tool-nav-btn" data-form-action="/rotate/"
-                data-input-name="rotating">Rotate</button></a>
+            <button class="tool-nav-btn active" onclick="selectTool('takephoto')">Black & White</button>
+            <button class="tool-nav-btn" onclick="selectTool('compress')">Compress</button>
+            <button class="tool-nav-btn" onclick="selectTool('crop')">Crop</button>
+            <button class="tool-nav-btn" onclick="selectTool('resizing')">Resize</button>
+            <button class="tool-nav-btn" onclick="selectTool('rotatephoto')">Rotate</button>
           </div>
         </nav>
 
@@ -160,7 +150,7 @@
           <p style="font-size: 1.125rem; color: #4b5563; font-weight: 700; margin-bottom: 1rem;">Upload an image to
             start transforming it!</p>
 
-          <form id="tool-form" action="/grayscale/" enctype="multipart/form-data" method="post"
+          <form id="tool-form" action="{% url 'takephoto' %}" enctype="multipart/form-data" method="post" 
             class="upload-form">
             {% csrf_token %}
             <div class="uploader-container">
@@ -180,7 +170,7 @@
                 <p id="filename">Not selected file</p>
               </div> 
               <input id="file-input" type="file" name="userimage" required>
-            </div>
+            </div> 
 
             <div id="tool-options" style="margin-top: 1rem; display: none;">
               <div id="resize-options" style="display: none;">
@@ -223,8 +213,23 @@
           <div class="result-area">
             <p style="font-size: 1rem; font-weight: 600; color: #1f2937; margin-bottom: 1rem;">Your Result:</p>
             {% if lelo %}
-              <img src="/static/{{ tool_type }}/{{ lelo }}" alt="Processed Image class="result-image" />
-              <a href="/static/{{ tool_type }}/{{ lelo }}" download class="botao">
+              {% comment %} Determine the correct image path based on the tool_name from the view context. {% endcomment %}
+              {% if tool_name == 'takephoto' %}
+                <img src="{% static 'gray/'|add:lelo %}" alt="Grayscale Image" class="result-image">
+                <a href="{% static 'gray/'|add:lelo %}" download class="botao">
+              {% endif %}
+              {% if tool_name == 'compress' %}
+                <img src="{% static 'compress/'|add:lelo %}" alt="Compressed Image" class="result-image">
+                <a href="{% static 'compress/'|add:lelo %}" download class="botao">
+              {% endif %}
+              {% if tool_name == 'resizing' %}
+                <img src="{% static 'resize/'|add:lelo %}" alt="Resized Image" class="result-image">
+                <a href="{% static 'resize/'|add:lelo %}" download class="botao">
+              {% endif %}
+              {% if tool_name == 'rotatephoto' %}
+                <img src="{% static 'rotate/'|add:lelo %}" alt="Rotated Image" class="result-image">
+                <a href="{% static 'rotate/'|add:lelo %}" download class="botao">
+              {% endif %}
                 <svg
                   class="mysvg"
                   xmlns="http://www.w3.org/2000/svg"
@@ -255,11 +260,20 @@
                 <span class="texto">Download</span>
               </a>
             {% else %}
-              <p style="font-size: 0.875rem; color: #6b7280; font-style: italic;">
-                Your processed image will show up right here after submission!
-              </p>
+              {% comment %} Display Django messages, e.g., for Crop tool's HttpResponse("done") {% endcomment %}
+              {% if messages %}
+                <ul class="messages" style="list-style: none; padding: 0; margin: 1rem 0; color: #4f46e5; font-weight: 600;">
+                  {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p style="font-size: 0.875rem; color: #6b7280; font-style: italic;">
+                  Your processed image will show up right here after submission!
+                </p>
+              {% endif %}
             {% endif %}
-          </div>
+          </div> 
         </div>
       </div>
 
@@ -381,12 +395,18 @@
         Discover how Crevr simplifies your creative workflow. Our suite of ML-powered tools is designed for speed,
         quality, and ease of use, helping you transform your images in seconds.
       </p>
-      <div class="video-container">
+      <div class="video-container" id="video-wrapper">
         <a href="#" class="video-watermark">@Crevr.io</a>
-        <video poster="/static/image/template.png" preload="metadata" controls>
+        <video id="intro-video" poster="/static/image/template.png" preload="metadata" controls controlslist="nodownload noplaybackrate nofullscreen" disablepictureinpicture>
           <source src="/static/vedio/crevr_into.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+        <div class="play-button-overlay" id="play-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+          </svg>
+        </div>
       </div>
     </section>
 
@@ -658,58 +678,67 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const toolNav = document.getElementById('tool-nav-container');
-      const toolForm = document.getElementById('tool-form');
-      const fileInput = document.getElementById('file-input');
-      const toolOptionsContainer = document.getElementById('tool-options');
-      const resizeOptions = document.getElementById('resize-options');
-      const rotateOptions = document.getElementById('rotate-options');
-      const filenameDisplay = document.getElementById('filename');
+    function selectTool(tool) {
+        const form = document.getElementById('tool-form');
+        const fileInput = document.getElementById('file-input');
+        const resizeOptions = document.getElementById('resize-options');
+        const rotateOptions = document.getElementById('rotate-options');
+        const toolOptionsContainer = document.getElementById('tool-options');
 
-      if (toolNav && toolForm && fileInput && toolOptionsContainer) {
-        // Update the filename display when a file is selected
-        fileInput.addEventListener('change', function() {
-          if (fileInput.files.length > 0) {
-            filenameDisplay.textContent = fileInput.files[0].name;
-          } else {
+        // 1. Form ka action sahi URL par set kar ne ke liye hain.
+        // Taki ye urls.py ke pattern se match ho.
+        form.action = `/${tool}/`;
+
+        // 2. Tool ke hisab se file input ka naam badalege yahaa.
+        if (tool === 'compress') fileInput.name = 'compressimg';
+        else if (tool === 'resizing') fileInput.name = 'resizing';
+        else if (tool === 'rotatephoto') fileInput.name = 'rotating';
+        else if (tool === 'crop') fileInput.name = 'crop';
+        else fileInput.name = 'userimage'; // Default di he 'takephoto'
+
+        // 3. Kuch khaas tools ke liye extra options dikha ya chhipa rahe he taki page pe bana re user.
+        resizeOptions.style.display = tool === 'resizing' ? 'block' : 'none';
+        rotateOptions.style.display = tool === 'rotatephoto' ? 'block' : 'none';
+        toolOptionsContainer.style.display = (tool === 'resizing' || tool === 'rotatephoto') ? 'block' : 'none';
+
+        // 4. Buttons par 'active' class laga re or hata rahe hain, 
+        // behtar user experience ke liye taki usi pe active button dikte .
+        document.querySelectorAll('.tool-nav-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`button[onclick="selectTool('${tool}')"]`).classList.add('active');
+    }
+
+    // Ye hissa file ka naam dikhane ke liye hai.
+    document.getElementById('file-input').addEventListener('change', function () {
+        const filenameDisplay = document.getElementById('filename');
+        if (this.files.length > 0) {
+            filenameDisplay.textContent = this.files[0].name;
+        } else {
             filenameDisplay.textContent = 'Not selected file';
-          }
+        }
+    });
+
+    // --- Video Player Script ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoWrapper = document.getElementById('video-wrapper');
+        const video = document.getElementById('intro-video');
+        const playButton = document.getElementById('play-button');
+
+        playButton.addEventListener('click', function() {
+            video.play();
         });
 
-        // Handle tool switching
-        toolNav.addEventListener('click', function(e) {
-          const link = e.target.closest('a');
-          if (!link) return;
-
-          e.preventDefault(); // Prevent the link from navigating
-
-          const button = link.querySelector('.tool-nav-btn');
-          if (!button) return;
-
-          const toolName = button.textContent.trim();
-          toolForm.action = button.dataset.formAction;
-          fileInput.name = button.dataset.inputName;
-
-          // Hide all optional sections first
-          resizeOptions.style.display = 'none';
-          rotateOptions.style.display = 'none';
-          toolOptionsContainer.style.display = 'none';
-
-          // Show options only for specific tools
-          if (toolName === 'Resize') {
-            resizeOptions.style.display = 'block';
-            toolOptionsContainer.style.display = 'block';
-          } else if (toolName === 'Rotate') {
-            rotateOptions.style.display = 'block';
-            toolOptionsContainer.style.display = 'block';
-          }
-
-          // Update the active button style
-          document.querySelectorAll('.tool-nav-btn').forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
+        // Video par click karne se pause ho jayega or chalu ho jayega.
+        video.addEventListener('click', function() {
+            video.pause();
         });
-      }
+
+        video.addEventListener('play', function() {
+            videoWrapper.classList.add('playing');
+        });
+
+        video.addEventListener('pause', function() {
+            videoWrapper.classList.remove('playing');
+        });
     });
   </script>
 
